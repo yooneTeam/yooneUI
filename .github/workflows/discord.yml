@@ -17,4 +17,4 @@ jobs:
           webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
           color: "#48f442"
           username: "GitHub Bot"
-          args: The ${{ github.event_name }} event triggered.
+          args: ${{ github.event.head_commit.committer.username }} | ${{ github.event.head_commit.message }} ${{ github.event.head_commit.url }}
