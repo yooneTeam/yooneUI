@@ -6,21 +6,22 @@ import MovableItem from './MovableItem';
 import Counter from '../../../widget/counter/CounteWidget';
 import Neko from '../../../widget/neko/Neko';
 import Clock from '../../../widget/clock/ClockWidget';
+import Test from '../../../widget/test/test';
 
-const small = {xs:4, md:3, lg:2 }
-const medium = {xs:8, md:6, lg:4 }
-const large = {xs:12, md:6, lg:6 }
+const small = { xs: 4, md: 3, lg: 2 }
+const medium = { xs: 8, md: 6, lg: 4 }
+const large = { xs: 12, md: 6, lg: 6 }
 
 const itemsState = atom({
     key: "items",
     default: [
-        {id:1, component: Clock, size: small},
-        {id:2, component: Neko, size: medium},
-        {id:3, component: Counter, size: large},
-        {id:4, component: Counter, size: small},
-        {id:5, component: Counter, size: small},
-        {id:6, component: Counter, size: small},
-        {id:7, component: Counter, size: medium},
+        { id: 1, component: Clock, size: small },
+        { id: 2, component: Neko, size: medium },
+        { id: 3, component: Counter, size: large },
+        { id: 4, component: Counter, size: small },
+        { id: 5, component: Test, size: small },
+        { id: 6, component: Counter, size: small },
+        { id: 7, component: Counter, size: medium },
     ]
 });
 
@@ -38,9 +39,9 @@ export default function Home() {
     return (
         <Container >
             <Grid container spacing={1.5}>
-                {items.map(({size, component, id}, index) => (
+                {items.map(({ size, component, id }, index) => (
                     <MovableItem index={index} sortItems={sortItems} size={size} key={index}>
-                        {createElement(component, {id})}
+                        {createElement(component, { id })}
                     </MovableItem>))}
             </Grid>
         </Container>
