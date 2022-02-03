@@ -6,7 +6,7 @@ import MovableItem from './MovableItem';
 import Counter from '../../../widget/counter/CounteWidget';
 import Neko from '../../../widget/neko/Neko';
 import Clock from '../../../widget/clock/ClockWidget';
-import Test from '../../../widget/test/test';
+import Weather from '../../../widget/weather/WeatherWiget';
 
 const small = { xs: 4, md: 3, lg: 2 }
 const medium = { xs: 8, md: 6, lg: 4 }
@@ -18,8 +18,8 @@ const itemsState = atom({
         { id: 1, component: Clock, size: small },
         { id: 2, component: Neko, size: medium },
         { id: 3, component: Counter, size: large },
-        { id: 4, component: Counter, size: small },
-        { id: 5, component: Test, size: small },
+        { id: 4, component: Weather, size: small },
+        { id: 5, component: Counter, size: small },
         { id: 6, component: Counter, size: small },
         { id: 7, component: Counter, size: medium },
     ]

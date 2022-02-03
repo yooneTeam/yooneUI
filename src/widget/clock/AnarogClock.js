@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 const AnarogClock = ({ time }) => {
 
     const hourRotate = (parseFloat(getHours(time)) + parseFloat(getMinutes(time)) / 60) * (360.0 / 12.0)
-    const minuteRotate = (parseFloat(getMinutes(time)) + parseFloat(getMinutes(time)) / 60) * (360.0 / 60.0)
+    const minuteRotate = (parseFloat(getMinutes(time)) + parseFloat(getSeconds(time)) / 60) * (360.0 / 60.0)
     const secondsRotate = parseFloat(getSeconds(time)) * (360.0 / 60.0)
 
     const edge = css({
@@ -60,8 +60,8 @@ const AnarogClock = ({ time }) => {
 
     const centerPoint = css({
         backgroundColor: '#000',
-        width: '10px',
-        height: '10px',
+        width: '12px',
+        height: '12px',
         position: 'absolute',
         top: '65%',
         left: '50%',
@@ -71,8 +71,8 @@ const AnarogClock = ({ time }) => {
 
     const centerPointTop = css({
         backgroundColor: '#e74c3c',
-        width: '5px',
-        height: '5px',
+        width: '7px',
+        height: '7px',
         position: 'absolute',
         top: '65%',
         left: '50%',
@@ -86,9 +86,9 @@ const AnarogClock = ({ time }) => {
             <div css={base}></div>
             <div css={[needle, hour]}></div>
             <div css={[needle, minute]}></div>
-            <div css={[needle, second]}></div>
             <div css={centerPoint}></div>
             <div css={centerPointTop}></div>
+            <div css={[needle, second]}></div>
         </div>
     )
 }
