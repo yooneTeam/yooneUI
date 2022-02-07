@@ -1,23 +1,45 @@
 import axios from 'axios'
 import useSWR from 'swr';
-import { Card, CardMedia, Typography, Box } from '@mui/material';
+import { Card, Stack, Typography, Box } from '@mui/material';
+import { weatherCode } from './weatherCode';
 
 const fetcher = url => axios.get(url).then(res => res.data)
+
 export default function Weather() {
 
-    const { data, error } = useSWR('https://weather.tsukumijima.net/api/forecast/city/140010', fetcher)
+    const { data, error } = useSWR('https://www.jma.go.jp/bosai/jmatile/data/wdist/VPFD/140010.json', fetcher)
 
     if (error) return <div>error</div>
     if (!data) return <div>loading</div>
 
     return (
-        <Card>
-            <Box sx={{ p: 1 }}>
-                <Typography variant="h6" >
-                    {data.forecasts[0].telop}
-                </Typography>
+        <Box sx={{ px: 1, py: 1 }}>
+            <Typography variant="h5" px={1}>
+                現在の天気
+            </Typography>
 
-            </Box>
-        </Card>
+
+
+            <Stack
+                justifyContent="center"
+                alignItems="center"
+            >
+                <img src='https://www.jma.go.jp/bosai/forecast/img/510.svg' width="120" />
+                <Stack
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <Typography variant="h5" >
+                        {data.areaTimeSeries.weather[0]}
+                    </Typography>
+                    <Typography variant="h2" >
+                        {data.pointTimeSeries.temperature[0] + ' ℃'}
+                    </Typography>
+                </Stack>
+            </Stack>
+
+
+
+        </Box>
     );
 }

@@ -12,16 +12,14 @@ export default function Neko() {
     if (!data) return <div>loading</div>
 
     return (
-        <Card>
-            <Box sx={{ p: 1 }}>
-                {/* <Typography variant="h6" >
+        <Box sx={{ p: 1 }}>
+            {/* <Typography variant="h6" >
                     Random Neko
                 </Typography> */}
-                <CardMedia
-                    component="img"
-                    image={data.file}
-                />
-            </Box>
-        </Card>
+            <CardMedia
+                component="img"
+                image={data.file}
+            />
+        </Box>
     );
-    }
+}

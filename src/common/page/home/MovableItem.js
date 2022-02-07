@@ -1,11 +1,11 @@
 import { useRef } from 'react';
-import { Grid } from '@mui/material';
-import {useDrag, useDrop } from "react-dnd";
+import { Grid, Card } from '@mui/material';
+import { useDrag, useDrop } from "react-dnd";
 
-export default function MovableItem({index, sortItems, size, children}) {
+export default function MovableItem({ index, sortItems, size, children }) {
     const ref = useRef(null)
 
-    const [{canDrop, isOver}, drop] = useDrop({
+    const [{ canDrop, isOver }, drop] = useDrop({
         accept: 'Card',
         hover(item, monitor) {
             if (!ref.current) return
@@ -24,16 +24,16 @@ export default function MovableItem({index, sortItems, size, children}) {
             item.index = dropIndex;
         },
         collect: monitor => ({
-            isOver:monitor.isOver(),
-            canDrop:monitor.canDrop(),
+            isOver: monitor.isOver(),
+            canDrop: monitor.canDrop(),
         })
     });
 
-    const [{isDragging}, drag] = useDrag({
+    const [{ isDragging }, drag] = useDrag({
         type: 'Card',
-        item: {index},
+        item: { index },
         collect: monitor => {
-            return {isDragging: monitor.isDragging()}
+            return { isDragging: monitor.isDragging() }
         },
     });
 
@@ -42,8 +42,10 @@ export default function MovableItem({index, sortItems, size, children}) {
     const opacity = (canDrop && isOver) ? 0.4 : 1;
 
     return (
-        <Grid item xs={size.xs} md={size.md} lg={size.lg} style={{opacity}} ref={ref}>
-            {children}
+        <Grid item xs={size.xs} md={size.md} lg={size.lg} style={{ opacity }} >
+            <Card ref={ref}>
+                {children}
+            </Card>
         </Grid>
     )
 }

@@ -10,25 +10,22 @@ export default function Clock() {
     const time = useTime()
 
     return (
-        <Card>
-            <Box >
+        <Box >
+            <Stack
+                justifyContent="center"
+                alignItems="center"
+                sx={{ pt: 2, pb: 20 }}
+            >
+                <Typography variant="h2" fontWeight='300'>
+                    {format(time, 'HH:mm')}
+                </Typography>
+                <Typography variant="subtitle1">
+                    {format(time, 'yyyy/M/d')}
+                </Typography>
 
-                <Stack
-                    justifyContent="center"
-                    alignItems="center"
-                    sx={{ pt: 2, pb: 20 }}
-                >
-                    <Typography lineHeight="1.1" fontSize='2.5rem'>
-                        {format(time, 'HH:mm')}
-                    </Typography>
-                    <Typography variant="subtitle1">
-                        {format(time, 'yyyy/M/d')}
-                    </Typography>
+                <AnarogClock time={time} />
 
-                    <AnarogClock time={time} />
-
-                </Stack>
-            </Box>
-        </Card>
+            </Stack>
+        </Box>
     );
 }
