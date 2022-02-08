@@ -19,9 +19,9 @@ const itemsState = atom({
         { id: 2, component: Neko, size: medium },
         { id: 3, component: Counter, size: large },
         { id: 4, component: Weather, size: small },
-        { id: 5, component: Counter, size: small },
-        { id: 6, component: Counter, size: small },
-        { id: 7, component: Counter, size: medium },
+        // { id: 5, component: Counter, size: small },
+        // { id: 6, component: Counter, size: small },
+        // { id: 7, component: Counter, size: medium },
     ]
 });
 

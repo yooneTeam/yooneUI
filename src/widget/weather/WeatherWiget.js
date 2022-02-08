@@ -29,10 +29,10 @@ export default function Weather() {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <Typography variant="h5" >
+                    <Typography variant="h5" fontWeight='700' lineHeight='80 / 64'>
                         {data.areaTimeSeries.weather[0]}
                     </Typography>
-                    <Typography variant="h2" >
+                    <Typography variant="h2" fontWeight='400'>
                         {data.pointTimeSeries.temperature[0] + ' ℃'}
                     </Typography>
                 </Stack>
