@@ -11,10 +11,12 @@ export default function Clock() {
 
     return (
         <Box >
+
             <Stack
                 justifyContent="center"
                 alignItems="center"
-                sx={{ pt: 2, pb: 20 }}
+                sx={{ pt: 1 }}
+
             >
                 <Typography variant="h2" fontWeight='300'>
                     {format(time, 'HH:mm')}
@@ -22,10 +24,11 @@ export default function Clock() {
                 <Typography variant="subtitle1">
                     {format(time, 'yyyy/M/d')}
                 </Typography>
-
                 <AnarogClock time={time} />
 
             </Stack>
+
+
         </Box>
     );
 }

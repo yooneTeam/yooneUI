@@ -8,12 +8,29 @@ const AnarogClock = ({ time }) => {
     const minuteRotate = (parseFloat(getMinutes(time)) + parseFloat(getSeconds(time)) / 60) * (360.0 / 60.0)
     const secondsRotate = parseFloat(getSeconds(time)) * (360.0 / 60.0)
 
+
+    const rerative = css({
+        position: 'rerative',
+        width: '100%',
+        paddingBottom: 'min(100%, 200px)',
+    });
+
+    const body = css({
+        position: 'absolute',
+        marginTop: '8%',
+        alignItems: 'center',
+        paddingLeft: 'min(80%, 160px)',
+        paddingTop: 'min(80%, 160px)',
+        left: '50%',
+        transform: 'translateX(-50%)',
+    });
+
     const edge = css({
         backgroundColor: '#000',
-        width: '122px',
-        height: '122px',
+        width: '100%',
+        height: '100%',
         position: 'absolute',
-        top: '68%',
+        top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         borderRadius: '50%',
@@ -21,10 +38,10 @@ const AnarogClock = ({ time }) => {
 
     const base = css({
         backgroundColor: '#fff',
-        width: '120px',
-        height: '120px',
+        width: '98%',
+        height: '98%',
         position: 'absolute',
-        top: '68%',
+        top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         borderRadius: '50%',
@@ -33,29 +50,28 @@ const AnarogClock = ({ time }) => {
     const needle = css({
         backgroundColor: '#000',
         position: 'absolute',
-        top: '68%',
+        top: '50%',
         left: '50%',
-        height: '65px',
         transformOrigin: 'bottom center',
     })
 
     const hour = css({
         transform: `translate(-50%, -100%) rotate(${hourRotate}deg)`,
-        width: '3px',
-        height: '45px'
+        width: '3%',
+        height: '37%'
     })
 
     const minute = css({
         transform: `translate(-50%, -100%) rotate(${minuteRotate}deg)`,
-        width: '2px',
-        height: '55px'
+        width: '1.5%',
+        height: '42%'
     })
 
     const second = css({
         backgroundColor: '#e74c3c',
         transform: `translate(-50%, -100%) rotate(${secondsRotate}deg)`,
-        width: '1px',
-        height: '58px'
+        width: '1%',
+        height: '47%'
     })
 
     const centerPoint = css({
@@ -63,7 +79,7 @@ const AnarogClock = ({ time }) => {
         width: '12px',
         height: '12px',
         position: 'absolute',
-        top: '68%',
+        top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         borderRadius: '100%'
@@ -74,22 +90,26 @@ const AnarogClock = ({ time }) => {
         width: '7px',
         height: '7px',
         position: 'absolute',
-        top: '68%',
+        top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         borderRadius: '100%'
     })
 
     return (
-        <div >
-            <div css={edge}></div>
-            <div css={base}></div>
-            <div css={[needle, hour]}></div>
-            <div css={[needle, minute]}></div>
-            <div css={centerPoint}></div>
-            <div css={centerPointTop}></div>
-            <div css={[needle, second]}></div>
+
+        <div css={rerative}>
+            <div css={body}>
+                <div css={edge}></div>
+                <div css={base}></div>
+                <div css={[needle, hour]}></div>
+                <div css={[needle, minute]}></div>
+                <div css={centerPoint}></div>
+                <div css={centerPointTop}></div>
+                <div css={[needle, second]}></div>
+            </div>
         </div>
+
     )
 }
 
