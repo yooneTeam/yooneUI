@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import axios from 'axios'
 import useSWR from 'swr';
 import { isSameDay, parseISO } from 'date-fns'
@@ -8,7 +7,7 @@ import useToday from '../../common/hooks/useToday'
 
 const fetcher = url => axios.get(url).then(res => res.data)
 
-export default function Weather() {
+export default function WeatherTommorow() {
 
     const { data: dataWeek, error: errorWeek } = useSWR('https://www.jma.go.jp/bosai/forecast/data/forecast/140000.json', fetcher)
     const { data: data24, error: error24 } = useSWR('https://www.jma.go.jp/bosai/jmatile/data/wdist/VPFD/140010.json', fetcher)
@@ -18,11 +17,10 @@ export default function Weather() {
     if (error24 || errorWeek) return <div>error</div>
     if (!data24 || !dataWeek) return <div>loading</div>
 
-    const code = dataWeek[0].timeSeries[0].areas[0].weatherCodes[0]
+    const code = dataWeek[0].timeSeries[0].areas[0].weatherCodes[1]
 
-    const todayTemps = data24.pointTimeSeries.temperature.slice(0, 5)
-    const maxtemp = Math.max(...todayTemps)
-    const minTemp = Math.min(...todayTemps)
+    console.log(dataWeek[0].timeSeries[0].areas[0].weatherCodes)
+    const [minTemp, maxtemp] = dataWeek[0].timeSeries[2].areas[0].temps
 
     const maxColor = '#cc3333'
     const minColor = '#3333cc'
@@ -31,15 +29,15 @@ export default function Weather() {
     const timeSeries = dataWeek[0].timeSeries[1].timeDefines
 
     const todayRainyPercents = timeSeries
-        .map((time, index) => isSameDay(today, parseISO(time)) ? Number(rainyPercents[index]) : 0)
+        .map((time, index) => isSameDay(today, parseISO(time)) ? 0 : Number(rainyPercents[index]))
 
     const maxRainyPercents = Math.max(...todayRainyPercents)
 
     return (
         <Box sx={{ py: 1 }}>
             <Stack justifyContent="center" alignItems="center"   >
-                <Typography variant="subtitle1" align='center'>
-                    今日の天気
+                <Typography variant="subtitle1" fontWeight='700' align='center'>
+                    明日の天気
                 </Typography>
                 <Typography variant="h5" fontWeight='400' lineHeight='2' sx={{ mb: -1 }}>
                     {weatherCode[code][3]}
@@ -50,35 +48,35 @@ export default function Weather() {
                     width="200"
                 />
 
-
                 <Stack direction="row" sx={{ mb: 1.8 }}>
                     <Stack alignItems="flex-end" direction="row" >
-                        <Typography variant="h6" fontWeight='400' lineHeight='0.8' sx={{ mr: 1 }}>
+                        <Typography variant="subtitle2" fontWeight='400' lineHeight='0.8' sx={{ mr: 1 }}>
                             気温
                         </Typography>
-                        <Typography variant="h3" fontWeight='400' lineHeight='0.8' color={maxColor}>
+                        <Typography variant="h3" fontWeight='500' lineHeight='0.8' color={maxColor}>
                             {maxtemp}
                         </Typography>
-                        <Typography variant="h3" fontWeight='400' lineHeight='0.8'>
+                        <Typography variant="h3" fontWeight='300' lineHeight='0.8'>
                             /
                         </Typography>
-                        <Typography variant="h3" fontWeight='400' lineHeight='0.8' color={minColor}>
+                        <Typography variant="h3" fontWeight='500' lineHeight='0.8' color={minColor}>
                             {minTemp}
                         </Typography>
-                        <Typography variant="h6" fontWeight='400' lineHeight='0.8' sx={{ ml: 0.3 }} >
+                        <Typography variant="h6" fontWeight='500' lineHeight='0.8' sx={{ ml: 0.3 }} >
                             ℃
                         </Typography>
                     </Stack>
                 </Stack>
+
                 <Stack direction="row" sx={{ mb: 1 }}>
                     <Stack alignItems="flex-end" direction="row" >
-                        <Typography variant="h6" fontWeight='400' lineHeight='0.8' sx={{ mr: 1 }}>
+                        <Typography variant="subtitle2" fontWeight='400' lineHeight='0.8' sx={{ mr: 1 }}>
                             降水確率
                         </Typography>
-                        <Typography variant="h3" fontWeight='400' lineHeight='0.8'>
+                        <Typography variant="h3" fontWeight='500' lineHeight='0.8'>
                             {maxRainyPercents}
                         </Typography>
-                        <Typography variant="h6" fontWeight='400' lineHeight='0.8' sx={{ ml: 0.3 }}>
+                        <Typography variant="h6" fontWeight='600' lineHeight='0.8' sx={{ ml: 0.3 }}>
                             %
                         </Typography>
                     </Stack>

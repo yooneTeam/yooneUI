@@ -6,7 +6,8 @@ import MovableItem from './MovableItem';
 import Counter from '../../../widget/counter/CounteWidget';
 import Neko from '../../../widget/neko/Neko';
 import Clock from '../../../widget/clock/ClockWidget';
-import Weather from '../../../widget/weather/WeatherWiget';
+import WeatherToday from '../../../widget/weather/WeatherTodayWiget';
+import WeatherTommorow from '../../../widget/weather/WeatherTommorowWiget';
 
 const small = { xs: 4, md: 3, lg: 2 }
 const medium = { xs: 8, md: 6, lg: 4 }
@@ -18,7 +19,8 @@ const itemsState = atom({
         { id: 1, component: Clock, size: small },
         { id: 2, component: Neko, size: small },
         { id: 3, component: Counter, size: small },
-        { id: 4, component: Weather, size: small },
+        { id: 4, component: WeatherToday, size: small },
+        { id: 4, component: WeatherTommorow, size: small },
         // { id: 5, component: Counter, size: small },
         // { id: 6, component: Counter, size: small },
         // { id: 7, component: Counter, size: medium },
