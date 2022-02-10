@@ -2,15 +2,16 @@
 
 import { Card, Stack, Typography, Box } from '@mui/material';
 import { format } from 'date-fns'
-import useTime from './useTime';
+import useNow from '../../common/hooks/useNow'
 import AnarogClock from './AnarogClock';
 
 export default function Clock() {
 
-    const time = useTime()
+    const time = useNow()
 
     return (
-        <Box >
+        <Box sx={{ pb: 1 }}
+        >
 
             <Stack
                 justifyContent="center"

@@ -16,8 +16,8 @@ const itemsState = atom({
     key: "items",
     default: [
         { id: 1, component: Clock, size: small },
-        { id: 2, component: Neko, size: medium },
-        { id: 3, component: Counter, size: large },
+        { id: 2, component: Neko, size: small },
+        { id: 3, component: Counter, size: small },
         { id: 4, component: Weather, size: small },
         // { id: 5, component: Counter, size: small },
         // { id: 6, component: Counter, size: small },

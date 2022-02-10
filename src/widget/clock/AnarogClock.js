@@ -8,7 +8,6 @@ const AnarogClock = ({ time }) => {
     const minuteRotate = (parseFloat(getMinutes(time)) + parseFloat(getSeconds(time)) / 60) * (360.0 / 60.0)
     const secondsRotate = parseFloat(getSeconds(time)) * (360.0 / 60.0)
 
-
     const rerative = css({
         position: 'rerative',
         width: '100%',
@@ -19,8 +18,8 @@ const AnarogClock = ({ time }) => {
         position: 'absolute',
         marginTop: '8%',
         alignItems: 'center',
-        paddingLeft: 'min(80%, 160px)',
-        paddingTop: 'min(80%, 160px)',
+        paddingLeft: 'min(85%, 160px)',
+        paddingTop: 'min(85%, 160px)',
         left: '50%',
         transform: 'translateX(-50%)',
     });
@@ -38,8 +37,8 @@ const AnarogClock = ({ time }) => {
 
     const base = css({
         backgroundColor: '#fff',
-        width: '98%',
-        height: '98%',
+        width: '97%',
+        height: '97%',
         position: 'absolute',
         top: '50%',
         left: '50%',
@@ -57,27 +56,27 @@ const AnarogClock = ({ time }) => {
 
     const hour = css({
         transform: `translate(-50%, -100%) rotate(${hourRotate}deg)`,
-        width: '3%',
-        height: '37%'
+        width: '2.5%',
+        height: '35%'
     })
 
     const minute = css({
         transform: `translate(-50%, -100%) rotate(${minuteRotate}deg)`,
-        width: '1.5%',
-        height: '42%'
+        width: '1.8%',
+        height: '43%'
     })
 
     const second = css({
         backgroundColor: '#e74c3c',
         transform: `translate(-50%, -100%) rotate(${secondsRotate}deg)`,
-        width: '1%',
+        width: '1.1%',
         height: '47%'
     })
 
     const centerPoint = css({
         backgroundColor: '#000',
-        width: '12px',
-        height: '12px',
+        width: '10%',
+        height: '10%',
         position: 'absolute',
         top: '50%',
         left: '50%',
@@ -87,8 +86,8 @@ const AnarogClock = ({ time }) => {
 
     const centerPointTop = css({
         backgroundColor: '#e74c3c',
-        width: '7px',
-        height: '7px',
+        width: '5%',
+        height: '5%',
         position: 'absolute',
         top: '50%',
         left: '50%',
