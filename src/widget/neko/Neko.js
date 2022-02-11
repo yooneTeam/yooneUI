@@ -1,6 +1,6 @@
 import axios from 'axios'
 import useSWR from 'swr';
-import { Card, CardMedia, Typography, Box } from '@mui/material';
+import { CardMedia, Box } from '@mui/material';
 
 const fetcher = url => axios.get(url).then(res => res.data) //swr用のPromiseを返す関数
 

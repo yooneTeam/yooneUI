@@ -20,7 +20,7 @@ export default function MovableItem({ index, sortItems, size, children }) {
 
             if (dropIndex > dragIndex && mousePositionX < dropItemRect.left + dropItemWidth * marginRatio) return
             if (dropIndex < dragIndex && mousePositionX > dropItemRect.left + dropItemWidth * marginRatio) return
-            sortItems(dragIndex, dropIndex)
+            sortItems(dragIndex, dropIndex)//マウスが一定以上移動したらソート実行
             item.index = dropIndex;
         },
         collect: monitor => ({
@@ -39,7 +39,7 @@ export default function MovableItem({ index, sortItems, size, children }) {
 
     drag(drop(ref))
 
-    const opacity = (canDrop && isOver) ? 0.4 : 1;
+    const opacity = (canDrop && isOver) ? 0.2 : 1;
 
     return (
         <Grid item xs={size.xs} md={size.md} lg={size.lg} style={{ opacity }} >

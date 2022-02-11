@@ -144,7 +144,7 @@ export const weatherCode =
         "102.svg",
         "502.svg",
         "300",
-        "晴朝の内一時雨",
+        "晴朝後一時雨",
         "OCCASIONAL SCATTERED SHOWERS IN THE MORNING, CLEAR DURING THE DAY"
     ],
     "122": [
@@ -200,7 +200,7 @@ export const weatherCode =
         "100.svg",
         "500.svg",
         "100",
-        "朝の内霧後晴",
+        "朝霧後晴",
         "FOG IN THE MORNING, CLEAR LATER"
     ],
     "131": [
@@ -221,7 +221,7 @@ export const weatherCode =
         "102.svg",
         "502.svg",
         "300",
-        "晴時々雨で雷を伴う",
+        "晴時々雷雨",
         "CLEAR, FREQUENT SCATTERED SHOWERS AND THUNDER"
     ],
     "160": [
