@@ -29,7 +29,8 @@
     "start": "react-scripts start",
     "build": "CI='' react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "vercel --token $VERCEL_TOKEN --prod --confirm"
   },
   "eslintConfig": {
     "extends": [
@@ -48,5 +49,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "vercel": "^23.1.2"
   }
 }
