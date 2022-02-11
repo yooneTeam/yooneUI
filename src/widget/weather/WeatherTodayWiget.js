@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
 import axios from 'axios'
 import useSWR from 'swr';
 import { isSameDay, parseISO } from 'date-fns'
 import { Stack, Typography, Box, } from '@mui/material';
 import { weatherCode } from './weatherCode';
 import useToday from '../../common/hooks/useToday'
+import useLocation from '../../common/hooks/useLocation';
 
 const fetcher = url => axios.get(url).then(res => res.data)
 
 export default function WeatherToday() {
 
-    const { data: dataWeek, error: errorWeek } = useSWR('https://www.jma.go.jp/bosai/forecast/data/forecast/140000.json', fetcher)
-    const { data: data24, error: error24 } = useSWR('https://www.jma.go.jp/bosai/jmatile/data/wdist/VPFD/140010.json', fetcher)
-
     const today = useToday()
+    const location = useLocation()
+    const { data: dataWeek, error: errorWeek } = useSWR('https://www.jma.go.jp/bosai/forecast/data/forecast/' + location + '0000.json', fetcher)
+    const { data: data24, error: error24 } = useSWR('https://www.jma.go.jp/bosai/jmatile/data/wdist/VPFD/' + location + '0010.json', fetcher)
 
     if (error24 || errorWeek) return <div>error</div>
     if (!data24 || !dataWeek) return <div>loading</div>
@@ -50,12 +50,8 @@ export default function WeatherToday() {
                     width="200"
                 />
 
-
                 <Stack direction="row" sx={{ mb: 1.8 }}>
                     <Stack alignItems="flex-end" direction="row" >
-                        <Typography variant="subtitle2" fontWeight='400' lineHeight='0.8' sx={{ mr: 1 }}>
-                            気温
-                        </Typography>
                         <Typography variant="h3" fontWeight='500' lineHeight='0.8' color={maxColor}>
                             {maxtemp}
                         </Typography>
@@ -72,13 +68,13 @@ export default function WeatherToday() {
                 </Stack>
                 <Stack direction="row" sx={{ mb: 1 }}>
                     <Stack alignItems="flex-end" direction="row" >
-                        <Typography variant="subtitle2" fontWeight='400' lineHeight='0.8' sx={{ mr: 1 }}>
+                        <Typography variant="subtitle2" fontWeight='400' lineHeight='0.8' sx={{ mr: 0.4 }}>
                             降水確率
                         </Typography>
-                        <Typography variant="h3" fontWeight='500' lineHeight='0.8'>
+                        <Typography variant="h4" fontWeight='500' lineHeight='0.8'>
                             {maxRainyPercents}
                         </Typography>
-                        <Typography variant="h6" fontWeight='600' lineHeight='0.8' sx={{ ml: 0.3 }}>
+                        <Typography variant="subtitle1" fontWeight='600' lineHeight='0.8' sx={{ ml: 0.3 }}>
                             %
                         </Typography>
                     </Stack>

@@ -12,9 +12,9 @@ export default function Counter({ id }) {
     const [count, setCount] = useRecoilState(counterState(id));
 
     return (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ py: 4 }}>
 
-            <Typography variant="h5" >
+            <Typography variant="h5" align='center'>
                 Counter{id}
             </Typography>
 
@@ -22,7 +22,7 @@ export default function Counter({ id }) {
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
-                sx={{ pt: 13 }}
+                sx={{ pt: 2 }}
             >
 
                 <IconButton size="large" onClick={() => { setCount(count - 1) }}>

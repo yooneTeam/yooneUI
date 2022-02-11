@@ -10,7 +10,7 @@ export default function Clock() {
     const time = useNow()
 
     return (
-        <Box sx={{ pb: 1 }}
+        <Box sx={{ pb: 0 }}
         >
 
             <Stack

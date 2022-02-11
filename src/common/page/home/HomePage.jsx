@@ -40,7 +40,7 @@ export default function Home() {
 
     return (
         <Container >
-            <Grid container spacing={1.5}>
+            <Grid container spacing={1} alignItems="center">
                 {items.map(({ size, component, id }, index) => (
                     <MovableItem index={index} sortItems={sortItems} size={size} key={index}>
                         {createElement(component, { id })}
