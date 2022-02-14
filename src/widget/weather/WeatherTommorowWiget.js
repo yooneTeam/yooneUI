@@ -19,10 +19,11 @@ export default function WeatherTommorow() {
     const code = dataWeek[0].timeSeries[0].areas[0].weatherCodes[1]
 
     const temps = dataWeek[0].timeSeries[2].areas[0].temps
-    const timeSeriesTemps = dataWeek[0].timeSeries[2].timeDefines
+    // const timeSeriesTemps = dataWeek[0].timeSeries[2].timeDefines
+    // const tomorrowTemps = temps.filter((_, index) => (isTomorrow(parseISO(timeSeriesTemps[index]))))
+    // const [minTemp, maxtemp] = tomorrowTemps
+    const [minTemp, maxtemp] = temps.slice(-2)
 
-    const tomorrowTemps = temps.filter((_, index) => (isTomorrow(parseISO(timeSeriesTemps[index]))))
-    const [minTemp, maxtemp] = tomorrowTemps
 
     const maxColor = '#cc3333'
     const minColor = '#3333cc'
@@ -30,8 +31,13 @@ export default function WeatherTommorow() {
     const rainyPercents = dataWeek[0].timeSeries[1].areas[0].pops
     const timeSeriesPops = dataWeek[0].timeSeries[1].timeDefines
 
-    const tomorrowRainyPercents = rainyPercents.filter((_, index) => (isTomorrow(parseISO(timeSeriesPops[index]))))
+    // const tomorrowRainyPercents = rainyPercents.filter((_, index) => (isTomorrow(parseISO(timeSeriesPops[index]))))
+    const tomorrowRainyPercents = rainyPercents.slice(-4) //今後修正予定
+
     const maxRainyPercents = Math.max(...tomorrowRainyPercents)
+
+    // console.log(temps.slice(-2))
+
 
     return (
         <Box sx={{ py: 1 }}>

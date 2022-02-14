@@ -1,82 +1,120 @@
 import axios from 'axios'
 import useSWR from 'swr';
 import ReactApexChart from 'react-apexcharts';
-import { fromUnixTime, formatISO } from 'date-fns';
-import { Box, Typography } from '@mui/material';
+import { fromUnixTime, format, isSameDay, startOfDay, subDays, formatISO, parseISO } from 'date-fns';
+import { Box, Typography, Stack } from '@mui/material';
+
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+
 
 const fetcher = url => axios.get(url).then(res => res.data) //swr用のPromiseを返す関数
 
-export default function Stock({ id }) {
+export default function Stock({ id }) {   //44192
 
-    const { data: candlesticks, error } = useSWR('https://api.investing.com/api/financialdata/44192/historical/chart/?interval=PT30M&pointscount=60', fetcher)
+    // const { data: candlesticks, error } = useSWR('https://api.investing.com/api/financialdata/945629/historical/chart/?interval=PT15M&pointscount=120', fetcher)
+    const { data: candlesticks, error } = useSWR('https://api.investing.com/api/financialdata/945629/historical/chart/?interval=PT30M&pointscount=120', fetcher)
 
     if (error) return <div>error</div>
     if (!candlesticks) return <div>loading</div>
 
-    const timeDefines = candlesticks.data.map(candlestick => formatISO(fromUnixTime(candlestick[0] / 1000)))
-    const closingPrices = candlesticks.data.map(candlestick => candlestick[4])
+    const timeDefinesAll = candlesticks.data.map(candlestick => fromUnixTime(candlestick[0] / 1000))
+    const closingPricesAll = candlesticks.data.map(candlestick => candlestick[4])
 
+    const allDays = [...new Set(timeDefinesAll.map(time => formatISO(startOfDay(time))))];
 
-    console.log(timeDefines)
-    console.log(closingPrices)
+    const lastDay = parseISO(allDays.slice(-2)[0])
+    const beforeLastDay = parseISO(allDays.slice(-3)[0])
+
+    const startLastDayIndex = timeDefinesAll.reduce((preindex, day, index) => isSameDay(day, lastDay) ? index : preindex)
+    const startBeforeLastDayIndex = timeDefinesAll.reduce((preindex, day, index) => isSameDay(day, beforeLastDay) ? index : preindex)
+    const mediumBeforeLastDayIndex = startBeforeLastDayIndex + (startLastDayIndex - startBeforeLastDayIndex) / 2
+
+    const timeDefines = timeDefinesAll.map(time => format(time, 'M/d HH:mm')).slice(mediumBeforeLastDayIndex)
+    const closingPrices = closingPricesAll.slice(mediumBeforeLastDayIndex)
+
+    const closingPricesStart = closingPricesAll[startLastDayIndex]
+    const closingPricesNow = closingPricesAll.slice(-1)[0]
 
 
     const chartOptions = {
-
-
         labels: timeDefines,
-        // xaxis: { type: 'datetime' },
         stroke: {
-            curve: 'straight',
+            curve: 'smooth',
             width: 2
         },
         chart: {
             toolbar: { show: false },
             zoom: { enabled: false },
             animations: { enabled: false },
-            // foreColor: 'text.disabled',
         },
         xaxis: {
             axisBorder: { show: false },
             axisTicks: { show: false },
-            labels: {
-                show: false,
-
-            }
+            labels: { show: false, },
+            tooltip: { enabled: false, },
         },
         yaxis: {
             show: false,
+            // min: Math.min(...closingPrices),
+            // max: Math.max(...closingPrices),
         },
-        markers: {
-            size: 0,
-        },
-        tooltip: {
-            x: {
-                show: false
+        tooltip: { x: { show: true } },
+        legend: { show: false, },
+        grid: { show: false },
+        fill: {
+            type: "gradient",
+            opacity: 1,
+            gradient: {
+                type: 'vertical',
+                shadeIntensity: 0,
+                opacityFrom: 0.4,
+                opacityTo: 0,
+                stops: [0, 90]
             }
-        },
-        legend: {
-            show: false,
         },
 
     };
 
     const chartData = [{
         name: '価格',
-        type: 'line',
+        type: 'area',
         data: closingPrices
     }]
 
-
-
-
     return (
-        <Box sx={{ p: 1 }}>
-            <Typography variant="h3" >
-                stock
-            </Typography>
-            <ReactApexChart type="line" series={chartData} options={chartOptions} height={200} />
+        <Box sx={{ mb: -4 }} >
+            <Stack justifyContent="center" alignItems="center"   >
 
-        </Box>
+                <Typography variant="h6" sx={{ mt: 0.5 }} fontWeight='700' >
+                    リコー
+                </Typography>
+                <Typography variant="h3" sx={{ mt: -1 }} fontWeight='500'>
+                    {closingPricesNow.toLocaleString()}
+                </Typography>
+
+
+                <Stack direction="row" alignItems="flex-end" sx={{ mt: -0.5, mb: -1 }}>
+                    <ArrowUpwardIcon />
+                    <Typography variant="h6" fontWeight='400'>
+                        {(100 * (closingPricesNow - closingPricesStart) / closingPricesNow).toFixed(1)}
+                    </Typography>
+                    <Typography variant="subtitle2" fontWeight='400' sx={{ pl: 0.5 }}>
+                        %
+                    </Typography>
+                </Stack>
+
+
+            </Stack>
+
+            <ReactApexChart
+                type="line"
+                series={chartData}
+                options={chartOptions}
+                height={200}
+            />
+
+
+        </ Box >
     );
 }

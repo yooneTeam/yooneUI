@@ -4,10 +4,6 @@ import { css } from '@emotion/react';
 
 const AnarogClock = ({ time }) => {
 
-    const hourRotate = (parseFloat(getHours(time)) + parseFloat(getMinutes(time)) / 60) * (360.0 / 12.0)
-    const minuteRotate = (parseFloat(getMinutes(time)) + parseFloat(getSeconds(time)) / 60) * (360.0 / 60.0)
-    const secondsRotate = parseFloat(getSeconds(time)) * (360.0 / 60.0)
-
     const rerative = css({
         position: 'rerative',
         width: '100%',
@@ -55,20 +51,17 @@ const AnarogClock = ({ time }) => {
     })
 
     const hour = css({
-        transform: `translate(-50%, -100%) rotate(${hourRotate}deg)`,
         width: '2.5%',
         height: '35%'
     })
 
     const minute = css({
-        transform: `translate(-50%, -100%) rotate(${minuteRotate}deg)`,
         width: '1.8%',
         height: '43%'
     })
 
     const second = css({
         backgroundColor: '#e74c3c',
-        transform: `translate(-50%, -100%) rotate(${secondsRotate}deg)`,
         width: '1.1%',
         height: '47%'
     })
@@ -86,8 +79,8 @@ const AnarogClock = ({ time }) => {
 
     const centerPointTop = css({
         backgroundColor: '#e74c3c',
-        width: '5%',
-        height: '5%',
+        width: '5.5%',
+        height: '5.5%',
         position: 'absolute',
         top: '50%',
         left: '50%',
@@ -95,17 +88,20 @@ const AnarogClock = ({ time }) => {
         borderRadius: '100%'
     })
 
-    return (
+    const hourRotate = (parseFloat(getHours(time)) + parseFloat(getMinutes(time)) / 60) * (360.0 / 12.0)
+    const minuteRotate = (parseFloat(getMinutes(time)) + parseFloat(getSeconds(time)) / 60) * (360.0 / 60.0)
+    const secondsRotate = parseFloat(getSeconds(time)) * (360.0 / 60.0)
 
+    return (
         <div css={rerative}>
             <div css={body}>
                 <div css={edge}></div>
                 <div css={base}></div>
-                <div css={[needle, hour]}></div>
-                <div css={[needle, minute]}></div>
-                <div css={centerPoint}></div>
+                <div css={[needle, hour]} style={{ transform: `translate(-50%, -100%) rotate(${hourRotate}deg)` }}></div>
+                <div css={[needle, minute]} style={{ transform: `translate(-50%, -100%) rotate(${minuteRotate}deg)` }}></div>
+                <div css={centerPoint} ></div>
                 <div css={centerPointTop}></div>
-                <div css={[needle, second]}></div>
+                <div css={[needle, second]} style={{ transform: `translate(-50%, -100%) rotate(${secondsRotate}deg)` }}></div>
             </div>
         </div>
 

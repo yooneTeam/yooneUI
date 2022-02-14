@@ -4,6 +4,7 @@ import { isToday, isAfter, parseISO } from 'date-fns'
 import { Stack, Typography, Box, } from '@mui/material';
 import { weatherCode } from './weatherCode';
 import useLocation from '../../common/hooks/useLocation';
+import UmbrellaIcon from '@mui/icons-material/Umbrella';
 
 const fetcher = url => axios.get(url).then(res => res.data)
 
