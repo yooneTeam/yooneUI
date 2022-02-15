@@ -42,8 +42,10 @@ export default function MovableItem({ index, sortItems, size, children }) {
     const opacity = (canDrop && isOver) ? 0.2 : 1;
 
     return (
-        <Grid item xs={size.xs} md={size.md} lg={size.lg} style={{ opacity }} >
-            <Card ref={ref}>
+        <Grid item xs={size.xs} md={size.md} lg={size.lg} style={{ opacity }}>
+            <Card ref={ref} alignItems="center"
+                sx={{ pb: 'min(' + size.heightRatio + ', 290px)', height: '0px' }}
+            >
                 {children}
             </Card>
         </Grid>

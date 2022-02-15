@@ -10,9 +10,9 @@ import WeatherToday from '../../../widget/weather/WeatherTodayWiget';
 import WeatherTommorow from '../../../widget/weather/WeatherTommorowWiget';
 import Stock from '../../../widget/stock/StockWidget';
 
-const small = { xs: 4, md: 3, lg: 2 }
-const medium = { xs: 8, md: 6, lg: 4 }
-const large = { xs: 12, md: 6, lg: 6 }
+const small = { xs: 4, md: 3, lg: 2, heightRatio: '170%' }
+const medium = { xs: 8, md: 6, lg: 4, heightRatio: '85%' }
+const large = { xs: 12, md: 12, lg: 6, heightRatio: '56.6%' }
 
 const itemsState = atom({
     key: "items",
@@ -21,7 +21,7 @@ const itemsState = atom({
         { id: 2, component: WeatherToday, size: small },
         { id: 3, component: WeatherTommorow, size: small },
         { id: 4, component: Stock, size: small },
-        { id: 5, component: Neko, size: small },
+        { id: 5, component: Neko, size: medium },
         // { id: 5, component: Counter, size: small },
         // { id: 6, component: Counter, size: small },
         // { id: 7, component: Counter, size: medium },

@@ -1,19 +1,29 @@
 import axios from 'axios'
 import useSWR from 'swr';
+import { useRecoilState, atomFamily } from 'recoil';
 import ReactApexChart from 'react-apexcharts';
+import { useTheme } from '@mui/material/styles';
 import { fromUnixTime, format, isSameDay, startOfDay, subDays, formatISO, parseISO } from 'date-fns';
-import { Box, Typography, Stack } from '@mui/material';
+import { Box, Typography, Stack, Card } from '@mui/material';
 
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+
+const stockURLState = atomFamily({
+    key: 'stockURL',
+    default: '44192'
+});
 
 
 const fetcher = url => axios.get(url).then(res => res.data) //swr用のPromiseを返す関数
 
 export default function Stock({ id }) {   //44192
 
-    // const { data: candlesticks, error } = useSWR('https://api.investing.com/api/financialdata/945629/historical/chart/?interval=PT15M&pointscount=120', fetcher)
-    const { data: candlesticks, error } = useSWR('https://api.investing.com/api/financialdata/945629/historical/chart/?interval=PT30M&pointscount=120', fetcher)
+    const theme = useTheme();
+    const [stockURL, setStockURL] = useRecoilState(stockURLState(id));
+
+    // setStockURL('945629')
+    const { data: candlesticks, error } = useSWR('https://api.investing.com/api/financialdata/' + stockURL + '/historical/chart/?interval=PT30M&pointscount=120', fetcher)
 
     if (error) return <div>error</div>
     if (!candlesticks) return <div>loading</div>
@@ -35,6 +45,9 @@ export default function Stock({ id }) {   //44192
 
     const closingPricesStart = closingPricesAll[startLastDayIndex]
     const closingPricesNow = closingPricesAll.slice(-1)[0]
+
+    const increaseRate = (100 * (closingPricesNow - closingPricesStart) / closingPricesNow)
+
 
 
     const chartOptions = {
@@ -64,11 +77,10 @@ export default function Stock({ id }) {   //44192
         grid: { show: false },
         fill: {
             type: "gradient",
-            opacity: 1,
             gradient: {
                 type: 'vertical',
                 shadeIntensity: 0,
-                opacityFrom: 0.4,
+                opacityFrom: 0.55,
                 opacityTo: 0,
                 stops: [0, 90]
             }
@@ -93,10 +105,13 @@ export default function Stock({ id }) {   //44192
                     {closingPricesNow.toLocaleString()}
                 </Typography>
 
-
-                <Stack direction="row" alignItems="flex-end" sx={{ mt: -0.5, mb: -1 }}>
-                    <ArrowUpwardIcon />
-                    <Typography variant="h6" fontWeight='400'>
+                <Stack direction="row" alignItems="flex-end" sx={{ mt: -0.5, mb: -3 }}>
+                    {(increaseRate < 0) ?
+                        <ArrowDownwardIcon color="error" />
+                        :
+                        <ArrowUpwardIcon color='success' />
+                    }
+                    <Typography variant="h5" fontWeight='400' sx={{ pl: 0.5 }}>
                         {(100 * (closingPricesNow - closingPricesStart) / closingPricesNow).toFixed(1)}
                     </Typography>
                     <Typography variant="subtitle2" fontWeight='400' sx={{ pl: 0.5 }}>
@@ -104,14 +119,13 @@ export default function Stock({ id }) {   //44192
                     </Typography>
                 </Stack>
 
-
             </Stack>
 
             <ReactApexChart
                 type="line"
                 series={chartData}
                 options={chartOptions}
-                height={200}
+                height={'100%'}
             />
 
 
