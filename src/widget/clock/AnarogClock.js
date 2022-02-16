@@ -12,7 +12,7 @@ const AnarogClock = ({ time }) => {
 
     const body = css({
         position: 'absolute',
-        marginTop: '8%',
+        marginTop: '10%',
         alignItems: 'center',
         paddingLeft: 'min(85%, 160px)',
         paddingTop: 'min(85%, 160px)',

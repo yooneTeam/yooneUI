@@ -13,7 +13,7 @@ export default function WeatherTommorow() {
     const { data: dataWeek, error: errorWeek } = useSWR('https://www.jma.go.jp/bosai/forecast/data/forecast/' + location + '0000.json', fetcher)
     const { data: data24, error: error24 } = useSWR('https://www.jma.go.jp/bosai/jmatile/data/wdist/VPFD/' + location + '0010.json', fetcher)
 
-    if (error24 || errorWeek) return <div>error</div>
+    if (error24 || errorWeek) return <div></div>
     if (!data24 || !dataWeek) return <div>loading</div>
 
     const code = dataWeek[0].timeSeries[0].areas[0].weatherCodes[1]
