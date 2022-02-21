@@ -7,6 +7,7 @@ const AnarogClock = ({ time }) => {
     const rerative = css({
         position: 'rerative',
         width: '100%',
+        height: '100%',
         paddingBottom: 'min(100%, 200px)',
     });
 

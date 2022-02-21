@@ -40,52 +40,49 @@ export default function WeatherTommorow() {
 
 
     return (
-        <Box sx={{ py: 1 }}>
-            <Stack justifyContent="center" alignItems="center"   >
-                <Typography variant="subtitle1" fontWeight='700' align='center'>
-                    明日
-                </Typography>
-                <Typography variant="h5" fontWeight='400' lineHeight='2' sx={{ mb: -1 }}>
-                    {weatherCode[code][3]}
-                </Typography>
-                <img
-                    src={'https://www.jma.go.jp/bosai/forecast/img/'
-                        + weatherCode[code][0]}
-                    width="200"
-                />
+        <Stack direction="column" alignItems="center" justifyContent="space-around" sx={{ height: '100%', width: '100%', py: 1 }}  >
+            <Typography variant="subtitle1" fontWeight='700' align='center'>
+                明日
+            </Typography>
+            <Typography variant="h5" fontWeight='400' lineHeight='2' sx={{ mb: -1 }}>
+                {weatherCode[code][3]}
+            </Typography>
+            <img
+                src={'https://www.jma.go.jp/bosai/forecast/img/'
+                    + weatherCode[code][0]}
+                width="200"
+            />
 
-                <Stack direction="row" sx={{ mb: 1.8 }}>
-                    <Stack alignItems="flex-end" direction="row" >
-                        <Typography variant="h3" fontWeight='500' lineHeight='0.8' color={maxColor}>
-                            {maxtemp}
-                        </Typography>
-                        <Typography variant="h3" fontWeight='300' lineHeight='0.8'>
-                            /
-                        </Typography>
-                        <Typography variant="h3" fontWeight='500' lineHeight='0.8' color={minColor}>
-                            {minTemp}
-                        </Typography>
-                        <Typography variant="h6" fontWeight='500' lineHeight='0.8' sx={{ ml: 0.3 }} >
-                            ℃
-                        </Typography>
-                    </Stack>
+            <Stack direction="row" sx={{ mb: 1.8 }}>
+                <Stack alignItems="flex-end" direction="row" >
+                    <Typography variant="h3" fontWeight='500' lineHeight='0.8' color={maxColor}>
+                        {maxtemp}
+                    </Typography>
+                    <Typography variant="h3" fontWeight='300' lineHeight='0.8'>
+                        /
+                    </Typography>
+                    <Typography variant="h3" fontWeight='500' lineHeight='0.8' color={minColor}>
+                        {minTemp}
+                    </Typography>
+                    <Typography variant="h6" fontWeight='500' lineHeight='0.8' sx={{ ml: 0.3 }} >
+                        ℃
+                    </Typography>
                 </Stack>
-
-                <Stack direction="row" sx={{ mb: 1 }}>
-                    <Stack alignItems="flex-end" direction="row" >
-                        <Typography variant="subtitle2" fontWeight='400' lineHeight='0.8' sx={{ mr: 0.4 }}>
-                            降水確率
-                        </Typography>
-                        <Typography variant="h4" fontWeight='500' lineHeight='0.8'>
-                            {maxRainyPercents}
-                        </Typography>
-                        <Typography variant="subtitle2" fontWeight='600' lineHeight='0.8' sx={{ ml: 0.2 }}>
-                            %
-                        </Typography>
-                    </Stack>
-                </Stack>
-
             </Stack>
-        </Box >
+
+            <Stack direction="row" sx={{ mb: 1 }}>
+                <Stack alignItems="flex-end" direction="row" >
+                    <Typography variant="subtitle2" fontWeight='400' lineHeight='0.8' sx={{ mr: 0.4 }}>
+                        降水確率
+                    </Typography>
+                    <Typography variant="h4" fontWeight='500' lineHeight='0.8'>
+                        {maxRainyPercents}
+                    </Typography>
+                    <Typography variant="subtitle2" fontWeight='600' lineHeight='0.8' sx={{ ml: 0.2 }}>
+                        %
+                    </Typography>
+                </Stack>
+            </Stack>
+        </Stack>
     );
 }

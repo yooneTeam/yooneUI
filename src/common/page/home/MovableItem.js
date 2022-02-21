@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Grid, Card } from '@mui/material';
+import { Grid, Card, Stack } from '@mui/material';
 import { useDrag, useDrop } from "react-dnd";
 
 export default function MovableItem({ index, sortItems, size, children }) {
@@ -41,15 +41,6 @@ export default function MovableItem({ index, sortItems, size, children }) {
     const opacity = (canDrop && isOver) ? 0.2 : 1;
 
     return (
-        // <Grid item xs={size.xs} md={size.md} lg={size.lg} style={{ opacity }}>
-        //     <Card ref={ref} sx={{ pb: ' clamp(210px, ' + size.heightRatio + ', 280px)', height: '0px' }}  >
-        //         {children}
-        //     </Card>
-        // </Grid>
-
-        // <Card ref={ref} sx={{ height: '100%', overflow: 'auto' }}  >
-
-
         <Grid item xs={size.xs} md={size.md} lg={size.lg} style={{ opacity }} >
             <Card ref={ref} sx={{ height: ' clamp(200px, 100% , 290px)' }} >
                 {children}

@@ -19,6 +19,7 @@ export default function Neko() {
             <CardMedia
                 component="img"
                 image={data.file}
+                sx={{ maxHeight: '280px' }}
             />
         </Box>
     );
