@@ -4,6 +4,7 @@ import { isToday, isAfter, parseISO } from 'date-fns'
 import { Stack, Typography, Box, } from '@mui/material';
 import { weatherCode } from './weatherCode';
 import useLocation from '../../common/hooks/useLocation';
+import UmbrellaIcon from '@mui/icons-material/Umbrella';
 
 const fetcher = url => axios.get(url).then(res => res.data)
 
@@ -14,7 +15,7 @@ export default function WeatherToday() {
     const { data: data24, error: error24 } = useSWR('https://www.jma.go.jp/bosai/jmatile/data/wdist/VPFD/' + location + '0010.json', fetcher)
 
     if (error24 || errorWeek) return <div>error</div>
-    if (!data24 || !dataWeek) return <div>loading</div>
+    if (!data24 || !dataWeek) return <div></div>
 
     const code = dataWeek[0].timeSeries[0].areas[0].weatherCodes[0]
 
@@ -48,7 +49,7 @@ export default function WeatherToday() {
     const maxRainyPercents = Math.max(...todayRainyPercents)
 
     return (
-        <Box sx={{ py: 1 }}>
+        <Box sx={{ pt: 1 }}>
             <Stack justifyContent="center" alignItems="center"   >
                 <Typography variant="subtitle1" fontWeight='700' align='center'>
                     今日
