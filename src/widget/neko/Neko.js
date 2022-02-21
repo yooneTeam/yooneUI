@@ -12,7 +12,7 @@ export default function Neko() {
     if (!data) return <div>loading</div>
 
     return (
-        <Box sx={{ p: 1 }}>
+        <Box  >
             {/* <Typography variant="h6" >
                     Random Neko
                 </Typography> */}

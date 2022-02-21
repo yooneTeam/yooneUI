@@ -10,8 +10,7 @@ export default function Clock() {
     const time = useNow()
 
     return (
-        <Box sx={{ pb: 0 }}
-        >
+        <Box >
 
             <Stack
                 justifyContent="center"
@@ -19,7 +18,7 @@ export default function Clock() {
                 sx={{ pt: 1 }}
 
             >
-                <Typography variant="h2" fontWeight='300'>
+                <Typography variant="h2" fontWeight='300' >
                     {format(time, 'HH:mm')}
                 </Typography>
                 <Typography variant="subtitle1">

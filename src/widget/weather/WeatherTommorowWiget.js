@@ -13,16 +13,17 @@ export default function WeatherTommorow() {
     const { data: dataWeek, error: errorWeek } = useSWR('https://www.jma.go.jp/bosai/forecast/data/forecast/' + location + '0000.json', fetcher)
     const { data: data24, error: error24 } = useSWR('https://www.jma.go.jp/bosai/jmatile/data/wdist/VPFD/' + location + '0010.json', fetcher)
 
-    if (error24 || errorWeek) return <div>error</div>
+    if (error24 || errorWeek) return <div></div>
     if (!data24 || !dataWeek) return <div>loading</div>
 
     const code = dataWeek[0].timeSeries[0].areas[0].weatherCodes[1]
 
     const temps = dataWeek[0].timeSeries[2].areas[0].temps
-    const timeSeriesTemps = dataWeek[0].timeSeries[2].timeDefines
+    // const timeSeriesTemps = dataWeek[0].timeSeries[2].timeDefines
+    // const tomorrowTemps = temps.filter((_, index) => (isTomorrow(parseISO(timeSeriesTemps[index]))))
+    // const [minTemp, maxtemp] = tomorrowTemps
+    const [minTemp, maxtemp] = temps.slice(-2)
 
-    const tomorrowTemps = temps.filter((_, index) => (isTomorrow(parseISO(timeSeriesTemps[index]))))
-    const [minTemp, maxtemp] = tomorrowTemps
 
     const maxColor = '#cc3333'
     const minColor = '#3333cc'
@@ -30,8 +31,13 @@ export default function WeatherTommorow() {
     const rainyPercents = dataWeek[0].timeSeries[1].areas[0].pops
     const timeSeriesPops = dataWeek[0].timeSeries[1].timeDefines
 
-    const tomorrowRainyPercents = rainyPercents.filter((_, index) => (isTomorrow(parseISO(timeSeriesPops[index]))))
+    // const tomorrowRainyPercents = rainyPercents.filter((_, index) => (isTomorrow(parseISO(timeSeriesPops[index]))))
+    const tomorrowRainyPercents = rainyPercents.slice(-4) //今後修正予定
+
     const maxRainyPercents = Math.max(...tomorrowRainyPercents)
+
+    // console.log(temps.slice(-2))
+
 
     return (
         <Box sx={{ py: 1 }}>
