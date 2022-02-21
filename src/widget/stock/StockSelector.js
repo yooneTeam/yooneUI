@@ -4,7 +4,7 @@ import { Box, Stack, TextField, InputAdornment, Divider, List, ListItem, ListIte
 import useStockInfoState from './useStockInfoState';
 import SearchIcon from '@mui/icons-material/Search';
 
-export default function StockSelector({ id }) {   //44192
+export default function StockSelector({ id }) {   //44192　
 
     const { setStockInfo } = useStockInfoState(id);
     const [timerID, setTimerID] = useState('');
