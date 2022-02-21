@@ -11,7 +11,7 @@ export default function StockSelector({ id }) {   //44192
     const [queryList, setQueryList] = useState([]);
 
     const fetcher = searchValue => searchValue ?
-        axios.get('https://api.investing.com/api/search/v2/search?q=' + searchValue)
+        axios.get('https://api.investing.com/api/search/v2/search?q=' + encodeURI(searchValue), { headers: { 'domain-id': 'jp' } })
             .then(res => {
                 const queryResult = res.data.quotes
                 console.log(queryResult)
@@ -49,7 +49,7 @@ export default function StockSelector({ id }) {   //44192
                     sx={{ px: 1, pt: 2 }}
                 />
 
-                <Paper sx={{ height: '200px', width: '100%', overflow: 'auto', mt: 1 }}>
+                <Paper sx={{ height: '190px', width: '100%', overflowY: 'auto', overflowX: 'hidden', mt: 1 }}>
                     <List dense={true}>
                         <Divider />
                         {queryList.map(item =>

@@ -19,6 +19,8 @@ export default function StockChart({ stockInfo }) {   //44192
     const timeDefinesAll = candlesticks.data.map(candlestick => fromUnixTime(candlestick[0] / 1000))
     const closingPricesAll = candlesticks.data.map(candlestick => candlestick[4])
 
+    console.log(candlesticks)
+
     const allDays = [...new Set(timeDefinesAll.map(time => formatISO(startOfDay(time))))];
 
     const lastDay = parseISO(allDays.slice(-2)[0])
@@ -77,18 +79,25 @@ export default function StockChart({ stockInfo }) {   //44192
         data: closingPrices
     }]
 
-    return (
-        <Box sx={{ mb: -5 }}>
-            <Stack justifyContent="center" alignItems="center"   >
 
-                <Typography variant="h6" sx={{ mt: 0.5 }} fontWeight='700' >
-                    {stockInfo.description}
+    const [chartName, chartNameSize] = (stockInfo.description.length < 8) ?
+        [stockInfo.description, "h6"]
+        :
+        [stockInfo.description.slice(0, 9) + '…', "subtitle2"]
+
+    return (
+        <Box sx={{ mb: -4 }}>
+            <Stack justifyContent="center" alignItems="center"  >
+
+                <Typography variant={chartNameSize} sx={{ mt: 0.5 }} fontWeight='700' align="center" noWrap>
+                    {chartName}
                 </Typography>
-                <Typography variant="h3" sx={{ mt: -1 }} fontWeight='500' noWrap={true}>
+
+                <Typography variant="h3" sx={{ mt: -0.6 }} fontWeight='500' noWrap>
                     {closingPricesNow.toLocaleString()}
                 </Typography>
 
-                <Stack direction="row" alignItems="flex-end" sx={{ mt: -0.5, mb: -3 }}>
+                <Stack direction="row" alignItems="flex-end" sx={{ mt: -0.7, mb: -3 }}>
                     {(increaseRate < 0) ?
                         <ArrowDownwardIcon color="error" />
                         :
@@ -108,7 +117,7 @@ export default function StockChart({ stockInfo }) {   //44192
                 type="line"
                 series={chartData}
                 options={chartOptions}
-                height={'95%'}
+                height={'90%'}
             />
 
         </ Box >
