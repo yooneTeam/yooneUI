@@ -49,7 +49,7 @@ export default function WeatherToday() {
     const maxRainyPercents = Math.max(...todayRainyPercents)
 
     return (
-        <Stack direction="column" alignItems="center" justifyContent="space-around" sx={{ height: '100%', width: '100%', py: 1 }}  >
+        <Stack alignItems="center" justifyContent="space-around" sx={{ height: '100%', width: '100%', py: 1 }}  >
             <Typography variant="subtitle1" fontWeight='700' align='center'>
                 今日
             </Typography>

@@ -33,7 +33,7 @@ export default function StockSelector({ id }) {   //44192　
 
     return (
         <Box >
-            <Stack justifyContent="center" alignItems="center"   >
+            <Stack alignItems="center" sx={{ height: '100%', width: '100%' }}  >
 
                 <TextField
                     size="small"

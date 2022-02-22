@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { getHours, getMinutes, getSeconds } from 'date-fns'
 import { css } from '@emotion/react';
+import { useTheme } from '@emotion/react';
 
 const AnarogClock = ({ time }) => {
 
@@ -22,7 +23,7 @@ const AnarogClock = ({ time }) => {
     });
 
     const edge = css({
-        backgroundColor: '#000',
+        backgroundColor: '#222',
         width: '100%',
         height: '100%',
         position: 'absolute',
@@ -62,7 +63,6 @@ const AnarogClock = ({ time }) => {
     })
 
     const second = css({
-        backgroundColor: '#e74c3c',
         width: '1.1%',
         height: '47%'
     })
@@ -79,7 +79,6 @@ const AnarogClock = ({ time }) => {
     })
 
     const centerPointTop = css({
-        backgroundColor: '#e74c3c',
         width: '5.5%',
         height: '5.5%',
         position: 'absolute',
@@ -93,6 +92,8 @@ const AnarogClock = ({ time }) => {
     const minuteRotate = (parseFloat(getMinutes(time)) + parseFloat(getSeconds(time)) / 60) * (360.0 / 60.0)
     const secondsRotate = parseFloat(getSeconds(time)) * (360.0 / 60.0)
 
+    const theme = useTheme()
+
     return (
         <div css={rerative}>
             <div css={body}>
@@ -101,8 +102,13 @@ const AnarogClock = ({ time }) => {
                 <div css={[needle, hour]} style={{ transform: `translate(-50%, -100%) rotate(${hourRotate}deg)` }}></div>
                 <div css={[needle, minute]} style={{ transform: `translate(-50%, -100%) rotate(${minuteRotate}deg)` }}></div>
                 <div css={centerPoint} ></div>
-                <div css={centerPointTop}></div>
-                <div css={[needle, second]} style={{ transform: `translate(-50%, -100%) rotate(${secondsRotate}deg)` }}></div>
+                <div css={centerPointTop} style={{
+                    backgroundColor: theme.palette.primary.main
+                }}></div>
+                <div css={[needle, second]} style={{
+                    transform: `translate(-50%, -100%) rotate(${secondsRotate}deg)`,
+                    backgroundColor: theme.palette.primary.main
+                }}></div>
             </div>
         </div>
 

@@ -86,7 +86,7 @@ export default function StockChart({ stockInfo }) {   //44192
         [stockInfo.description.slice(0, 8) + '…', "subtitle2"]
 
     return (
-        <Stack direction="column" alignItems="center" justifyContent="space-around" sx={{ pt: 0.5, height: '100%', width: '100%' }}  >
+        <Stack alignItems="center" justifyContent="space-around" sx={{ pt: 0.5, height: '100%', width: '100%' }}  >
 
             <Typography variant={chartNameSize} fontWeight='700' align="center" noWrap>
                 {chartName}

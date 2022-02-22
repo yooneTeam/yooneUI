@@ -1,4 +1,4 @@
-import React, { useState, createElement } from 'react';
+import React, { createElement } from 'react';
 import { atom, useRecoilState } from 'recoil';
 import { Grid, Container } from '@mui/material';
 import MovableItem from './MovableItem';
@@ -9,6 +9,7 @@ import Clock from '../../../widget/clock/ClockWidget';
 import WeatherToday from '../../../widget/weather/WeatherTodayWiget';
 import WeatherTommorow from '../../../widget/weather/WeatherTommorowWiget';
 import Stock from '../../../widget/stock/StockWidget';
+import Youtube from '../../../widget/youtube/YoutubeWidget';
 
 const small = { xs: 4, md: 3, lg: 2, }
 const medium = { xs: 8, md: 6, lg: 4, }
@@ -24,9 +25,10 @@ const itemsState = atom({
         { id: 5, component: Stock, size: small },
         { id: 6, component: Stock, size: small },
         { id: 7, component: Neko, size: medium },
-        // { id: 5, component: Counter, size: small },
-        // { id: 6, component: Counter, size: small },
-        // { id: 7, component: Counter, size: medium },
+        { id: 8, component: Youtube, size: medium },
+        // { id: 9, component: Neko, size: medium },
+        // { id: 10, component: Neko, size: medium },
+
     ]
 });
 
