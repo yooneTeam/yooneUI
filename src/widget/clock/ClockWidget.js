@@ -10,7 +10,7 @@ export default function Clock() {
     const time = useNow()
 
     return (
-        <Stack alignItems="center" sx={{ height: '100%', width: '100%' }} >
+        <Stack alignItems="center" justifyContent="bottom" sx={{ height: '100%', width: '100%' }} >
             <Typography variant="h2" fontWeight='300' >
                 {format(time, 'HH:mm')}
             </Typography>

@@ -80,7 +80,7 @@ export default function StockChart({ stockInfo }) {   //44192
     }]
 
 
-    const [chartName, chartNameSize] = (stockInfo.description.length < 8) ?
+    const [chartName, chartNameSize] = (stockInfo.description.length < 9) ?
         [stockInfo.description, "h6"]
         :
         [stockInfo.description.slice(0, 8) + '…', "subtitle2"]
