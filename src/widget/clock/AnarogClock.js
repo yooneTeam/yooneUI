@@ -50,6 +50,7 @@ const AnarogClock = ({ time }) => {
         top: '50%',
         left: '50%',
         transformOrigin: 'bottom center',
+        borderRadius: '100% 100% 0% 0%'
     })
 
     const hour = css({
@@ -63,7 +64,7 @@ const AnarogClock = ({ time }) => {
     })
 
     const second = css({
-        width: '1.1%',
+        width: '1%',
         height: '47%'
     })
 

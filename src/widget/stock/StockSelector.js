@@ -42,7 +42,7 @@ export default function StockSelector({ id }) {   //44192　
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                                <SearchIcon />
+                                <SearchIcon fontSize='small' />
                             </InputAdornment>
                         ),
                     }}
