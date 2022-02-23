@@ -42,7 +42,7 @@ export default function MovableItem({ index, sortItems, size, children }) {
 
     return (
         <Grid item xs={size.xs} md={size.md} lg={size.lg} style={{ opacity }} >
-            <Card ref={ref} sx={{ height: ' clamp(200px, 100% , 350px)' }} >
+            <Card ref={ref} sx={{ height: ' clamp(200px, 100% , 320px)' }} >
                 {children}
             </Card>
         </Grid >
