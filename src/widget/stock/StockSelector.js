@@ -42,45 +42,38 @@ export default function StockSelector({ id }) {   //44192　
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                                <SearchIcon fontSize='small' />
+                                <SearchIcon sx={{ width: '17px' }} />
                             </InputAdornment>
                         ),
                     }}
                     sx={{ px: 1, pt: 2 }}
                 />
 
-                <Paper sx={{ height: '190px', width: '100%', overflowY: 'auto', overflowX: 'hidden', mt: 1 }}>
-                    <List dense={true}>
-                        <Divider />
-                        {queryList.map(item =>
-                            <span key={item.id}>
-                                <ListItem disablePadding sx={{ width: '100%' }} >
-                                    <ListItemButton onClick={() => onClick(item)}>
-                                        <ListItemText
-                                            primary={item.symbol}
-                                            secondary={item.description}
-                                            secondaryTypographyProps={{
-                                                noWrap: true,
-                                                fontSize: 11,
-                                                lineHeight: '15px',
-                                            }} />
-                                    </ListItemButton>
-                                </ListItem>
-                                <Divider />
-                            </span>
-
-                        )}
-                    </List>
+                <Paper sx={{ height: '100%', width: '100%', maxHeight: '230px', overflowY: 'auto', overflowX: 'hidden', mt: 1 }}>
+                    <div style={{ position: 'relative', paddingTop: '120%' }}>
+                        <List dense={true} sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
+                            <Divider />
+                            {queryList.map(item =>
+                                <span key={item.id}>
+                                    <ListItem disablePadding  >
+                                        <ListItemButton onClick={() => onClick(item)}>
+                                            <ListItemText
+                                                primary={item.symbol}
+                                                secondary={item.description}
+                                                secondaryTypographyProps={{
+                                                    noWrap: true,
+                                                    fontSize: 11,
+                                                    lineHeight: '15px',
+                                                }} />
+                                        </ListItemButton>
+                                    </ListItem>
+                                    <Divider />
+                                </span>
+                            )}
+                        </List>
+                    </div>
                 </Paper>
-
-
-
-
             </Stack>
-
-
-
-
         </ Box >
     );
 }

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { Card, Stack, Typography, Box } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { format } from 'date-fns'
 import useNow from '../../common/hooks/useNow'
 import AnarogClock from './AnarogClock';

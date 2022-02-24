@@ -30,18 +30,18 @@ const AnarogClock = ({ time }) => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        borderRadius: '50%',
+        borderRadius: '100%',
     });
 
     const base = css({
         backgroundColor: '#fff',
-        width: '97%',
-        height: '97%',
+        width: '98%',
+        height: '98%',
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        borderRadius: '50%',
+        borderRadius: '100%',
     });
 
     const needle = css({
@@ -50,7 +50,6 @@ const AnarogClock = ({ time }) => {
         top: '50%',
         left: '50%',
         transformOrigin: 'bottom center',
-        borderRadius: '100% 100% 0% 0%'
     })
 
     const hour = css({

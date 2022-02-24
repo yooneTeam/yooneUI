@@ -15,8 +15,8 @@ const small = { xs: 4, md: 3, lg: 2, }
 const medium = { xs: 8, md: 6, lg: 4, }
 const large = { xs: 12, md: 12, lg: 6, }
 
-const itemsState = atom({
-    key: "items",
+const widgetItemsState = atom({
+    key: "widgetItems",
     default: [
         { id: 1, component: Clock, size: small },
         { id: 2, component: WeatherToday, size: small },
@@ -34,7 +34,7 @@ const itemsState = atom({
 
 export default function Home() {
 
-    const [items, setItems] = useRecoilState(itemsState);
+    const [items, setItems] = useRecoilState(widgetItemsState);
 
     const sortItems = (dragIndex, dropIndex) => {
         const preItems = [...items]
@@ -47,8 +47,8 @@ export default function Home() {
         <Container >
             <Grid container spacing={1} alignItems="stretch"  >
                 {items.map(({ size, component, id }, index) => (
-                    <MovableItem index={index} sortItems={sortItems} size={size} key={index}>
-                        {createElement(component, { id })}
+                    <MovableItem key={id} index={index} sortItems={sortItems} size={size} >
+                        {createElement(component, { id, index })}
                     </MovableItem>))}
             </Grid>
         </Container>
