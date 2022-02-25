@@ -73,6 +73,7 @@ export default function StockSelector({ id }) {   //44192　
                         </List>
                     </div>
                 </Paper>
+
             </Stack>
         </ Box >
     );

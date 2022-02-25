@@ -40,7 +40,7 @@ export default function MovableItem({ index, sortItems, size, children }) {
     });
 
     drag(drop(ref))
-    const opacity = isDragging ? 0.0 : 1;
+    const opacity = isDragging ? 0 : 1;
 
     return (
         <Grid item xs={size.xs} md={size.md} lg={size.lg} style={{ opacity }} >
