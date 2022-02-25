@@ -9,7 +9,7 @@ import paletteMaker from './paletteMaker';
 
 import typography from './typography';
 import componentsOverride from './overrides';
-import {shadowMaker, customShadowMaker} from './shadowMaker'
+import { shadowMaker, customShadowMaker } from './shadowMaker'
 
 
 ThemeConfig.propTypes = {
@@ -23,14 +23,14 @@ export default function ThemeConfig({ children }) {
   const [colorMode, setColorMode] = useState('light');
 
   const colorModeChanger = (mode) => {
-        console.log('change DarkMode ' + mode)
-        setColorMode(mode);
-    }
+    console.log('change DarkMode ' + mode)
+    setColorMode(mode);
+  }
 
   const themeOptions = useMemo(() => {
     console.log('loading theme')
     console.log(colorMode)
-    return(
+    return (
       {
         palette: paletteMaker(colorMode),
         shadows: shadowMaker(colorMode),
@@ -39,7 +39,7 @@ export default function ThemeConfig({ children }) {
         typography,
       }
     )
-  },[colorMode]
+  }, [colorMode]
   );
 
   const theme = createTheme(themeOptions);
@@ -47,7 +47,7 @@ export default function ThemeConfig({ children }) {
 
   return (
 
-    <colorModeContext.Provider value = {{colorModeChanger, colorMode}}>
+    <colorModeContext.Provider value={{ colorModeChanger, colorMode }}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <CssBaseline />

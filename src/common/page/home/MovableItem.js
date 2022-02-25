@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Grid, Card } from '@mui/material';
+import { Grid, Card, Stack } from '@mui/material';
 import { useDrag, useDrop } from "react-dnd";
 
 export default function MovableItem({ index, sortItems, size, children }) {
@@ -23,10 +23,12 @@ export default function MovableItem({ index, sortItems, size, children }) {
             sortItems(dragIndex, dropIndex)//マウスが一定以上移動したらソート実行
             item.index = dropIndex;
         },
-        collect: monitor => ({
-            isOver: monitor.isOver(),
-            canDrop: monitor.canDrop(),
-        })
+        collect: monitor => {
+            return {
+                isOver: monitor.isOver(),
+                canDrop: monitor.canDrop(),
+            }
+        }
     });
 
     const [{ isDragging }, drag] = useDrag({
@@ -38,20 +40,11 @@ export default function MovableItem({ index, sortItems, size, children }) {
     });
 
     drag(drop(ref))
-    const opacity = (canDrop && isOver) ? 0.2 : 1;
+    const opacity = isDragging ? 0 : 1;
 
     return (
-        // <Grid item xs={size.xs} md={size.md} lg={size.lg} style={{ opacity }}>
-        //     <Card ref={ref} sx={{ pb: ' clamp(210px, ' + size.heightRatio + ', 280px)', height: '0px' }}  >
-        //         {children}
-        //     </Card>
-        // </Grid>
-
-        // <Card ref={ref} sx={{ height: '100%', overflow: 'auto' }}  >
-
-
         <Grid item xs={size.xs} md={size.md} lg={size.lg} style={{ opacity }} >
-            <Card ref={ref} sx={{ height: ' clamp(200px, 100% , 290px)' }} >
+            <Card ref={ref} sx={{ height: ' clamp(200px, 100% , 320px)' }} >
                 {children}
             </Card>
         </Grid >

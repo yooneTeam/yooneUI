@@ -83,43 +83,42 @@ export default function StockChart({ stockInfo }) {   //44192
     const [chartName, chartNameSize] = (stockInfo.description.length < 8) ?
         [stockInfo.description, "h6"]
         :
-        [stockInfo.description.slice(0, 9) + '…', "subtitle2"]
+        [stockInfo.description.slice(0, 8) + '…', "subtitle2"]
 
     return (
-        <Box sx={{ mb: -4 }}>
-            <Stack justifyContent="center" alignItems="center"  >
+        <Stack alignItems="center" justifyContent="space-around" sx={{ pt: 0.5, height: '100%', width: '100%' }}  >
 
-                <Typography variant={chartNameSize} sx={{ mt: 0.5 }} fontWeight='700' align="center" noWrap>
-                    {chartName}
+            <Typography variant={chartNameSize} fontWeight='700' align="center" noWrap>
+                {chartName}
+            </Typography>
+
+            <Typography variant="h3" sx={{ mt: -0.6 }} fontWeight='500' noWrap>
+                {closingPricesNow.toLocaleString()}
+            </Typography>
+
+            <Stack direction="row" alignItems="flex-end" sx={{ mt: -0.7 }}>
+                {(increaseRate < 0) ?
+                    <ArrowDownwardIcon color="error" />
+                    :
+                    <ArrowUpwardIcon color='success' />
+                }
+                <Typography variant="h5" fontWeight='400' sx={{ pl: 0.5 }}>
+                    {(100 * (closingPricesNow - closingPricesStart) / closingPricesNow).toFixed(1)}
                 </Typography>
-
-                <Typography variant="h3" sx={{ mt: -0.6 }} fontWeight='500' noWrap>
-                    {closingPricesNow.toLocaleString()}
+                <Typography variant="subtitle2" fontWeight='400' sx={{ pl: 0.5 }}>
+                    %
                 </Typography>
-
-                <Stack direction="row" alignItems="flex-end" sx={{ mt: -0.7, mb: -3 }}>
-                    {(increaseRate < 0) ?
-                        <ArrowDownwardIcon color="error" />
-                        :
-                        <ArrowUpwardIcon color='success' />
-                    }
-                    <Typography variant="h5" fontWeight='400' sx={{ pl: 0.5 }}>
-                        {(100 * (closingPricesNow - closingPricesStart) / closingPricesNow).toFixed(1)}
-                    </Typography>
-                    <Typography variant="subtitle2" fontWeight='400' sx={{ pl: 0.5 }}>
-                        %
-                    </Typography>
-                </Stack>
-
             </Stack>
 
-            <ReactApexChart
-                type="line"
-                series={chartData}
-                options={chartOptions}
-                height={'90%'}
-            />
+            <Box sx={{ mt: -2, mb: -3 }}>
+                <ReactApexChart
+                    type="line"
+                    series={chartData}
+                    options={chartOptions}
+                    height={'120%'}
+                />
+            </Box>
+        </Stack>
 
-        </ Box >
     );
 }
