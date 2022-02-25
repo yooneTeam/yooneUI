@@ -1,11 +1,12 @@
 import ReactPlayer from 'react-player/lazy'
 import { useRecoilState, atomFamily } from 'recoil';
 import { useState, useRef } from 'react';
-import { Box, Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { addSeconds, format } from 'date-fns';
 
 import YoutubeController from './YoutubeController';
 import YoutubeSeekbar from './YoutubeSeekbar'
+import YoutubePlayList from './YoutubePlayList';
 
 const youtubeURLState = atomFamily({
     key: 'youtubeURL',
@@ -21,11 +22,12 @@ function YoutubePlayer({ id }) {
     const [isShuffle, setIsShuffle] = useState(false);
     const [isLoop, setIsLoop] = useState(false);
     const [openVolume, setOpenVolume] = useState(false);
+    const [openPlayList, setOpenPlayList] = useState(false);
     const [duration, setDuration] = useState(0);
     const [progeress, setProgeress] = useState(0);
     const [volume, setVolume] = useState(100);
 
-    setYoutubeURL('https://www.youtube.com/watch?v=-VKIqrvVOpo')
+    setYoutubeURL('https://www.youtube.com/watch?v=Dr4FL3lnxlA')
 
     const onPlay = () => {
         setIsPlaying(true)
@@ -51,6 +53,9 @@ function YoutubePlayer({ id }) {
     const handleClickVolume = () => {
         setOpenVolume(!openVolume)
     }
+    const handleClickPlayList = () => {
+        setOpenPlayList(!openPlayList)
+    }
     const handleVolumeChange = (_, newValue) => {
         setVolume(newValue)
     }
@@ -65,12 +70,13 @@ function YoutubePlayer({ id }) {
 
     return (
         <Stack sx={{ width: '100%', height: '100%', alignItems: 'center' }}>
-            <Box sx={{ width: '90%', height: '100%', mt: '3%', maxWidth: '420px' }}>
+
+            <Stack sx={{ width: '100%', height: openPlayList ? '30%' : '100%', maxWidth: '420px' }}>
                 <div style={{ position: 'relative', paddingTop: '56.25%' }}>
                     <ReactPlayer url={youtubeURL}
                         ref={playerRef}
-                        width='100%'
-                        height='100%'
+                        width={openPlayList ? '40%' : '100%'}
+                        height={openPlayList ? '40%' : '100%'}
                         pip
                         volume={volume / 100}
                         loop={isLoop}
@@ -82,8 +88,18 @@ function YoutubePlayer({ id }) {
                         onProgress={onProgress}
                         style={{ position: 'absolute', top: '0', left: '0' }}
                     />
+                    {openPlayList &&
+                        <Stack sx={{ position: 'absolute', top: '0', left: '43%', width: '55%', height: '20%' }}>
+                            <Typography >
+                                日本に数店舗しかない全品90％オフのヴィレヴァン
+                            </Typography>
+
+                        </Stack>
+                    }
                 </div>
-            </Box>
+            </Stack>
+
+            {openPlayList && <YoutubePlayList setYoutubeURL={setYoutubeURL} />}
 
             <YoutubeSeekbar
                 progeress={progeress}
@@ -103,6 +119,8 @@ function YoutubePlayer({ id }) {
                 openVolume={openVolume}
                 volume={volume}
                 handleVolumeChange={handleVolumeChange}
+                openPlayList={openPlayList}
+                handleClickPlayList={handleClickPlayList}
             />
 
         </Stack>

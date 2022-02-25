@@ -37,7 +37,6 @@ export default function StockSelector({ id }) {   //44192　
 
                 <TextField
                     size="small"
-                    type="search"
                     onChange={onChange}
                     InputProps={{
                         startAdornment: (
@@ -49,7 +48,7 @@ export default function StockSelector({ id }) {   //44192　
                     sx={{ px: 1, pt: 2 }}
                 />
 
-                <Paper sx={{ height: '100%', width: '100%', maxHeight: '230px', overflowY: 'auto', overflowX: 'hidden', mt: 1 }}>
+                <Box sx={{ height: '100%', width: '100%', maxHeight: '230px', overflowY: 'auto', overflowX: 'hidden', mt: 1 }}>
                     <div style={{ position: 'relative', paddingTop: '120%' }}>
                         <List dense={true} sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
                             <Divider />
@@ -72,7 +71,7 @@ export default function StockSelector({ id }) {   //44192　
                             )}
                         </List>
                     </div>
-                </Paper>
+                </Box>
 
             </Stack>
         </ Box >
