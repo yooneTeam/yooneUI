@@ -1,50 +1,44 @@
 import { memo } from 'react';
-import useSWR from 'swr';
-import axios from 'axios'
-import { Box, Stack, TextField, InputAdornment, Divider, List, ListItem, ListItemText, ListItemButton, Paper } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Box, Divider, List, ListItem, ListItemText, ListItemButton } from '@mui/material';
 
-function YoutubePlayList({ id }) {   //44192　
+function YoutubePlayList({ onClickVideoItem, data, indexPlaying }) {
 
-
-    const fetcher = url => axios.get(url, {
-        params: {
-            key: 'AIzaSyDK3kWMm_HNy8GlVgBkmeoBm5ZkZD4MWwg',
-            channelId: 'UC1EB8moGYdkoZQfWHjh7Ivw',
-            part: 'snippet ',
-            maxResults: '50',
-            order: 'date',
-        }
-    }).then(res => res.data)
-
-
-    const { data, error } = useSWR('https://www.googleapis.com/youtube/v3/search', fetcher)
-
-    if (!data) return <div></div>
-
-    const onClick = (info) => {
-        console.log(info)
-    }
-
-    console.log(data)
+    if (!data) return <div style={{ height: '70%' }}></div>
 
     return (
         <Box sx={{ width: '100%', height: '70%', overflowY: 'auto', overflowX: 'hidden', position: 'relative' }}>
             <List dense={true} sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
                 <Divider />
-                {data.items.map(item =>
-                    <span key={item.etag}>
+                {data.map((item, index) =>
+                    <span key={item.videoId}>
                         <ListItem disablePadding >
-                            <ListItemButton onClick={() => onClick(item)}>
-                                <ListItemText
-                                    primary={item.snippet.title}
-                                    primaryTypographyProps={{
-                                        noWrap: true,
-                                        fontSize: 13,
-                                        lineHeight: '14px',
-                                    }}
-                                />
-                            </ListItemButton>
+                            {(index == indexPlaying) ?
+                                <ListItemButton
+                                    onClick={() => onClickVideoItem({ ...item, index })}
+                                    sx={{ backgroundColor: 'primary.lighter' }}
+                                >
+                                    <ListItemText
+                                        primary={item.title}
+                                        primaryTypographyProps={{
+                                            noWrap: true,
+                                            fontSize: 13,
+                                            lineHeight: '14px',
+                                        }}
+                                    />
+                                </ListItemButton>
+                                :
+                                <ListItemButton onClick={() => onClickVideoItem({ ...item, index })}>
+                                    <ListItemText
+                                        primary={item.title}
+                                        primaryTypographyProps={{
+                                            noWrap: true,
+                                            fontSize: 13,
+                                            lineHeight: '14px',
+                                        }}
+                                    />
+                                </ListItemButton>
+                            }
+
                         </ListItem>
                         <Divider />
                     </span>

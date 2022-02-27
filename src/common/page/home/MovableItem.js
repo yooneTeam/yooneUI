@@ -1,9 +1,11 @@
 import { useRef } from 'react';
 import { Grid, Card, Stack } from '@mui/material';
 import { useDrag, useDrop } from "react-dnd";
+import useIsDragging from '../../hooks/useIsDragging';
 
 export default function MovableItem({ index, sortItems, size, children }) {
     const ref = useRef(null)
+    const { setIsDragging, isDraggingNow } = useIsDragging()
 
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: 'Card',
@@ -38,6 +40,7 @@ export default function MovableItem({ index, sortItems, size, children }) {
             return { isDragging: monitor.isDragging() }
         },
     });
+
 
     drag(drop(ref))
     const opacity = isDragging ? 0 : 1;

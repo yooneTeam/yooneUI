@@ -12,7 +12,7 @@ import Stock from '../../../widget/stock/StockWidget';
 import Youtube from '../../../widget/youtube/YoutubeWidget';
 
 const small = { xs: 4, md: 3, lg: 2, }
-const medium = { xs: 8, md: 6, lg: 4, }
+const medium = { xs: 12, md: 6, lg: 4, }
 const large = { xs: 12, md: 12, lg: 6, }
 
 const widgetItemsState = atom({

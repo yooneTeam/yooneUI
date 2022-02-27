@@ -9,14 +9,13 @@ import LoopRoundedIcon from '@mui/icons-material/LoopRounded';
 import PlaylistPlayRoundedIcon from '@mui/icons-material/PlaylistPlayRounded';
 import VolumeUpRoundedIcon from '@mui/icons-material/VolumeUpRounded';
 
-
 export default function YoutubeController({ handleClickShuffle, isShuffle, handleClickLoop,
-    isLoop, handleClickPlay, isPlaying, handleClickVolume,
-    openVolume, volume, handleVolumeChange, openPlayList, handleClickPlayList }) {
+    isLoop, handleClickPlay, isPlaying, handleClickVolume, openVolume, volume,
+    handleVolumeChange, openPlayList, handleClickPlayList, handleClickBack, handleClickNext }) {
 
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleVolumeClick = (event) => {
+    const handleVolumeOpen = (event) => {
         handleClickVolume()
         setAnchorEl(event.currentTarget);
     };
@@ -32,7 +31,7 @@ export default function YoutubeController({ handleClickShuffle, isShuffle, handl
     return (
         <Stack direction="row" justifyContent="space-around" alignItems="center" sx={{ width: '100%', my: '1%' }}>
 
-            <Stack direction="row" justifyContent="center" spacing={-0.2}>
+            <Stack direction="row" justifyContent="center" >
                 <IconButton sx={{ fontSize: 22 }} onClick={handleClickShuffle} size="small">
                     <ShuffleRoundedIcon fontSize="inherit" color={isShuffle ? "primary" : "default"} />
                 </IconButton>
@@ -44,7 +43,7 @@ export default function YoutubeController({ handleClickShuffle, isShuffle, handl
             <Divider orientation="vertical" variant="middle" flexItem />
 
             <Stack direction="row" justifyContent="center" spacing={-0.5} >
-                <IconButton size="small">
+                <IconButton size="small" onClick={handleClickBack} >
                     <FastRewindRounded />
                 </IconButton>
                 <IconButton sx={{ fontSize: 46, height: 40, width: 40 }} onClick={handleClickPlay} size="small">
@@ -52,15 +51,15 @@ export default function YoutubeController({ handleClickShuffle, isShuffle, handl
                         ? <PauseRounded fontSize="inherit" color="primary" />
                         : <PlayArrowRounded fontSize="inherit" color="primary" />}
                 </IconButton>
-                <IconButton size="small">
+                <IconButton size="small" onClick={handleClickNext}>
                     <FastForwardRounded />
                 </IconButton>
             </Stack>
 
             <Divider orientation="vertical" variant="middle" flexItem />
 
-            <Stack direction="row" justifyContent="center" spacing={-0.2}>
-                <IconButton sx={{ fontSize: 22 }} size="small" aria-describedby={id} onClick={handleVolumeClick}>
+            <Stack direction="row" justifyContent="center" >
+                <IconButton sx={{ fontSize: 22 }} size="small" aria-describedby={id} onClick={handleVolumeOpen}>
                     <VolumeUpRoundedIcon fontSize="inherit" color={openVolume ? "primary" : "default"} />
                 </IconButton>
                 <Popover
@@ -89,7 +88,6 @@ export default function YoutubeController({ handleClickShuffle, isShuffle, handl
                 </IconButton>
 
             </Stack>
-
 
         </Stack>
 

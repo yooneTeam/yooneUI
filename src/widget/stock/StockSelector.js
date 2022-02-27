@@ -37,15 +37,9 @@ export default function StockSelector({ id }) {   //44192　
 
                 <TextField
                     size="small"
+                    label="銘柄名"
                     onChange={onChange}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchIcon sx={{ width: '17px' }} />
-                            </InputAdornment>
-                        ),
-                    }}
-                    sx={{ px: 1, pt: 2 }}
+                    sx={{ mx: 1, mt: 2 }}
                 />
 
                 <Box sx={{ height: '100%', width: '100%', maxHeight: '230px', overflowY: 'auto', overflowX: 'hidden', mt: 1 }}>
