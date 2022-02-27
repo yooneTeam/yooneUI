@@ -23,6 +23,7 @@ function YoutubePlayList({ onClickVideoItem, data, indexPlaying }) {
                                             noWrap: true,
                                             fontSize: 13,
                                             lineHeight: '14px',
+                                            fontWeight: '700'
                                         }}
                                     />
                                 </ListItemButton>
