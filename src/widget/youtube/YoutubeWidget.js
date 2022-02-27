@@ -2,9 +2,9 @@ import axios from 'axios'
 import useSWR from 'swr';
 import ReactPlayer from 'react-player/lazy'
 import { useRecoilState, atomFamily } from 'recoil';
-import { useState, useRef, memo } from 'react';
+import { useState, useRef, useEffect, memo } from 'react';
 import { Stack, Typography, Divider, Input } from '@mui/material';
-import { addSeconds, format } from 'date-fns';
+import { addSeconds, format, startOfDay } from 'date-fns';
 
 import YoutubeController from './YoutubeController';
 import YoutubeSeekbar from './YoutubeSeekbar'
@@ -17,54 +17,21 @@ const youtubeDataAPIURLBasePlayList = 'https://www.googleapis.com/youtube/v3/pla
 const youtubeVideoInfoState = atomFamily({
     key: 'youtubeVideoInfo',
     default: {
-        title: 'Loading',
-        channelTitle: 'Loading',
-        videoId: 'Dr4FL3lnxlA',
-        index: 0
+        title: 'URLを入力してください',
+        channelTitle: 'ready',
+        videoId: '',
+        index: -1
     }
 });
 
 const youtubePlayListInfoState = atomFamily({
     key: 'youtubePlayListInfo',
     default: {
-        type: 'channelId',
-        id: 'UC23YwFQ7rWL2xL39T-qz4yg',
+        type: false,
+        id: '',
     }
 });
 
-const fetcherChannel = ({ id }) => axios.get(youtubeDataAPIURLBaseChannel, {
-    params: {
-        key: 'AIzaSyBpm_Oyb3PvdLP56ByQ2wsacsP1Lf_exYA',
-        channelId: id,
-        part: 'id,snippet',
-        fields: 'items(id(videoId),snippet(title,channelTitle))',
-        maxResults: '50',
-        order: 'date',
-        type: 'video',
-    }
-}).then(res => res.data.items
-    .map((item) => {
-        return {
-            videoId: item.id.videoId, ...item.snippet
-        }
-    }))
-
-const fetcherPlayList = ({ id }) => axios.get(youtubeDataAPIURLBasePlayList, {
-    params: {
-        key: 'AIzaSyBpm_Oyb3PvdLP56ByQ2wsacsP1Lf_exYA',
-        playlistId: id,
-        part: 'snippet',
-        fields: 'items(snippet(title,channelTitle,resourceId(videoId)))',
-        maxResults: '50',
-        order: 'date',
-        type: 'video',
-    }
-}).then(res => res.data.items
-    .map((item) => {
-        return {
-            videoId: item.snippet.resourceId.videoId, ...item.snippet
-        }
-    }))
 
 function YoutubePlayer({ id }) {
     const playerRef = useRef(null)
@@ -81,8 +48,48 @@ function YoutubePlayer({ id }) {
     const [progeress, setProgeress] = useState(0);
     const [volume, setVolume] = useState(100);
 
+
+
+    const fetcherChannel = ({ id }) => axios.get(youtubeDataAPIURLBaseChannel, {
+        params: {
+            key: 'AIzaSyBpm_Oyb3PvdLP56ByQ2wsacsP1Lf_exYA',
+            channelId: id,
+            part: 'id,snippet',
+            fields: 'items(id(videoId),snippet(title,channelTitle))',
+            maxResults: '50',
+            order: 'date',
+            type: 'video',
+        }
+    }).then(res => res.data.items
+        .map((item) => {
+            return {
+                videoId: item.id.videoId, ...item.snippet
+            }
+        }))
+
+    const fetcherPlayList = ({ id }) => axios.get(youtubeDataAPIURLBasePlayList, {
+        params: {
+            key: 'AIzaSyBpm_Oyb3PvdLP56ByQ2wsacsP1Lf_exYA',
+            playlistId: id,
+            part: 'snippet',
+            fields: 'items(snippet(title,channelTitle,resourceId(videoId)))',
+            maxResults: '50',
+            order: 'date',
+            type: 'video',
+        }
+    }).then(res => res.data.items
+        .map((item) => {
+            return {
+                videoId: item.snippet.resourceId.videoId, ...item.snippet
+            }
+        }))
+
+
     const { data, error } = useSWR(youtubePlayListInfo,
-        (youtubePlayListInfo.type == 'channelId') ? fetcherChannel : fetcherPlayList)
+        !youtubePlayListInfo.type ? null
+            : (youtubePlayListInfo.type == 'channelId') ? fetcherChannel : fetcherPlayList)
+
+
 
     const onPlay = () => {
         setIsPlaying(true)
@@ -166,11 +173,19 @@ function YoutubePlayer({ id }) {
         }
     }
 
-
     const valueLabelFormat = (seconds) => {
-        const helperDate = addSeconds(new Date(0), Number(seconds));
-        return format(helperDate, 'm:ss');
+        const helperDate = addSeconds(startOfDay(new Date(0)), Number(seconds));
+        return (seconds > 3600) ? format(helperDate, 'H:mm:ss') : format(helperDate, 'm:ss');
     }
+
+
+    useEffect(() => {
+        if (data) {
+            onClickVideoItem({ ...data[0], index: 0 })
+        } else {
+            setOpenPlayList(true)
+        }
+    }, [data]);
 
     return (
         <Stack sx={{ width: '100%', height: '100%', alignItems: 'center' }}>

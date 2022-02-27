@@ -26,7 +26,7 @@ export default function YoutubeController({ handleClickShuffle, isShuffle, handl
     };
 
     const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
+    const id = open ? 'popover' : undefined;
 
     return (
         <Stack direction="row" justifyContent="space-around" alignItems="center" sx={{ width: '100%', my: '1%' }}>
