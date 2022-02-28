@@ -206,7 +206,7 @@ function YoutubePlayer({ id }) {
                         onProgress={onProgress}
                         style={{ position: 'absolute', top: '0', left: '0' }}
                     />
-                    <div style={{ position: 'absolute', top: '0%', left: '0', width: '100%', height: '100% ' }} />
+                    {/* <div style={{ position: 'absolute', top: '0%', left: '0', width: '100%', height: '100% ' }} /> */}
 
                     {openPlayList &&
                         <Stack sx={{ position: 'absolute', top: '0%', left: '42%', width: '56%', height: '40%', justifyContent: 'space-around' }}>
