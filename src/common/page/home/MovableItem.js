@@ -18,8 +18,8 @@ export default function MovableItem({ index, sortItems, id, size, children }) {
     };
 
     return (
-        <Grid item xs={size.xs} md={size.md} lg={size.lg} style={style} {...attributes} {...listeners}>
-            <Card ref={setNodeRef} sx={{ height: ' clamp(180px, 100% , 320px)' }} >
+        <Grid item xs={size.xs} md={size.md} lg={size.lg} style={style} ref={setNodeRef}{...attributes} {...listeners}>
+            <Card sx={{ height: ' clamp(180px, 100% , 320px)' }} >
                 {children}
             </Card>
         </Grid >

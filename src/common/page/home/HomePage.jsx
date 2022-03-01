@@ -59,10 +59,8 @@ export default function Home() {
 
     function handleDragEnd(event) {
         const { active, over } = event;
-        console.log('dragEnd')
         console.log(active, over)
         if (active.id !== over.id) {
-            console.log('do sort')
             setItems((items) => {
                 const oldIndex = items.findIndex((item) => active.id == item.id)
                 const newIndex = items.findIndex((item) => over.id == item.id);
@@ -74,7 +72,7 @@ export default function Home() {
     }
 
     return (
-        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+        <DndContext onDragEnd={handleDragEnd}>
             <SortableContext items={items}>
                 <Container >
                     <Grid container spacing={1} alignItems="stretch"  >
