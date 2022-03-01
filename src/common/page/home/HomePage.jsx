@@ -13,7 +13,6 @@ import {
     sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable';
 
-
 import { Grid, Container } from '@mui/material';
 import MovableItem from './MovableItem';
 
@@ -40,9 +39,6 @@ const widgetItemsState = atom({
         { id: 6, component: Stock, size: small },
         { id: 7, component: Neko, size: medium },
         { id: 8, component: Youtube, size: medium },
-        // { id: 9, component: Neko, size: medium },
-        // { id: 10, component: Neko, size: medium },
-
     ]
 });
 
@@ -59,17 +55,15 @@ export default function Home() {
 
     function handleDragEnd(event) {
         const { active, over } = event;
-        console.log(active, over)
         if (active.id !== over.id) {
             setItems((items) => {
                 const oldIndex = items.findIndex((item) => active.id == item.id)
                 const newIndex = items.findIndex((item) => over.id == item.id);
-                console.log(arrayMove(items, oldIndex, newIndex))
-                console.log(items, oldIndex, newIndex)
                 return arrayMove(items, oldIndex, newIndex);
             });
         }
     }
+
 
     return (
         <DndContext onDragEnd={handleDragEnd}>
@@ -77,7 +71,7 @@ export default function Home() {
                 <Container >
                     <Grid container spacing={1} alignItems="stretch"  >
                         {items.map(({ size, component, id }, index) => (
-                            <MovableItem key={id} id={id} index={index} size={size} >
+                            <MovableItem key={id} id={id} size={size} >
                                 {createElement(component, { id, index })}
                             </MovableItem>))}
                     </Grid>
