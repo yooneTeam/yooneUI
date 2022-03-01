@@ -1,5 +1,18 @@
 import React, { createElement } from 'react';
 import { atom, useRecoilState } from 'recoil';
+import {
+    DndContext,
+    KeyboardSensor,
+    PointerSensor,
+    useSensor,
+    useSensors,
+} from '@dnd-kit/core';
+import {
+    arrayMove,
+    SortableContext,
+    sortableKeyboardCoordinates,
+} from '@dnd-kit/sortable';
+
 import { Grid, Container } from '@mui/material';
 import MovableItem from './MovableItem';
 
@@ -26,9 +39,6 @@ const widgetItemsState = atom({
         { id: 6, component: Stock, size: small },
         { id: 7, component: Neko, size: medium },
         { id: 8, component: Youtube, size: medium },
-        // { id: 9, component: Neko, size: medium },
-        // { id: 10, component: Neko, size: medium },
-
     ]
 });
 
@@ -36,22 +46,38 @@ export default function Home() {
 
     const [items, setItems] = useRecoilState(widgetItemsState);
 
-    const sortItems = (dragIndex, dropIndex) => {
-        const preItems = [...items]
-        const dragItem = preItems.splice(dragIndex, 1)
-        preItems.splice(dropIndex, 0, dragItem[0])
-        setItems(preItems)
+    const sensors = useSensors(
+        useSensor(PointerSensor),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
+
+    function handleDragEnd(event) {
+        const { active, over } = event;
+        if (active.id !== over.id) {
+            setItems((items) => {
+                const oldIndex = items.findIndex((item) => active.id == item.id)
+                const newIndex = items.findIndex((item) => over.id == item.id);
+                return arrayMove(items, oldIndex, newIndex);
+            });
+        }
     }
 
+
     return (
-        <Container >
-            <Grid container spacing={1} alignItems="stretch"  >
-                {items.map(({ size, component, id }, index) => (
-                    <MovableItem key={id} index={index} sortItems={sortItems} size={size} >
-                        {createElement(component, { id, index })}
-                    </MovableItem>))}
-            </Grid>
-        </Container>
+        <DndContext onDragEnd={handleDragEnd}>
+            <SortableContext items={items}>
+                <Container >
+                    <Grid container spacing={1} alignItems="stretch"  >
+                        {items.map(({ size, component, id }, index) => (
+                            <MovableItem key={id} id={id} size={size} >
+                                {createElement(component, { id, index })}
+                            </MovableItem>))}
+                    </Grid>
+                </Container>
+            </SortableContext>
+        </DndContext>
     );
 
 }

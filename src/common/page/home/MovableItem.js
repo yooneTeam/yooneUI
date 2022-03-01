@@ -1,53 +1,28 @@
-import { useRef } from 'react';
+import { useSortable } from '@dnd-kit/sortable';
 import { Grid, Card, Stack } from '@mui/material';
-import { useDrag, useDrop } from "react-dnd";
-import useIsDragging from '../../hooks/useIsDragging';
+import { CSS } from '@dnd-kit/utilities';
 
-export default function MovableItem({ index, sortItems, size, children }) {
-    const ref = useRef(null)
-    const { setIsDragging, isDraggingNow } = useIsDragging()
+export default function MovableItem({ id, size, children }) {
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+    } = useSortable({ id });
 
-    const [{ canDrop, isOver }, drop] = useDrop({
-        accept: 'Card',
-        hover(item, monitor) {
-            if (!ref.current) return
-            const dragIndex = item.index
-            const dropIndex = index
-            if (dragIndex === dropIndex) return
+    const scale = attributes['aria-pressed'] ? 1.03 : 1
+    const zIndex = attributes['aria-pressed'] ? 1000 : 1
 
-            const dropItemRect = ref.current.getBoundingClientRect()
-            const dropItemWidth = (dropItemRect.right - dropItemRect.left)
-            const marginRatio = 0.6
-            const mousePositionX = monitor.getClientOffset().x
-
-            if (dropIndex > dragIndex && mousePositionX < dropItemRect.left + dropItemWidth * marginRatio) return
-            if (dropIndex < dragIndex && mousePositionX > dropItemRect.left + dropItemWidth * marginRatio) return
-            sortItems(dragIndex, dropIndex)//マウスが一定以上移動したらソート実行
-            item.index = dropIndex;
-        },
-        collect: monitor => {
-            return {
-                isOver: monitor.isOver(),
-                canDrop: monitor.canDrop(),
-            }
-        }
-    });
-
-    const [{ isDragging }, drag] = useDrag({
-        type: 'Card',
-        item: { index },
-        collect: monitor => {
-            return { isDragging: monitor.isDragging() }
-        },
-    });
-
-
-    drag(drop(ref))
-    const opacity = isDragging ? 0 : 1;
+    const style = {
+        transform: transform && `translate3d(${transform.x}px, ${transform.y}px, 0) scaleX(${scale}) scaleY(${scale})`,
+        transition,
+        zIndex
+    };
 
     return (
-        <Grid item xs={size.xs} md={size.md} lg={size.lg} style={{ opacity }} >
-            <Card ref={ref} sx={{ height: ' clamp(180px, 100% , 320px)' }} >
+        <Grid item xs={size.xs} md={size.md} lg={size.lg} >
+            <Card sx={{ height: ' clamp(180px, 100% , 320px)' }} ref={setNodeRef} {...attributes} {...listeners} style={style}>
                 {children}
             </Card>
         </Grid >

@@ -18,7 +18,7 @@ const youtubeVideoInfoState = atomFamily({
     key: 'youtubeVideoInfo',
     default: {
         title: 'URLを入力してください',
-        channelTitle: 'ready',
+        channelTitle: ' チャンネル or プレイリスト',
         videoId: '',
         index: -1
     }
@@ -44,7 +44,7 @@ function YoutubePlayer({ id }) {
     const [isLoop, setIsLoop] = useState(false);
     const [openVolume, setOpenVolume] = useState(false);
     const [openPlayList, setOpenPlayList] = useState(false);
-    const [duration, setDuration] = useState(100000000000);
+    const [duration, setDuration] = useState(0);
     const [progeress, setProgeress] = useState(0);
     const [volume, setVolume] = useState(100);
 
@@ -123,6 +123,10 @@ function YoutubePlayer({ id }) {
         return (randomIndex == 0) ? 1 : randomIndex
     }
     const handleClickNext = () => {
+        if (isShuffle) {
+            handleSeekChange(null, 0)
+            return
+        }
         const diff = isShuffle ? getRandomIndex() : 1
         changeIndex(diff)
     }
@@ -219,7 +223,7 @@ function YoutubePlayer({ id }) {
                             <Divider />
                             <Input
                                 size="small"
-                                placeholder="URL (プレイリスト or チャンネル)"
+                                placeholder="ex. https://www.youtube.com/channel/..."
                                 sx={{ my: 0, fontSize: '11px', opacity: (youtubePlayListInfoTmp == youtubePlayListInfo.id) ? 1 : 0.6 }}
                                 value={youtubePlayListInfoTmp}
                                 onChange={handlePlayListURLChange}
