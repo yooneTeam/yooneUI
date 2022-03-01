@@ -3,7 +3,6 @@ import { Grid, Card, Stack } from '@mui/material';
 import { CSS } from '@dnd-kit/utilities';
 
 export default function MovableItem({ id, size, children }) {
-
     const {
         attributes,
         listeners,
