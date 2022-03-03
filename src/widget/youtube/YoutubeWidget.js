@@ -194,7 +194,7 @@ function YoutubePlayer({ id }) {
     return (
         <Stack sx={{ width: '100%', height: '100%', alignItems: 'center' }}>
 
-            <Stack sx={{ width: '100%', height: openPlayList ? '33%' : '100%', maxWidth: '420px' }}>
+            <Stack sx={{ width: '100%', height: openPlayList ? '32%' : '100%', maxWidth: '420px' }}>
                 <div style={{ position: 'relative', paddingTop: '56.25%' }}>
                     <ReactPlayer url={youtubeVideoURLBase + youtubeVideoInfo.videoId}
                         ref={playerRef}
@@ -210,7 +210,6 @@ function YoutubePlayer({ id }) {
                         onProgress={onProgress}
                         style={{ position: 'absolute', top: '0', left: '0' }}
                     />
-                    {/* <div style={{ position: 'absolute', top: '0%', left: '0', width: '100%', height: '100% ' }} /> */}
 
                     {openPlayList &&
                         <Stack sx={{ position: 'absolute', top: '0%', left: '42%', width: '56%', height: '40%', justifyContent: 'space-around' }}>

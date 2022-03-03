@@ -1,6 +1,6 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { useIsSettingMode } from '../../hooks/useIsSetting';
-import { Grid, Card, Stack, Avatar, IconButton } from '@mui/material';
+import { Grid, Card, Stack, Avatar } from '@mui/material';
 
 import CloseIcon from '@mui/icons-material/Close';
 import OpenWithIcon from '@mui/icons-material/OpenWith';
@@ -36,17 +36,17 @@ export default function MovableItem({ id, size, children }) {
     return (
         <Grid item {...size} >
 
-            <Card sx={{ height: ' clamp(180px, 100% , 320px)' }} ref={setNodeRef} style={style}>
+            <Card sx={{ height: ' clamp(120px, 100% , 320px)' }} ref={setNodeRef} style={style}>
                 {children}
                 {isSettingMode &&
                     <Stack direction='row' sx={{
-                        position: 'absolute', top: '1%', left: '1%', zIndex: '2000',
-                        width: '98%', height: '20%', justifyContent: 'space-between', direction: 'row',
+                        position: 'absolute', top: '0%', left: '0%', zIndex: '2000',
+                        width: '100%', height: '20%', justifyContent: 'space-between', direction: 'row',
                     }}>
-                        <Avatar sx={{ bgcolor: 'back.main' }}  {...attributes} {...listeners}>
+                        <Avatar sx={{ bgcolor: 'back.main', opacity: '0.8' }}  {...attributes} {...listeners}>
                             <OpenWithIcon />
                         </Avatar>
-                        <Avatar sx={{ bgcolor: 'error.main' }} onClickClose={onClickClose}>
+                        <Avatar sx={{ bgcolor: 'error.main', opacity: '0.8' }} onClick={onClickClose}>
                             <CloseIcon />
                         </Avatar>
                     </Stack>
