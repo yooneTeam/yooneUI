@@ -4,6 +4,7 @@ import { alpha, styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, IconButton, Typography, Card } from '@mui/material';
 // components
 import AccountPopover from './AccountPopover';
+import SettingModeButton from './SettingModeButton';
 import { MHidden } from './@material-extend';
 //
 
@@ -57,7 +58,7 @@ export default function DashboardNavbar({ onOpenSidebar }) {
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
-          <AccountPopover/>
+          <SettingModeButton />
         </Stack>
 
       </ToolbarStyle>
