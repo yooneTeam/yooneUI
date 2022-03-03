@@ -1,6 +1,5 @@
 import { useSortable } from '@dnd-kit/sortable';
-import { Grid, Card, Stack } from '@mui/material';
-import { CSS } from '@dnd-kit/utilities';
+import { Grid, Card } from '@mui/material';
 
 export default function MovableItem({ id, size, children }) {
     const {
@@ -11,13 +10,14 @@ export default function MovableItem({ id, size, children }) {
         transition,
     } = useSortable({ id });
 
-    const scale = attributes['aria-pressed'] ? 1.03 : 1
+    const scale = attributes['aria-pressed'] ? 1.05 : 1
     const zIndex = attributes['aria-pressed'] ? 1000 : 1
 
     const style = {
         transform: transform && `translate3d(${transform.x}px, ${transform.y}px, 0) scaleX(${scale}) scaleY(${scale})`,
         transition,
-        zIndex
+        zIndex,
+        touchAction: 'auto'
     };
 
     return (

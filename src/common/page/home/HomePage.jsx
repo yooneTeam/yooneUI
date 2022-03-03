@@ -2,18 +2,20 @@ import React, { createElement } from 'react';
 import { atom, useRecoilState } from 'recoil';
 import {
     DndContext,
-    KeyboardSensor,
-    PointerSensor,
+    MouseSensor,
+    TouchSensor,
     useSensor,
     useSensors,
 } from '@dnd-kit/core';
 import {
     arrayMove,
     SortableContext,
-    sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable';
 
 import { Grid, Container } from '@mui/material';
+import { useHasTouchScreen } from '../../hooks/useHasTouchScreen';
+
+
 import MovableItem from './MovableItem';
 
 import Counter from '../../../widget/counter/CounteWidget';
@@ -45,12 +47,12 @@ const widgetItemsState = atom({
 export default function Home() {
 
     const [items, setItems] = useRecoilState(widgetItemsState);
+    const { hasTouchScreen } = useHasTouchScreen();
 
     const sensors = useSensors(
-        useSensor(PointerSensor),
-        useSensor(KeyboardSensor, {
-            coordinateGetter: sortableKeyboardCoordinates,
-        })
+        useSensor(hasTouchScreen ? TouchSensor : MouseSensor, hasTouchScreen && {
+            activationConstraint: { delay: 150, tolerance: 5, },
+        }),
     );
 
     function handleDragEnd(event) {
@@ -66,7 +68,7 @@ export default function Home() {
 
 
     return (
-        <DndContext onDragEnd={handleDragEnd}>
+        <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
             <SortableContext items={items}>
                 <Container >
                     <Grid container spacing={1} alignItems="stretch"  >
