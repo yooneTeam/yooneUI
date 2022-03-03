@@ -18,12 +18,12 @@ export default function MovableItem({ id, size, children }) {
 
     const { isSettingMode } = useIsSettingMode()
 
-    const handleClick = () => {
-        console.log('test')
+    const onClickClose = () => {
+        console.log('close')
     }
 
-    const scale = attributes['aria-pressed'] ? 1.05 : 1
-    const zIndex = attributes['aria-pressed'] ? 1000 : 1
+    const scale = attributes['aria-pressed'] ? 1.08 : 1
+    const zIndex = attributes['aria-pressed'] ? 1500 : 1
 
     const style = {
         transform: transform && `translate3d(${transform.x}px, ${transform.y}px, 0) scaleX(${scale}) scaleY(${scale})`,
@@ -34,19 +34,19 @@ export default function MovableItem({ id, size, children }) {
 
 
     return (
-        <Grid item xs={size.xs} md={size.md} lg={size.lg} >
+        <Grid item {...size} >
 
             <Card sx={{ height: ' clamp(180px, 100% , 320px)' }} ref={setNodeRef} style={style}>
                 {children}
                 {isSettingMode &&
                     <Stack direction='row' sx={{
-                        position: 'absolute', top: '2%', left: '1%',
-                        width: '98%', height: '0%', justifyContent: 'space-between', direction: 'row'
+                        position: 'absolute', top: '1%', left: '1%', zIndex: '2000',
+                        width: '98%', height: '20%', justifyContent: 'space-between', direction: 'row',
                     }}>
-                        <Avatar sx={{ bgcolor: 'grey', opacity: '1' }}  {...attributes} {...listeners}>
+                        <Avatar sx={{ bgcolor: 'back.main' }}  {...attributes} {...listeners}>
                             <OpenWithIcon />
                         </Avatar>
-                        <Avatar sx={{ bgcolor: 'red' }}>
+                        <Avatar sx={{ bgcolor: 'error.main' }} onClickClose={onClickClose}>
                             <CloseIcon />
                         </Avatar>
                     </Stack>

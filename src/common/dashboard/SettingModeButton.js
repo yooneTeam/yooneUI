@@ -1,5 +1,5 @@
 import { IconButton, Avatar } from '@mui/material';
-import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
+import SettingsIcon from '@mui/icons-material/Settings';
 import CheckIcon from '@mui/icons-material/Check';
 import { useIsSettingMode } from '../hooks/useIsSetting';
 
@@ -11,7 +11,6 @@ export default function SettingModeButton() {
     const { isSettingMode, setIsSettingMode } = useIsSettingMode()
 
     const handleClick = () => {
-        console.log(isSettingMode)
         setIsSettingMode(!isSettingMode)
     }
 
@@ -22,7 +21,7 @@ export default function SettingModeButton() {
                 {isSettingMode ?
                     <CheckIcon color="primary" />
                     :
-                    <DashboardCustomizeIcon color="primary" />
+                    <SettingsIcon color="primary" />
                 }
             </Avatar>
         </IconButton>
