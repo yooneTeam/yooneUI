@@ -15,7 +15,6 @@ import {
 import { Grid, Container } from '@mui/material';
 import { useHasTouchScreen } from '../../hooks/useHasTouchScreen';
 
-
 import MovableItem from './MovableItem';
 
 import Counter from '../../../widget/counter/CounteWidget';
