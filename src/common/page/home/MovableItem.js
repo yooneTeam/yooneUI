@@ -42,10 +42,10 @@ export default function MovableItem({ id, size, children }) {
                         position: 'absolute', top: '0%', left: '0%', zIndex: '2000',
                         width: '100%', height: '20%', justifyContent: 'space-between', direction: 'row',
                     }}>
-                        <Avatar sx={{ bgcolor: 'back.main', opacity: '0.85' }}  {...attributes} {...listeners}>
+                        <Avatar sx={{ bgcolor: 'back.main' }}  {...attributes} {...listeners}>
                             <OpenWithIcon />
                         </Avatar>
-                        <Avatar sx={{ bgcolor: 'error.main', opacity: '0.85' }} onClick={onClickClose}>
+                        <Avatar sx={{ bgcolor: 'error.main' }} onClick={onClickClose}>
                             <CloseIcon />
                         </Avatar>
                     </Stack>

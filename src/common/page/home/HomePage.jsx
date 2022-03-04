@@ -26,6 +26,7 @@ import WeatherTommorow from '../../../widget/weather/WeatherTommorowWiget';
 import Stock from '../../../widget/stock/StockWidget';
 import Youtube from '../../../widget/youtube/YoutubeWidget';
 import Memo from '../../../widget/memo/memoWidget';
+import Rss from '../../../widget/rss/rssWidget';
 
 const small = { xs: 4, md: 3, lg: 2, }
 const medium = { xs: 12, md: 6, lg: 4, }
@@ -40,9 +41,12 @@ const widgetItemsState = atom({
         { id: 4, component: Stock, size: small },
         { id: 5, component: Stock, size: small },
         { id: 6, component: Stock, size: small },
-        { id: 7, component: Neko, size: medium },
+        // { id: 7, component: Neko, size: medium },
         { id: 8, component: Youtube, size: medium },
+        { id: 10, component: Rss, size: medium },
         { id: 9, component: Memo, size: small },
+
+
 
     ]
 });
