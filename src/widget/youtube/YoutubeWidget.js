@@ -123,10 +123,6 @@ function YoutubePlayer({ id }) {
         return (randomIndex == 0) ? 1 : randomIndex
     }
     const handleClickNext = () => {
-        if (isShuffle) {
-            handleSeekChange(null, 0)
-            return
-        }
         const diff = isShuffle ? getRandomIndex() : 1
         changeIndex(diff)
     }

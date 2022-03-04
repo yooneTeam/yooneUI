@@ -1,13 +1,13 @@
 import { useRecoilState, atomFamily } from 'recoil';
-import { Box, Stack, TextField, Divider, List, ListItem, ListItemText, ListItemButton } from '@mui/material';
+import { Stack, TextField, Input } from '@mui/material';
 
 const memoState = atomFamily({
-    key: 'counterState',
+    key: 'memoState',
     default: ''
 });
 
 const memoTitleState = atomFamily({
-    key: 'counterState',
+    key: 'memoTitleState',
     default: 'Memo'
 });
 
@@ -17,19 +17,37 @@ export default function Memo({ id }) {
     const [memo, setMemo] = useRecoilState(memoState(id));
     const [memoTitle, setMemoTitle] = useRecoilState(memoTitleState(id));
 
+    const onChangeMemoTitle = (e) => {
+        setMemoTitle(e.target.value)
+    }
 
-    const onChange = (e) => {
-        console.log(e)
+    const onChangeMemo = (e) => {
+        setMemo(e.target.value)
     }
 
     return (
         <Stack alignItems="center" spacing='1' sx={{ maxHeight: '320px' }} >
-            <TextField defaultValue="Memo" />
-            <div style={{ position: 'relative', paddingTop: '120%', width: '100%', overflowY: 'auto', }}>
+
+            <Input
+                value={memoTitle}
+                onChange={onChangeMemoTitle}
+                defaultValue="Memo"
+                placeholder='Title'
+                sx={{ fontSize: '22px', mx: '15px', my: '5px', textAlign: 'center' }}
+            />
+
+            <div style={{ position: 'relative', paddingTop: '125%', width: '100%', overflowY: 'auto', }}>
                 <TextField
+                    value={memo}
+                    onChange={onChangeMemo}
+                    placeholder='memo'
+                    size='small'
                     multiline
-                    defaultValue="body"
-                    sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}
+                    variant="outlined"
+                    sx={{
+                        position: 'absolute', top: '0', left: '0',
+                        fontSize: '22px', width: 'auto', mx: ' 4%', my: '2%'
+                    }}
                 />
             </div>
         </Stack >
