@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios'
-import { Box, Stack, TextField, InputAdornment, Divider, List, ListItem, ListItemText, ListItemButton, Paper } from '@mui/material';
+import { Stack, TextField, Divider, List, ListItem, ListItemText, ListItemButton } from '@mui/material';
 import useStockInfoState from './useStockInfoState';
-import SearchIcon from '@mui/icons-material/Search';
 
 export default function StockSelector({ id }) {   //44192　
 
@@ -32,42 +31,35 @@ export default function StockSelector({ id }) {   //44192　
     }
 
     return (
-        <Box >
-            <Stack alignItems="center" sx={{ height: '100%', width: '100%' }}  >
-
-                <TextField
-                    size="small"
-                    label="銘柄名"
-                    onChange={onChange}
-                    sx={{ mx: 1, mt: 2 }}
-                />
-
-                <Box sx={{ height: '100%', width: '100%', maxHeight: '230px', overflowY: 'auto', overflowX: 'hidden', mt: 1 }}>
-                    <div style={{ position: 'relative', paddingTop: '120%' }}>
-                        <List dense={true} sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
+        <Stack alignItems="center" sx={{ maxHeight: '320px' }}  >
+            <TextField
+                size="small"
+                label="銘柄名"
+                onChange={onChange}
+                sx={{ mx: 1, mt: 2 }}
+            />
+            <div style={{ position: 'relative', paddingTop: '120%', width: '100%', overflowY: 'auto', }}>
+                <List dense={true} sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
+                    <Divider />
+                    {queryList.map(item =>
+                        <span key={item.id}>
+                            <ListItem disablePadding  >
+                                <ListItemButton onClick={() => onClick(item)}>
+                                    <ListItemText
+                                        primary={item.symbol}
+                                        secondary={item.description}
+                                        secondaryTypographyProps={{
+                                            noWrap: true,
+                                            fontSize: 11,
+                                            lineHeight: '15px',
+                                        }} />
+                                </ListItemButton>
+                            </ListItem>
                             <Divider />
-                            {queryList.map(item =>
-                                <span key={item.id}>
-                                    <ListItem disablePadding  >
-                                        <ListItemButton onClick={() => onClick(item)}>
-                                            <ListItemText
-                                                primary={item.symbol}
-                                                secondary={item.description}
-                                                secondaryTypographyProps={{
-                                                    noWrap: true,
-                                                    fontSize: 11,
-                                                    lineHeight: '15px',
-                                                }} />
-                                        </ListItemButton>
-                                    </ListItem>
-                                    <Divider />
-                                </span>
-                            )}
-                        </List>
-                    </div>
-                </Box>
-
-            </Stack>
-        </ Box >
+                        </span>
+                    )}
+                </List>
+            </div>
+        </Stack>
     );
 }

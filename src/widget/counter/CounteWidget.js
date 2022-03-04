@@ -1,4 +1,4 @@
-import { Card, Stack, IconButton, Typography, Box } from '@mui/material';
+import { Stack, IconButton, Typography, Box } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
 import { useRecoilState, atomFamily } from 'recoil';
 

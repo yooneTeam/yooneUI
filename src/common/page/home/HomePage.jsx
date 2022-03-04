@@ -12,9 +12,10 @@ import {
     SortableContext,
 } from '@dnd-kit/sortable';
 
-import { Grid, Container } from '@mui/material';
+import { Grid, Container, IconButton } from '@mui/material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { useIsSettingMode } from '../../hooks/useIsSetting';
 import { useHasTouchScreen } from '../../hooks/useHasTouchScreen';
-
 import MovableItem from './MovableItem';
 
 import Counter from '../../../widget/counter/CounteWidget';
@@ -24,6 +25,8 @@ import WeatherToday from '../../../widget/weather/WeatherTodayWiget';
 import WeatherTommorow from '../../../widget/weather/WeatherTommorowWiget';
 import Stock from '../../../widget/stock/StockWidget';
 import Youtube from '../../../widget/youtube/YoutubeWidget';
+import Memo from '../../../widget/memo/memoWidget';
+import Rss from '../../../widget/rss/rssWidget';
 
 const small = { xs: 4, md: 3, lg: 2, }
 const medium = { xs: 12, md: 6, lg: 4, }
@@ -38,8 +41,13 @@ const widgetItemsState = atom({
         { id: 4, component: Stock, size: small },
         { id: 5, component: Stock, size: small },
         { id: 6, component: Stock, size: small },
-        { id: 7, component: Neko, size: medium },
+        // { id: 7, component: Neko, size: medium },
         { id: 8, component: Youtube, size: medium },
+        { id: 10, component: Rss, size: medium },
+        { id: 9, component: Memo, size: small },
+
+
+
     ]
 });
 
@@ -47,11 +55,11 @@ export default function Home() {
 
     const [items, setItems] = useRecoilState(widgetItemsState);
     const { hasTouchScreen } = useHasTouchScreen();
+    const { isSettingMode } = useIsSettingMode()
+
 
     const sensors = useSensors(
-        useSensor(hasTouchScreen ? TouchSensor : MouseSensor, hasTouchScreen && {
-            activationConstraint: { delay: 150, tolerance: 5, },
-        }),
+        useSensor(hasTouchScreen ? TouchSensor : MouseSensor)
     );
 
     function handleDragEnd(event) {
@@ -75,6 +83,14 @@ export default function Home() {
                             <MovableItem key={id} id={id} size={size} >
                                 {createElement(component, { id, index })}
                             </MovableItem>))}
+                        {isSettingMode &&
+                            <Grid item {...small} sx={{ position: 'relative', height: 'auto' }}>
+                                <IconButton sx={{ position: 'absolute', top: '50%', left: '50%' }} size="100px">
+                                    <AddCircleIcon fontSize='100px' />
+                                </IconButton>
+                            </Grid>
+                        }
+
                     </Grid>
                 </Container>
             </SortableContext>
