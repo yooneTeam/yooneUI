@@ -38,7 +38,7 @@ export default function StockSelector({ id }) {   //44192　
                 onChange={onChange}
                 sx={{ mx: 1, mt: 2 }}
             />
-            <div style={{ position: 'relative', paddingTop: '120%', width: '100%', overflowY: 'auto', }}>
+            <div style={{ position: 'relative', paddingTop: '120%', width: '100%', overflowY: 'auto', overflowX: 'hidden' }}>
                 <List dense={true} sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
                     <Divider />
                     {queryList.map(item =>

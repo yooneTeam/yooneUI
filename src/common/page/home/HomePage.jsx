@@ -30,7 +30,6 @@ import Rss from '../../../widget/rss/rssWidget';
 
 const small = { xs: 4, md: 3, lg: 2, }
 const medium = { xs: 12, md: 6, lg: 4, }
-const large = { xs: 12, md: 12, lg: 6, }
 
 const widgetItemsState = atom({
     key: "widgetItems",

@@ -63,7 +63,8 @@ function YoutubePlayer({ id }) {
     }).then(res => res.data.items
         .map((item) => {
             return {
-                videoId: item.id.videoId, ...item.snippet
+                videoId: item.id.videoId,
+                ...item.snippet
             }
         }))
 
@@ -80,7 +81,8 @@ function YoutubePlayer({ id }) {
     }).then(res => res.data.items
         .map((item) => {
             return {
-                videoId: item.snippet.resourceId.videoId, ...item.snippet
+                videoId: item.snippet.resourceId.videoId,
+                ...item.snippet
             }
         }))
 
@@ -142,7 +144,7 @@ function YoutubePlayer({ id }) {
         setOpenPlayList(!openPlayList)
     }
     const onClickVideoItem = ({ title, channelTitle, videoId, index }) => {
-        setYoutubeInfo({ title, channelTitle, videoId, index })
+        channelTitle && setYoutubeInfo({ title, channelTitle, videoId, index })
     }
     const handleVolumeChange = (_, newValue) => {
         setVolume(newValue)
@@ -180,11 +182,7 @@ function YoutubePlayer({ id }) {
 
 
     useEffect(() => {
-        if (data) {
-            onClickVideoItem({ ...data[0], index: 0 })
-        } else {
-            setOpenPlayList(true)
-        }
+        data || setOpenPlayList(true)
     }, [data]);
 
     return (
@@ -204,7 +202,7 @@ function YoutubePlayer({ id }) {
                         onPause={onPause}
                         onDuration={onDuration}
                         onProgress={onProgress}
-                        style={{ position: 'absolute', top: '0', left: '0' }}
+                        style={{ position: 'absolute', top: '0', left: '0', backgroundColor: openPlayList ? '#222' : '#fff' }}
                     />
 
                     {openPlayList &&

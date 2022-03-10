@@ -3,13 +3,15 @@ import { Box, Divider, List, ListItem, ListItemText, ListItemButton } from '@mui
 
 function YoutubePlayList({ onClickVideoItem, data, indexPlaying }) {
 
-    if (!data) return <div style={{ height: '70%' }}></div>
+    const playList = data || [...Array(4)].map((_, index) => { return { title: '　', videoId: index, index } })
+
+    console.log(playList)
 
     return (
         <Box sx={{ width: '100%', height: '70%', overflowY: 'auto', overflowX: 'hidden', position: 'relative' }}>
             <List dense={true} sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
                 <Divider />
-                {data.map((item, index) =>
+                {playList.map((item, index) =>
                     <span key={item.videoId}>
                         <ListItem disablePadding >
                             {(index == indexPlaying) ?
