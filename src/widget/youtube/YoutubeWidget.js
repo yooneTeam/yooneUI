@@ -17,7 +17,7 @@ const youtubeDataAPIURLBasePlayList = 'https://www.googleapis.com/youtube/v3/pla
 const youtubeVideoInfoState = atomFamily({
     key: 'youtubeVideoInfo',
     default: {
-        title: 'URLを入力してください',
+        title: 'URLを入力',
         channelTitle: ' チャンネル or プレイリスト',
         videoId: '',
         index: -1
@@ -215,7 +215,7 @@ function YoutubePlayer({ id }) {
                             <Divider />
                             <Input
                                 size="small"
-                                placeholder="ex. https://www.youtube.com/channel/..."
+                                placeholder="https://www.youtube.com/channel/..."
                                 sx={{ my: 0, fontSize: '11px', opacity: (youtubePlayListInfoTmp == youtubePlayListInfo.id) ? 1 : 0.6 }}
                                 value={youtubePlayListInfoTmp}
                                 onChange={handlePlayListURLChange}
