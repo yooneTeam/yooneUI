@@ -32,7 +32,6 @@ const youtubePlayListInfoState = atomFamily({
     }
 });
 
-
 function YoutubePlayer({ id }) {
     const playerRef = useRef(null)
 
@@ -202,7 +201,7 @@ function YoutubePlayer({ id }) {
                         onPause={onPause}
                         onDuration={onDuration}
                         onProgress={onProgress}
-                        style={{ position: 'absolute', top: '0', left: '0', backgroundColor: openPlayList ? '#222' : '#fff' }}
+                        style={{ position: 'absolute', top: '0', left: '0', backgroundColor: isPlaying ? 'rgba(100,100,100,0)' : '#222' }}
                     />
 
                     {openPlayList &&
@@ -225,7 +224,7 @@ function YoutubePlayer({ id }) {
                     }
                 </div>
             </Stack>
-            {openPlayList && <YoutubePlayList onClickVideoItem={onClickVideoItem} data={data} indexPlaying={youtubeVideoInfo.index} />}
+            {openPlayList && <YoutubePlayList onClickVideoItem={onClickVideoItem} data={data} titlePlaying={youtubeVideoInfo.title} />}
 
             <YoutubeSeekbar
                 progeress={progeress}

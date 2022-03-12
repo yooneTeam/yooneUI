@@ -1,89 +1,55 @@
-import axios from 'axios'
-import useSWR from 'swr';
-import { Stack, Divider, List, ListItem, ListItemText, ListItemButton, CardMedia, Typography } from '@mui/material';
-import { useRecoilState, atomFamily } from 'recoil';
-import { format, parseISO } from 'date-fns';
+import { useState } from 'react';
+import { Stack, Divider, List, ListItem, Typography, IconButton } from '@mui/material';
+import { useRssUrlState, useItemListState } from './rssStates';
+import useToday from '../../common/hooks/useToday';
+import RssFetcher from './rssFetcher';
+import RssViewer from './rssViewer';
+import RssSetting from './rssSetting';
 
-const rssUrlState = atomFamily({
-    key: 'counterState',
-    default: ''
-});
+import SettingsIcon from '@mui/icons-material/Settings';
+import CheckIcon from '@mui/icons-material/Check';
 
+export default function RssWidget({ id }) {
 
-const urlAPI = 'https://asia-northeast1-yooneapi.cloudfunctions.net/rssProxy'
+    const { rssUrlList } = useRssUrlState(id)
+    const { rssItemList } = useItemListState(id)
+    const [isSettingRss, setIsSettingRss] = useState(false);
+    const toDay = useToday()
 
-const fetcher = urlRss => axios.get(urlAPI, {
-    params: { url: urlRss }
-}).then(res => res.data)
-
-export default function Rss({ id }) {   //44192　
-
-    const { data, error } = useSWR(`https://www.gizmodo.jp/index.xml`, fetcher)
-
-    if (error) return <div>error</div>
-    if (!data) return <div></div>
-
-    console.log(data)
-
-    const onClick = (url) => {
-        console.log(url)
-        window.open(url, '_blank')
+    const onClickSetting = () => {
+        setIsSettingRss(!isSettingRss)
     }
 
+    const rssItemListSorted = Boolean(rssItemList.length)
+        ? rssItemList.flat().sort((a, b) => a.date < b.date ? 1 : -1)
+        : [{ title: 'Loading', date: toDay.toISOString() }]
+
     return (
-        <Stack alignItems="center" sx={{ maxHeight: '320px' }} >
-            <div style={{ position: 'relative', paddingTop: '75%', width: '100%', overflowY: 'auto' }}>
-                <List dense={true} sx={{ position: 'absolute', top: '0', left: '0' }}>
-                    <Divider />
-                    {data.items.map(item =>
-                        <span key={item.title}>
-                            <ListItem disablePadding  >
-                                <ListItemButton onClick={() => onClick(item.link)}>
-                                    <Stack direction='row' sx={{ width: '100%' }}>
-                                        <CardMedia
-                                            component="img"
-                                            image={item.img}
-                                            sx={{ width: '40%', height: '80px', objectFit: 'cover', borderRadius: '8%' }}
-                                        />
-                                        <Stack sx={{ width: '60%', height: '80px' }} >
-                                            <ListItemText
-                                                primary={item.title}
-                                                primaryTypographyProps={{
-                                                    whiteSpace: 'mormal',
-                                                    lineHeight: '20px',
-                                                }}
-                                                sx={{
-                                                    width: '100%',
-                                                    height: '60px',
-                                                    ml: '4%',
-                                                    mr: '-2%',
-                                                    overflow: 'hidden',
-                                                    display: "-webkit-box",
-                                                    '-webkit-box-orient': "vertical",
-                                                    '-webkit-line-clamp': '3',
-                                                }}
-                                            />
-                                            <Stack
-                                                direction='row'
-                                                justifyContent='space-between'
-                                                sx={{ width: '100%', height: '18px', ml: '4%' }}
-                                            >
-                                                <Typography color='main' sx={{ fontSize: '0.8rem' }}>
-                                                    {data.items.sourceName}
-                                                </Typography>
-                                                <Typography sx={{ fontSize: '0.75rem', opacity: 0.75 }}>
-                                                    {format(parseISO(item.date), 'M/d HH:mm')}
-                                                </Typography>
-                                            </Stack>
-                                        </Stack>
-                                    </Stack>
-                                </ListItemButton>
-                            </ListItem>
-                            <Divider />
-                        </span>
-                    )}
-                </List>
-            </div>
+        <Stack
+            alignItems="center"
+            sx={{ position: 'relative', maxHeight: '320px', paddingTop: '72%', width: '100%', overflowY: 'scroll' }}
+        >
+            <List dense={true} sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
+                <ListItem >
+                    <Stack direction='row' justifyContent='space-between' sx={{ width: '100%' }} >
+                        <Typography sx={{ fontSize: '1.1rem', fontWeight: 700, my: '-2px' }}>
+                            RSS
+                        </Typography>
+                        <IconButton size='small' sx={{ mt: '-4px' }} onClick={onClickSetting}>
+                            {isSettingRss
+                                ? <CheckIcon fontSize="small" />
+                                : <SettingsIcon fontSize="small" />
+                            }
+                        </IconButton>
+                    </Stack>
+                </ListItem>
+                <Divider />
+                {rssUrlList.map(rss => <RssFetcher key={rss.url} id={id} rssURL={rss.url} />)}
+                {isSettingRss
+                    ? <RssSetting id={id} />
+                    : <RssViewer rssItemListSorted={rssItemListSorted} />
+                }
+            </List>
         </Stack>
     );
 }

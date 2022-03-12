@@ -35,7 +35,7 @@ export default function Memo({ id }) {
                 sx={{ fontSize: '22px', mx: '15px', my: '5px', textAlign: 'center' }}
             />
 
-            <div style={{ position: 'relative', paddingTop: '130%', width: '100%', overflowY: 'auto', }}>
+            <div style={{ position: 'relative', paddingTop: '120%', width: '100%', overflowY: 'auto', }}>
                 <TextField
                     value={memo}
                     onChange={onChangeMemo}
