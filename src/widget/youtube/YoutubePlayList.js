@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Box, Divider, List, ListItem, ListItemText, ListItemButton } from '@mui/material';
 
-function YoutubePlayList({ onClickVideoItem, data, indexPlaying }) {
+function YoutubePlayList({ onClickVideoItem, data, titlePlaying }) {
 
     const playList = data || [...Array(4)].map((_, index) => { return { title: '　', videoId: index, index } })
 
@@ -12,42 +12,28 @@ function YoutubePlayList({ onClickVideoItem, data, indexPlaying }) {
             <List dense={true} sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
                 <Divider />
                 {playList.map((item, index) =>
-                    <span key={item.videoId}>
+                    <div key={item.videoId} >
                         <ListItem disablePadding >
-                            {(index == indexPlaying) ?
-                                <ListItemButton
-                                    onClick={() => onClickVideoItem({ ...item, index })}
-                                    sx={{ backgroundColor: 'primary.lighter' }}
-                                >
-                                    <ListItemText
-                                        primary={item.title}
-                                        primaryTypographyProps={{
-                                            noWrap: true,
-                                            fontSize: 13,
-                                            lineHeight: '14px',
-                                            fontWeight: '700'
-                                        }}
-                                    />
-                                </ListItemButton>
-                                :
-                                <ListItemButton onClick={() => onClickVideoItem({ ...item, index })}>
-                                    <ListItemText
-                                        primary={item.title}
-                                        primaryTypographyProps={{
-                                            noWrap: true,
-                                            fontSize: 13,
-                                            lineHeight: '14px',
-                                        }}
-                                    />
-                                </ListItemButton>
-                            }
-
+                            <ListItemButton
+                                onClick={() => onClickVideoItem({ ...item, index })}
+                                sx={{ backgroundColor: (item.title == titlePlaying) ? 'primary.lighter' : 'default' }}
+                            >
+                                <ListItemText
+                                    primary={item.title}
+                                    primaryTypographyProps={{
+                                        noWrap: true,
+                                        fontSize: 13,
+                                        lineHeight: '14px',
+                                        fontWeight: (item.title == titlePlaying) ? '700' : '400'
+                                    }}
+                                />
+                            </ListItemButton>
                         </ListItem>
                         <Divider />
-                    </span>
+                    </div>
                 )}
             </List>
-        </Box>
+        </Box >
     );
 }
 

@@ -17,7 +17,7 @@ const youtubeDataAPIURLBasePlayList = 'https://www.googleapis.com/youtube/v3/pla
 const youtubeVideoInfoState = atomFamily({
     key: 'youtubeVideoInfo',
     default: {
-        title: 'URLを入力してください',
+        title: 'URLを入力',
         channelTitle: ' チャンネル or プレイリスト',
         videoId: '',
         index: -1
@@ -31,7 +31,6 @@ const youtubePlayListInfoState = atomFamily({
         id: '',
     }
 });
-
 
 function YoutubePlayer({ id }) {
     const playerRef = useRef(null)
@@ -202,7 +201,7 @@ function YoutubePlayer({ id }) {
                         onPause={onPause}
                         onDuration={onDuration}
                         onProgress={onProgress}
-                        style={{ position: 'absolute', top: '0', left: '0', backgroundColor: openPlayList ? '#222' : '#fff' }}
+                        style={{ position: 'absolute', top: '0', left: '0', backgroundColor: isPlaying ? 'rgba(100,100,100,0)' : '#222' }}
                     />
 
                     {openPlayList &&
@@ -216,7 +215,7 @@ function YoutubePlayer({ id }) {
                             <Divider />
                             <Input
                                 size="small"
-                                placeholder="ex. https://www.youtube.com/channel/..."
+                                placeholder="https://www.youtube.com/channel/..."
                                 sx={{ my: 0, fontSize: '11px', opacity: (youtubePlayListInfoTmp == youtubePlayListInfo.id) ? 1 : 0.6 }}
                                 value={youtubePlayListInfoTmp}
                                 onChange={handlePlayListURLChange}
@@ -225,7 +224,7 @@ function YoutubePlayer({ id }) {
                     }
                 </div>
             </Stack>
-            {openPlayList && <YoutubePlayList onClickVideoItem={onClickVideoItem} data={data} indexPlaying={youtubeVideoInfo.index} />}
+            {openPlayList && <YoutubePlayList onClickVideoItem={onClickVideoItem} data={data} titlePlaying={youtubeVideoInfo.title} />}
 
             <YoutubeSeekbar
                 progeress={progeress}
