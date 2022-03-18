@@ -1,11 +1,11 @@
 import { Stack, Divider, ListItem, ListItemText, ListItemButton, CardMedia, Typography } from '@mui/material';
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, isToday } from 'date-fns';
 
 export default function RssViewer({ rssItemListSorted }) {
 
     const onClick = (url) => {
         console.log(url)
-        window.open(url, '_blank')
+        url && window.open(url, '_blank')
     }
 
     return (rssItemListSorted.map(item =>
@@ -24,13 +24,16 @@ export default function RssViewer({ rssItemListSorted }) {
                                 primaryTypographyProps={{
                                     whiteSpace: 'mormal',
                                     lineHeight: '20px',
+                                    fontSize: '0.8rem'
                                 }}
                                 sx={{
                                     width: '100%',
-                                    height: '60px',
+                                    height: '80px',
                                     ml: '4%',
                                     mr: '-2%',
+                                    mb: '5px',
                                     overflow: 'hidden',
+                                    wordBreak: 'break-all',
                                     display: "-webkit-box",
                                     WebkitBoxOrient: "vertical",
                                     WebkitLineClamp: '3',
@@ -45,15 +48,15 @@ export default function RssViewer({ rssItemListSorted }) {
                                     color: 'primary.main',
                                     fontSize: '0.7rem',
                                     fontWeight: 500,
-                                    whiteSpace: 'nowrap',
+                                    // whiteSpace: 'nowrap',
                                     overflow: 'hidden',
-                                    textOverflow: 'ellipsis',
-                                    width: '62%'
+                                    // textOverflow: 'ellipsis',
+                                    width: '70%'
                                 }}>
                                     {item.sourceName}
                                 </Typography>
                                 <Typography sx={{ fontSize: '0.7rem', fontWeight: 400, opacity: 0.72 }}>
-                                    {format(parseISO(item.date), 'd日 HH:mm')}
+                                    {format(parseISO(item.date), isToday(parseISO(item.date)) ? 'HH:mm' : 'M/d')}
                                 </Typography>
                             </Stack>
                         </Stack>

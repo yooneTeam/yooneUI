@@ -28,7 +28,7 @@ export default function RssWidget({ id }) {
 
     const rssItemListSorted = Boolean(rssItemList.length)
         ? rssItemList.flat().sort((a, b) => a.date < b.date ? 1 : -1)
-        : [{ title: 'Loading', date: toDay.toISOString() }]
+        : [{ title: 'No feed', date: toDay.toISOString() }]
 
     return (
         <Stack
@@ -40,7 +40,7 @@ export default function RssWidget({ id }) {
                     <Stack direction='row' justifyContent='space-between' sx={{ width: '100%' }} >
                         {isSettingRss ?
                             <Input size='small' value={rssWidgetName}
-                                sx={{ my: 0, fontSize: '1rem', mt: '-3px' }}
+                                sx={{ my: 0, fontSize: '1rem', mt: '-3px', width: '100%' }}
                                 onChange={onChangeName}
                             />
                             :
