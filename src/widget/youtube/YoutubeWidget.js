@@ -27,8 +27,10 @@ const youtubeVideoInfoState = atomFamily({
 const youtubePlayListInfoState = atomFamily({
     key: 'youtubePlayListInfo',
     default: {
-        type: false,
-        id: '',
+        // type: false,
+        // id: '',
+        type: 'channelId',
+        id: 'UC1EB8moGYdkoZQfWHjh7Ivw',
     }
 });
 
@@ -42,7 +44,7 @@ function YoutubePlayer({ id }) {
     const [isShuffle, setIsShuffle] = useState(false);
     const [isLoop, setIsLoop] = useState(false);
     const [openVolume, setOpenVolume] = useState(false);
-    const [openPlayList, setOpenPlayList] = useState(false);
+    const [openPlayList, setOpenPlayList] = useState(true);
     const [duration, setDuration] = useState(0);
     const [progeress, setProgeress] = useState(0);
     const [volume, setVolume] = useState(100);
@@ -88,7 +90,9 @@ function YoutubePlayer({ id }) {
 
     const { data, error } = useSWR(youtubePlayListInfo,
         !youtubePlayListInfo.type ? null
-            : (youtubePlayListInfo.type == 'channelId') ? fetcherChannel : fetcherPlayList)
+            : (youtubePlayListInfo.type == 'channelId')
+                ? fetcherChannel
+                : fetcherPlayList)
 
 
 
