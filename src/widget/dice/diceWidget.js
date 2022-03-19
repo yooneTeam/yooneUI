@@ -24,14 +24,15 @@ export default function Dice({ id }) {
     <Box onClick={onWidgetClick} sx={{ height: "100%" }}>
       <Canvas
         shadows
-        gl={{ depth: true, alpha: false, antialias: false }}
+        gl={{ antialias: true }}
         camera={{
-          position: [0, 0, 20],
-          rotation: [0, 0, 0],
+          position: [0, 10, 0],
+          rotation: [-Math.PI / 2, 0, 0],
           fov: 50,
           near: 1,
           far: 100,
         }}
+        dpr={window.devicePixelRatio}
         style={{ height: "100%" }}
       >
         <RecoilBridge>
@@ -41,7 +42,7 @@ export default function Dice({ id }) {
           <Physics
             gravity={[0, -50, 0]}
             defaultContactMaterial={{ restitution: 0.5, friction: 0.05 }}
-            size={16}
+            size={8}
           >
             <group position={[0, 0, -10]}>
               <Borders />

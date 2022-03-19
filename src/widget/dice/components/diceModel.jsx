@@ -15,7 +15,7 @@ export default function DiceBox({ stateIndex }) {
 
   const [ref, api] = useBox(() => ({
     mass: 10,
-    position: [4 - Math.random() * 8, (viewport.height / 2) * Math.random(), 0],
+    position: [0, 0, 0],
     rotation: [
       Math.random() * Math.PI,
       Math.random() * Math.PI,
