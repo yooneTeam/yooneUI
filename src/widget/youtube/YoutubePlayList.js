@@ -2,9 +2,7 @@ import { memo } from 'react'
 import { Box, Divider, List, ListItem, ListItemText, ListItemButton } from '@mui/material'
 
 function YoutubePlayList({ onClickVideoItem, data, titlePlaying }) {
-  const playList =
-    data ||
-    [...Array(4)].map((_, index) => ({ title: '　', videoId: index, index }))
+  const playList = data || [...Array(4)].map((_, index) => ({ title: '　', videoId: index, index }))
 
   console.log(playList)
 

@@ -8,7 +8,6 @@ import RssFetcher from './rssFetcher'
 import RssViewer from './rssViewer'
 import RssSetting from './rssSetting'
 
-
 export default function RssWidget({ id }) {
   const { rssUrlList } = useRssUrlState(id)
   const { rssItemList } = useItemListState(id)

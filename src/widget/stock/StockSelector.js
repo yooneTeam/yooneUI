@@ -21,7 +21,7 @@ export default function StockSelector({ id }) {
   const fetcher = (searchValue) =>
     searchValue
       ? axios
-          .get(`https://api.investing.com/api/search/v2/search?q=${  encodeURI(searchValue)}`, {
+          .get(`https://api.investing.com/api/search/v2/search?q=${encodeURI(searchValue)}`, {
             headers: { 'domain-id': 'jp' },
           })
           .then((res) => {

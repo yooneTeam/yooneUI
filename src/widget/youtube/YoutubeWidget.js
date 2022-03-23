@@ -66,9 +66,9 @@ function YoutubePlayer({ id }) {
       })
       .then((res) =>
         res.data.items.map((item) => ({
-            videoId: item.id.videoId,
-            ...item.snippet,
-          })),
+          videoId: item.id.videoId,
+          ...item.snippet,
+        })),
       )
 
   const fetcherPlayList = ({ id }) =>
@@ -86,9 +86,9 @@ function YoutubePlayer({ id }) {
       })
       .then((res) =>
         res.data.items.map((item) => ({
-            videoId: item.snippet.resourceId.videoId,
-            ...item.snippet,
-          })),
+          videoId: item.snippet.resourceId.videoId,
+          ...item.snippet,
+        })),
       )
 
   const { data, error } = useSWR(
@@ -290,7 +290,7 @@ function YoutubePlayer({ id }) {
 
 function Youtube({ id, index }) {
   // 移動時再レンダリング用
-  return <YoutubePlayer id={id} key={`youtubeKey${  index}`} />
+  return <YoutubePlayer id={id} key={`youtubeKey${index}`} />
 }
 
 export default memo(Youtube)

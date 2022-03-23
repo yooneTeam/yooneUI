@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { getHours, getMinutes, getSeconds } from 'date-fns'
-import { css , useTheme } from '@emotion/react'
+import { css, useTheme } from '@emotion/react'
 
 function AnarogClock({ time }) {
   const rerative = css({
@@ -102,25 +102,25 @@ function AnarogClock({ time }) {
         <div
           css={[needle, hour]}
           style={{ transform: `translate(-50%, -100%) rotate(${hourRotate}deg)` }}
-         />
+        />
         <div
           css={[needle, minute]}
           style={{ transform: `translate(-50%, -100%) rotate(${minuteRotate}deg)` }}
-         />
+        />
         <div css={centerPoint} />
         <div
           css={centerPointTop}
           style={{
             backgroundColor: theme.palette.primary.main,
           }}
-         />
+        />
         <div
           css={[needle, second]}
           style={{
             transform: `translate(-50%, -100%) rotate(${secondsRotate}deg)`,
             backgroundColor: theme.palette.primary.main,
           }}
-         />
+        />
       </div>
     </div>
   )

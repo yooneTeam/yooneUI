@@ -40,10 +40,7 @@ export default function Twitter({ id }) {
         overflowY: 'scroll',
       }}
     >
-      <List
-        dense
-        sx={{ position: 'absolute', top: '0', left: '0', width: '100%', mt: '-7px' }}
-      >
+      <List dense sx={{ position: 'absolute', top: '0', left: '0', width: '100%', mt: '-7px' }}>
         {data.map((tweet) => (
           <div key={tweet.text}>
             <ListItem disablePadding sx={{ my: '10px', px: '4%' }}>
@@ -59,7 +56,7 @@ export default function Twitter({ id }) {
                         {tweet.referencedUser.name}
                       </Typography>
                       <Typography fontWeight='500' fontSize='0.75rem' sx={{ opacity: '0.8' }}>
-                        {`@${  tweet.referencedUser.username}`}
+                        {`@${tweet.referencedUser.username}`}
                       </Typography>
                     </Stack>
                   </Stack>

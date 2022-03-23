@@ -13,9 +13,7 @@ export default function StockChart({ stockInfo }) {
   // 44192
 
   const { data: candlesticks, error } = useSWR(
-    `https://api.investing.com/api/financialdata/${ 
-      stockInfo.id 
-      }/historical/chart/?interval=PT30M&pointscount=120`,
+    `https://api.investing.com/api/financialdata/${stockInfo.id}/historical/chart/?interval=PT30M&pointscount=120`,
     fetcher,
   )
 
@@ -97,7 +95,7 @@ export default function StockChart({ stockInfo }) {
   const [chartName, chartNameSize] =
     stockInfo.description.length < 8
       ? [stockInfo.description, 'h6']
-      : [`${stockInfo.description.slice(0, 8)  }…`, 'subtitle2']
+      : [`${stockInfo.description.slice(0, 8)}…`, 'subtitle2']
 
   return (
     <Stack
@@ -128,7 +126,7 @@ export default function StockChart({ stockInfo }) {
       </Stack>
 
       <Box sx={{ mt: -2, mb: -3 }}>
-        <ReactApexChart type='line' series={chartData} options={chartOptions} height="120%" />
+        <ReactApexChart type='line' series={chartData} options={chartOptions} height='120%' />
       </Box>
     </Stack>
   )

@@ -1,6 +1,6 @@
-import { atomFamily } from "recoil";
+import { atomFamily } from 'recoil'
 
 export const useDiceRoll = atomFamily({
-  key: "useDiceRoll",
+  key: 'useDiceRoll',
   default: false,
-});
+})

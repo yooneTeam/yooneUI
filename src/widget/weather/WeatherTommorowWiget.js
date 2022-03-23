@@ -10,11 +10,11 @@ const fetcher = (url) => axios.get(url).then((res) => res.data)
 export default function WeatherTommorow() {
   const location = useLocation()
   const { data: dataWeek, error: errorWeek } = useSWR(
-    `https://www.jma.go.jp/bosai/forecast/data/forecast/${  location  }0000.json`,
+    `https://www.jma.go.jp/bosai/forecast/data/forecast/${location}0000.json`,
     fetcher,
   )
   const { data: data24, error: error24 } = useSWR(
-    `https://www.jma.go.jp/bosai/jmatile/data/wdist/VPFD/${  location  }0010.json`,
+    `https://www.jma.go.jp/bosai/jmatile/data/wdist/VPFD/${location}0010.json`,
     fetcher,
   )
 
@@ -23,7 +23,7 @@ export default function WeatherTommorow() {
 
   const code = dataWeek[0].timeSeries[0].areas[0].weatherCodes[1]
 
-  const {temps} = dataWeek[0].timeSeries[2].areas[0]
+  const { temps } = dataWeek[0].timeSeries[2].areas[0]
   const [minTemp, maxtemp] = temps.slice(-2)
 
   const maxColor = '#cc3333'
@@ -47,7 +47,7 @@ export default function WeatherTommorow() {
       <Typography variant='h5' fontWeight='400' lineHeight='2' sx={{ mb: -1 }}>
         {weatherCode[code][3]}
       </Typography>
-      <img src={`https://www.jma.go.jp/bosai/forecast/img/${  weatherCode[code][0]}`} width='200' />
+      <img src={`https://www.jma.go.jp/bosai/forecast/img/${weatherCode[code][0]}`} width='200' />
 
       <Stack direction='row' sx={{ mb: 1.8 }}>
         <Stack alignItems='flex-end' direction='row'>

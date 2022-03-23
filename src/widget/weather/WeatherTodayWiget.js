@@ -11,11 +11,11 @@ const fetcher = (url) => axios.get(url).then((res) => res.data)
 export default function WeatherToday() {
   const location = useLocation()
   const { data: dataWeek, error: errorWeek } = useSWR(
-    `https://www.jma.go.jp/bosai/forecast/data/forecast/${  location  }0000.json`,
+    `https://www.jma.go.jp/bosai/forecast/data/forecast/${location}0000.json`,
     fetcher,
   )
   const { data: data24, error: error24 } = useSWR(
-    `https://www.jma.go.jp/bosai/jmatile/data/wdist/VPFD/${  location  }0010.json`,
+    `https://www.jma.go.jp/bosai/jmatile/data/wdist/VPFD/${location}0010.json`,
     fetcher,
   )
 
@@ -68,8 +68,8 @@ export default function WeatherToday() {
       <img
         src={
           todayTemps.length > 2 // 夜か否か 修正予定
-            ? `https://www.jma.go.jp/bosai/forecast/img/${  weatherCode[code][0]}`
-            : `https://www.jma.go.jp/bosai/forecast/img/${  weatherCode[code][1]}`
+            ? `https://www.jma.go.jp/bosai/forecast/img/${weatherCode[code][0]}`
+            : `https://www.jma.go.jp/bosai/forecast/img/${weatherCode[code][1]}`
         }
         width='200'
       />
