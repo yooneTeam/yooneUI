@@ -1,6 +1,6 @@
 import axios from 'axios'
 import useSWR from 'swr';
-import { Stack, Divider, List, ListItem, ListItemText, ListItemButton, CardMedia, Typography } from '@mui/material';
+import { Stack, Divider, List, ListItem, ListItemText, CardMedia, Typography, Avatar } from '@mui/material';
 import { format, parseISO, isToday } from 'date-fns';
 
 export default function Twitter({ id }) {
@@ -22,14 +22,41 @@ export default function Twitter({ id }) {
             alignItems="center"
             sx={{ position: 'relative', maxHeight: '320px', paddingTop: '72%', width: '100%', overflowY: 'scroll' }}
         >
-            <List dense={true} sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
+            <List dense={true} sx={{ position: 'absolute', top: '0', left: '0', width: '100%', mt: '-7px', }}>
                 {data.map(tweet =>
                     <div key={tweet.text} >
-                        <ListItem disablePadding >
-                            <ListItemText
+                        <ListItem disablePadding sx={{ my: '10px', px: '4%' }}>
+                            <Stack sx={{ mb: '4px', width: '100%' }}>
+                                {(tweet.referenced_tweets?.type === 'retweeted') &&
+                                    <Stack direction='row' spacing={1} sx={{ mb: '8px' }}>
+                                        <Avatar
+                                            src={tweet.referencedUser.profile_image_url}
+                                            sx={{ textAlign: 'left' }}
+                                        />
+                                        <Stack sx={{ whiteSpace: 'nowrap', overflow: 'hidden', width: '100%' }}>
+                                            <Typography fontWeight='600' fontSize='0.85rem' noWrap sx={{ width: '80%' }}>
+                                                {tweet.referencedUser.name}
+                                            </Typography>
+                                            <Typography fontWeight='500' fontSize='0.75rem' sx={{ opacity: '0.8' }}>
+                                                {'@' + tweet.referencedUser.username}
+                                            </Typography>
+                                        </Stack >
+                                    </Stack >
+                                }
+                                <Typography fontSize='0.85rem'>
+                                    {tweet.referencedText || tweet.text}
+                                </Typography>
+                                {(tweet.image || tweet.referencedImage?.[0]) &&
+                                    <CardMedia
+                                        component="img"
+                                        image={tweet.image || tweet.referencedImage?.[0] || ''}
+                                        sx={{ objectFit: 'cover', pt: '4%', borderRadius: '6%' }}
+                                    />}
+                            </Stack>
+                            {/* <ListItemText
                                 primary={tweet.referencedText || tweet.text}
                                 primaryTypographyProps={{
-                                    whiteSpace: 'mormal',
+                                    // whiteSpace: 'mormal',
                                     lineHeight: '1.4rem',
                                     fontSize: '0.85rem',
                                 }}
@@ -37,20 +64,12 @@ export default function Twitter({ id }) {
                                     width: '100%',
                                     ml: '5%',
                                     mr: '3%',
-                                    my: '6px',
+                                    my: '7px',
                                     overflow: 'hidden',
-                                    wordBreak: 'break-all'
+                                    // wordBreak: 'break-all'
                                 }}
-                            />
+                            /> */}
                         </ListItem>
-                        {(tweet.image || tweet.referencedImage?.[0]) &&
-                            <ListItem disablePadding >
-                                <CardMedia
-                                    component="img"
-                                    image={tweet.image || tweet.referencedImage?.[0] || ''}
-                                    sx={{ pb: '3%', px: '5%', objectFit: 'cover' }}
-                                />
-                            </ListItem>}
                         <Divider />
                     </div>
                 )}

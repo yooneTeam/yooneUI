@@ -34,7 +34,6 @@ export default function MovableItem({ id, size, children }) {
 
     return (
         <Grid item {...size} >
-
             <Card sx={{ height: ' clamp(120px, 100% , 320px)' }} ref={setNodeRef} style={style}>
                 {children}
                 {isSettingMode &&
