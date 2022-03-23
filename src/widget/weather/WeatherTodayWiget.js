@@ -2,25 +2,25 @@ import axios from 'axios'
 import useSWR from 'swr'
 import { isToday, isAfter, parseISO } from 'date-fns'
 import { Stack, Typography, Box } from '@mui/material'
+import UmbrellaIcon from '@mui/icons-material/Umbrella'
 import { weatherCode } from './weatherCode'
 import useLocation from '../../common/hooks/useLocation'
-import UmbrellaIcon from '@mui/icons-material/Umbrella'
 
 const fetcher = (url) => axios.get(url).then((res) => res.data)
 
 export default function WeatherToday() {
   const location = useLocation()
   const { data: dataWeek, error: errorWeek } = useSWR(
-    'https://www.jma.go.jp/bosai/forecast/data/forecast/' + location + '0000.json',
+    `https://www.jma.go.jp/bosai/forecast/data/forecast/${  location  }0000.json`,
     fetcher,
   )
   const { data: data24, error: error24 } = useSWR(
-    'https://www.jma.go.jp/bosai/jmatile/data/wdist/VPFD/' + location + '0010.json',
+    `https://www.jma.go.jp/bosai/jmatile/data/wdist/VPFD/${  location  }0010.json`,
     fetcher,
   )
 
   if (error24 || errorWeek) return <div>error</div>
-  if (!data24 || !dataWeek) return <div></div>
+  if (!data24 || !dataWeek) return <div />
 
   const code = dataWeek[0].timeSeries[0].areas[0].weatherCodes[0]
 
@@ -67,9 +67,9 @@ export default function WeatherToday() {
       </Typography>
       <img
         src={
-          todayTemps.length > 2 //夜か否か 修正予定
-            ? 'https://www.jma.go.jp/bosai/forecast/img/' + weatherCode[code][0]
-            : 'https://www.jma.go.jp/bosai/forecast/img/' + weatherCode[code][1]
+          todayTemps.length > 2 // 夜か否か 修正予定
+            ? `https://www.jma.go.jp/bosai/forecast/img/${  weatherCode[code][0]}`
+            : `https://www.jma.go.jp/bosai/forecast/img/${  weatherCode[code][1]}`
         }
         width='200'
       />

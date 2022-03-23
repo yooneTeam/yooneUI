@@ -5,8 +5,6 @@ const todayState = atom({
   default: new Date(),
 })
 
-const useToday = () => {
-  return useRecoilValue(todayState)
-}
+const useToday = () => useRecoilValue(todayState)
 
 export default useToday

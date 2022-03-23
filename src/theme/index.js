@@ -21,7 +21,7 @@ export default function ThemeConfig({ children }) {
   const [colorMode, setColorMode] = useState('light')
 
   const colorModeChanger = (mode) => {
-    console.log('change DarkMode ' + mode)
+    console.log(`change DarkMode ${  mode}`)
     setColorMode(mode)
   }
 

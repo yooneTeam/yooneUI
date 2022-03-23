@@ -1,9 +1,9 @@
 import { useSortable } from '@dnd-kit/sortable'
-import { useIsSettingMode } from '../../hooks/useIsSetting'
 import { Grid, Card, Stack, Avatar } from '@mui/material'
 
 import CloseIcon from '@mui/icons-material/Close'
 import OpenWithIcon from '@mui/icons-material/OpenWith'
+import { useIsSettingMode } from '../../hooks/useIsSetting'
 
 export default function MovableItem({ id, size, children }) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id })

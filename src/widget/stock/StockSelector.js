@@ -12,7 +12,7 @@ import {
 import useStockInfoState from './useStockInfoState'
 
 export default function StockSelector({ id }) {
-  //44192
+  // 44192
 
   const { setStockInfo } = useStockInfoState(id)
   const [timerID, setTimerID] = useState('')
@@ -21,7 +21,7 @@ export default function StockSelector({ id }) {
   const fetcher = (searchValue) =>
     searchValue
       ? axios
-          .get('https://api.investing.com/api/search/v2/search?q=' + encodeURI(searchValue), {
+          .get(`https://api.investing.com/api/search/v2/search?q=${  encodeURI(searchValue)}`, {
             headers: { 'domain-id': 'jp' },
           })
           .then((res) => {
@@ -54,7 +54,7 @@ export default function StockSelector({ id }) {
           overflowX: 'hidden',
         }}
       >
-        <List dense={true} sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
+        <List dense sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
           <Divider />
           {queryList.map((item) => (
             <span key={item.id}>

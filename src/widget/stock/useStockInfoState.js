@@ -6,7 +6,7 @@ const stockInfoState = atomFamily({
 })
 
 export default function useStockInfoState(info) {
-  //44192
+  // 44192
   const [stockInfo, setStockInfo] = useRecoilState(stockInfoState(info))
   return { stockInfo, setStockInfo }
 }

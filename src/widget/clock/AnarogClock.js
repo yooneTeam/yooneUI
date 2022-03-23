@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { getHours, getMinutes, getSeconds } from 'date-fns'
-import { css } from '@emotion/react'
-import { useTheme } from '@emotion/react'
+import { css , useTheme } from '@emotion/react'
 
-const AnarogClock = ({ time }) => {
+function AnarogClock({ time }) {
   const rerative = css({
     position: 'rerative',
     width: '100%',
@@ -98,30 +97,30 @@ const AnarogClock = ({ time }) => {
   return (
     <div css={rerative}>
       <div css={body}>
-        <div css={edge}></div>
-        <div css={base}></div>
+        <div css={edge} />
+        <div css={base} />
         <div
           css={[needle, hour]}
           style={{ transform: `translate(-50%, -100%) rotate(${hourRotate}deg)` }}
-        ></div>
+         />
         <div
           css={[needle, minute]}
           style={{ transform: `translate(-50%, -100%) rotate(${minuteRotate}deg)` }}
-        ></div>
-        <div css={centerPoint}></div>
+         />
+        <div css={centerPoint} />
         <div
           css={centerPointTop}
           style={{
             backgroundColor: theme.palette.primary.main,
           }}
-        ></div>
+         />
         <div
           css={[needle, second]}
           style={{
             transform: `translate(-50%, -100%) rotate(${secondsRotate}deg)`,
             backgroundColor: theme.palette.primary.main,
           }}
-        ></div>
+         />
       </div>
     </div>
   )

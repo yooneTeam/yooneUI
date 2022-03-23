@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { Stack, Divider, List, ListItem, Typography, IconButton, Input } from '@mui/material'
+import SettingsIcon from '@mui/icons-material/Settings'
+import CheckIcon from '@mui/icons-material/Check'
 import { useRssUrlState, useItemListState, useRssWidgetNameState } from './rssStates'
 import useToday from '../../common/hooks/useToday'
 import RssFetcher from './rssFetcher'
 import RssViewer from './rssViewer'
 import RssSetting from './rssSetting'
 
-import SettingsIcon from '@mui/icons-material/Settings'
-import CheckIcon from '@mui/icons-material/Check'
 
 export default function RssWidget({ id }) {
   const { rssUrlList } = useRssUrlState(id)
@@ -24,7 +24,7 @@ export default function RssWidget({ id }) {
     setRssWidgetName(e.target.value)
   }
 
-  const rssItemListSorted = Boolean(rssItemList.length)
+  const rssItemListSorted = rssItemList.length
     ? rssItemList.flat().sort((a, b) => (a.date < b.date ? 1 : -1))
     : [{ title: 'No feed', date: toDay.toISOString() }]
 
@@ -39,7 +39,7 @@ export default function RssWidget({ id }) {
         overflowY: 'scroll',
       }}
     >
-      <List dense={true} sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
+      <List dense sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
         <ListItem>
           <Stack direction='row' justifyContent='space-between' sx={{ width: '100%' }}>
             {isSettingRss ? (

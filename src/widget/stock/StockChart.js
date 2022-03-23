@@ -10,17 +10,17 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 const fetcher = (url) => axios.get(url).then((res) => res.data)
 
 export default function StockChart({ stockInfo }) {
-  //44192
+  // 44192
 
   const { data: candlesticks, error } = useSWR(
-    'https://api.investing.com/api/financialdata/' +
-      stockInfo.id +
-      '/historical/chart/?interval=PT30M&pointscount=120',
+    `https://api.investing.com/api/financialdata/${ 
+      stockInfo.id 
+      }/historical/chart/?interval=PT30M&pointscount=120`,
     fetcher,
   )
 
   if (error) return <div>error</div>
-  if (!candlesticks) return <div></div>
+  if (!candlesticks) return <div />
 
   const timeDefinesAll = candlesticks.data.map((candlestick) => fromUnixTime(candlestick[0] / 1000))
   const closingPricesAll = candlesticks.data.map((candlestick) => candlestick[4])
@@ -97,7 +97,7 @@ export default function StockChart({ stockInfo }) {
   const [chartName, chartNameSize] =
     stockInfo.description.length < 8
       ? [stockInfo.description, 'h6']
-      : [stockInfo.description.slice(0, 8) + '…', 'subtitle2']
+      : [`${stockInfo.description.slice(0, 8)  }…`, 'subtitle2']
 
   return (
     <Stack
@@ -128,7 +128,7 @@ export default function StockChart({ stockInfo }) {
       </Stack>
 
       <Box sx={{ mt: -2, mb: -3 }}>
-        <ReactApexChart type='line' series={chartData} options={chartOptions} height={'120%'} />
+        <ReactApexChart type='line' series={chartData} options={chartOptions} height="120%" />
       </Box>
     </Stack>
   )

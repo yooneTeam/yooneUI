@@ -4,9 +4,7 @@ import { Box, Divider, List, ListItem, ListItemText, ListItemButton } from '@mui
 function YoutubePlayList({ onClickVideoItem, data, titlePlaying }) {
   const playList =
     data ||
-    [...Array(4)].map((_, index) => {
-      return { title: '　', videoId: index, index }
-    })
+    [...Array(4)].map((_, index) => ({ title: '　', videoId: index, index }))
 
   console.log(playList)
 
@@ -20,7 +18,7 @@ function YoutubePlayList({ onClickVideoItem, data, titlePlaying }) {
         position: 'relative',
       }}
     >
-      <List dense={true} sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
+      <List dense sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
         <Divider />
         {playList.map((item, index) => (
           <div key={item.videoId}>

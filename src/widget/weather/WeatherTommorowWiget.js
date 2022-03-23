@@ -10,20 +10,20 @@ const fetcher = (url) => axios.get(url).then((res) => res.data)
 export default function WeatherTommorow() {
   const location = useLocation()
   const { data: dataWeek, error: errorWeek } = useSWR(
-    'https://www.jma.go.jp/bosai/forecast/data/forecast/' + location + '0000.json',
+    `https://www.jma.go.jp/bosai/forecast/data/forecast/${  location  }0000.json`,
     fetcher,
   )
   const { data: data24, error: error24 } = useSWR(
-    'https://www.jma.go.jp/bosai/jmatile/data/wdist/VPFD/' + location + '0010.json',
+    `https://www.jma.go.jp/bosai/jmatile/data/wdist/VPFD/${  location  }0010.json`,
     fetcher,
   )
 
-  if (error24 || errorWeek) return <div></div>
+  if (error24 || errorWeek) return <div />
   if (!data24 || !dataWeek) return <div>loading</div>
 
   const code = dataWeek[0].timeSeries[0].areas[0].weatherCodes[1]
 
-  const temps = dataWeek[0].timeSeries[2].areas[0].temps
+  const {temps} = dataWeek[0].timeSeries[2].areas[0]
   const [minTemp, maxtemp] = temps.slice(-2)
 
   const maxColor = '#cc3333'
@@ -32,7 +32,7 @@ export default function WeatherTommorow() {
   const rainyPercents = dataWeek[0].timeSeries[1].areas[0].pops
   // const timeSeriesPops = dataWeek[0].timeSeries[1].timeDefines
 
-  const tomorrowRainyPercents = rainyPercents.slice(-4) //今後修正予定
+  const tomorrowRainyPercents = rainyPercents.slice(-4) // 今後修正予定
   const maxRainyPercents = Math.max(...tomorrowRainyPercents)
 
   return (
@@ -47,7 +47,7 @@ export default function WeatherTommorow() {
       <Typography variant='h5' fontWeight='400' lineHeight='2' sx={{ mb: -1 }}>
         {weatherCode[code][3]}
       </Typography>
-      <img src={'https://www.jma.go.jp/bosai/forecast/img/' + weatherCode[code][0]} width='200' />
+      <img src={`https://www.jma.go.jp/bosai/forecast/img/${  weatherCode[code][0]}`} width='200' />
 
       <Stack direction='row' sx={{ mb: 1.8 }}>
         <Stack alignItems='flex-end' direction='row'>

@@ -3,7 +3,7 @@ import StockSelector from './StockSelector'
 import StockChart from './StockChart'
 
 export default function Stock({ id }) {
-  //44192
+  // 44192
 
   const { stockInfo } = useStockInfoState(id)
 
