@@ -1,14 +1,12 @@
-import { alpha } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles'
 
 // ----------------------------------------------------------------------
 
 function createGradient(color1, color2) {
-  return `linear-gradient(to bottom, ${color1}, ${color2})`;
+  return `linear-gradient(to bottom, ${color1}, ${color2})`
 }
 
-
 const paletteGen = (colorMode) => {
-
   const GREY = {
     0: '#FFFFFF',
     100: '#F9FAFB',
@@ -28,10 +26,8 @@ const paletteGen = (colorMode) => {
     500_32: alpha('#919EAB', 0.32),
     500_48: alpha('#919EAB', 0.48),
     500_56: alpha('#919EAB', 0.56),
-    500_80: alpha('#919EAB', 0.8)
-  };
-
-
+    500_80: alpha('#919EAB', 0.8),
+  }
 
   const PRIMARY = {
     lighter: '#D6E4FF',
@@ -39,8 +35,8 @@ const paletteGen = (colorMode) => {
     main: '#8095D7',
     dark: '#7788BA',
     darker: '#295A9A',
-    contrastText: '#fff'
-  };
+    contrastText: '#fff',
+  }
 
   const SECONDARY = {
     lighter: '#D6E4FF',
@@ -48,8 +44,8 @@ const paletteGen = (colorMode) => {
     main: '#3366FF',
     dark: '#1939B7',
     darker: '#091A7A',
-    contrastText: '#fff'
-  };
+    contrastText: '#fff',
+  }
 
   const INFO = {
     lighter: '#D0F2FF',
@@ -57,40 +53,39 @@ const paletteGen = (colorMode) => {
     main: '#1890FF',
     dark: '#0C53B7',
     darker: '#04297A',
-    contrastText: '#fff'
-  };
+    contrastText: '#fff',
+  }
   const SUCCESS = {
     lighter: '#E9FCD4',
     light: '#AAF27F',
     main: '#54D62C',
     dark: '#229A16',
     darker: '#08660D',
-    contrastText: GREY[800]
-  };
+    contrastText: GREY[800],
+  }
   const WARNING = {
     lighter: '#FFF7CD',
     light: '#FFE16A',
     main: '#FFC107',
     dark: '#B78103',
     darker: '#7A4F01',
-    contrastText: GREY[800]
-  };
-
+    contrastText: GREY[800],
+  }
 
   const GENERETOR = {
     card: '#FFEF7A',
     icon: '#FABB55',
-  };
+  }
 
   const STORAGE = {
     card: '#AAF27F',
     icon: '#04C820',
-  };
+  }
 
   const CONSUMER = {
     card: '#74CAFF',
     icon: '#0C53B7',
-  };
+  }
 
   const DARKMODE_FACLYS = {
     card: '#212121',
@@ -103,17 +98,17 @@ const paletteGen = (colorMode) => {
     main: '#8095D7',
     dark: '#7788BA',
     darker: '#295A9A',
-    contrastText: '#fff'
+    contrastText: '#fff',
   }
 
   const DARKMODE_CHART_COLORS = {
-    red: ['#314D61',],
+    red: ['#314D61'],
     green: ['#5788AB'],
     blue: ['#414D86'],
     yellow: ['#BAD3E6'],
     skyblue: ['#295A9A'],
     violet: ['#72B3E0'],
-  };
+  }
 
   const PUREGREY = {
     0: '#FFFFFF',
@@ -128,8 +123,7 @@ const paletteGen = (colorMode) => {
     800: '#212121',
     850: '#191919',
     900: '#151515',
-  };
-
+  }
 
   const ERROR = {
     lighter: '#FFE7D9',
@@ -137,8 +131,8 @@ const paletteGen = (colorMode) => {
     main: '#FF4842',
     dark: '#B72136',
     darker: '#7A0C2E',
-    contrastText: '#fff'
-  };
+    contrastText: '#fff',
+  }
 
   const BACK = {
     lighter: '#F4F6F8',
@@ -146,16 +140,16 @@ const paletteGen = (colorMode) => {
     main: '#888895',
     dark: '#454545',
     darker: '#222222',
-    contrastText: '#fff'
-  };
+    contrastText: '#fff',
+  }
 
   const GRADIENTS = {
     primary: createGradient(PRIMARY.light, PRIMARY.main),
     info: createGradient(INFO.light, INFO.main),
     success: createGradient(SUCCESS.light, SUCCESS.main),
     warning: createGradient(WARNING.light, WARNING.main),
-    error: createGradient(ERROR.light, ERROR.main)
-  };
+    error: createGradient(ERROR.light, ERROR.main),
+  }
 
   const CHART_COLORS = {
     red: ['#F96E5A', '#FF8F6D', '#FFBD98', '#FFF2D4'],
@@ -164,16 +158,13 @@ const paletteGen = (colorMode) => {
     yellow: ['#FED06A', '#FFEF5A', '#FFF7AE', '#FFF3D6'],
     skyblue: ['#65CBDA', '#83CFFF', '#A5F3FF', '#CCFAFF'],
     violet: ['#826AF9', '#9E86FF', '#D0AEFF', '#F7D2FF'],
-  };
+  }
 
+  return {
+    mode: colorMode,
 
-  return (
-
-    {
-      mode: colorMode,
-
-      ...(colorMode === 'light')
-        ? {
+    ...(colorMode === 'light'
+      ? {
           generetor: { ...GENERETOR },
           storage: { ...STORAGE },
           consumer: { ...CONSUMER },
@@ -201,10 +192,10 @@ const paletteGen = (colorMode) => {
             disabledBackground: GREY[500_24],
             focus: GREY[500_24],
             hoverOpacity: 0.08,
-            disabledOpacity: 0.48
-          }
+            disabledOpacity: 0.48,
+          },
         }
-        : {
+      : {
           generetor: { ...DARKMODE_FACLYS },
           storage: { ...DARKMODE_FACLYS },
           consumer: { ...DARKMODE_FACLYS },
@@ -223,7 +214,12 @@ const paletteGen = (colorMode) => {
           back: { ...BACK },
           divider: alpha(GREY[300], 0.12),
           text: { primary: GREY[100], secondary: GREY[300], disabled: GREY[500] },
-          background: { paper: PUREGREY[700], default: PUREGREY[800], dashboard: PUREGREY[850], navbar: '#8899CC' },
+          background: {
+            paper: PUREGREY[700],
+            default: PUREGREY[800],
+            dashboard: PUREGREY[850],
+            navbar: '#8899CC',
+          },
           action: {
             active: GREY[600],
             hover: GREY[500_16],
@@ -232,13 +228,10 @@ const paletteGen = (colorMode) => {
             disabledBackground: GREY[500_24],
             focus: GREY[500_24],
             hoverOpacity: 0.08,
-            disabledOpacity: 0.48
-          }
-        }
-    }
-  )
+            disabledOpacity: 0.48,
+          },
+        }),
+  }
 }
 
-
-
-export default paletteGen;
+export default paletteGen

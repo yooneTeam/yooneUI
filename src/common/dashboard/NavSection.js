@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
-import { NavLink as RouterLink, matchPath, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types'
+import { NavLink as RouterLink, matchPath, useLocation } from 'react-router-dom'
 
-import { alpha, useTheme, styled } from '@mui/material/styles';
-import { Box, List, ListItemText, ListItemIcon, ListItemButton } from '@mui/material';
+import { alpha, useTheme, styled } from '@mui/material/styles'
+import { Box, List, ListItemText, ListItemIcon, ListItemButton } from '@mui/material'
 
 // ----------------------------------------------------------------------
 
@@ -25,59 +25,59 @@ const ListItemStyle = styled((props) => <ListItemButton disableGutters {...props
       position: 'absolute',
       borderTopLeftRadius: 4,
       borderBottomLeftRadius: 4,
-      backgroundColor: theme.palette.primary.main
-    }
-  })
-);
+      backgroundColor: theme.palette.primary.main,
+    },
+  }),
+)
 
 const ListItemIconStyle = styled(ListItemIcon)({
   width: 22,
   height: 22,
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center'
-});
+  justifyContent: 'center',
+})
 
 // ----------------------------------------------------------------------
 
 NavItem.propTypes = {
   item: PropTypes.object,
-  active: PropTypes.func
-};
+  active: PropTypes.func,
+}
 
 function NavItem({ item, active }) {
-  const theme = useTheme();
-  const isActiveRoot = active(item.path);
-  const { title, path, icon, } = item;
+  const theme = useTheme()
+  const isActiveRoot = active(item.path)
+  const { title, path, icon } = item
 
   const activeRootStyle = {
     color: 'primary.main',
     fontWeight: 'fontWeightMedium',
     bgcolor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
-    '&:before': { display: 'block' }
-  };
+    '&:before': { display: 'block' },
+  }
 
   return (
     <ListItemStyle
       component={RouterLink}
       to={path}
       sx={{
-        ...(isActiveRoot && activeRootStyle)
+        ...(isActiveRoot && activeRootStyle),
       }}
     >
       <ListItemIconStyle>{icon && icon}</ListItemIconStyle>
       <ListItemText disableTypography primary={title} />
     </ListItemStyle>
-  );
+  )
 }
 
 NavSection.propTypes = {
-  navConfig: PropTypes.array
-};
+  navConfig: PropTypes.array,
+}
 
 export default function NavSection({ navConfig, ...other }) {
-  const { pathname } = useLocation();
-  const match = (path) => (path ? !!matchPath({ path, end: false }, pathname) : false);
+  const { pathname } = useLocation()
+  const match = (path) => (path ? !!matchPath({ path, end: false }, pathname) : false)
 
   return (
     <Box {...other}>
@@ -87,5 +87,5 @@ export default function NavSection({ navConfig, ...other }) {
         ))}
       </List>
     </Box>
-  );
+  )
 }

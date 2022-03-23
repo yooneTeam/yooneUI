@@ -1,5 +1,5 @@
-import InsertChartRoundedIcon from '@mui/icons-material/InsertChartRounded';
-import BrowserNotSupportedIcon from '@mui/icons-material/BrowserNotSupported';
+import InsertChartRoundedIcon from '@mui/icons-material/InsertChartRounded'
+import BrowserNotSupportedIcon from '@mui/icons-material/BrowserNotSupported'
 
 // ----------------------------------------------------------------------
 
@@ -7,15 +7,14 @@ const sidebarConfig = [
   {
     title: 'home',
     path: '/home',
-    icon: <InsertChartRoundedIcon/>,
+    icon: <InsertChartRoundedIcon />,
   },
 
   {
     title: 'empty',
     path: '/empty',
-    icon: <BrowserNotSupportedIcon/>
+    icon: <BrowserNotSupportedIcon />,
   },
+]
 
-];
-
-export default sidebarConfig;
+export default sidebarConfig
