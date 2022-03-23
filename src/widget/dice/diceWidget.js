@@ -26,13 +26,12 @@ export default function Dice({ id }) {
         shadows
         gl={{ antialias: true }}
         camera={{
-          position: [0, 10, 0],
-          rotation: [-Math.PI / 2, 0, 0],
+          position: [0, 12, 7],
+          rotation: [-Math.PI / 3, 0, 0],
           fov: 50,
           near: 1,
           far: 100,
         }}
-        dpr={window.devicePixelRatio}
         style={{ height: "100%" }}
       >
         <RecoilBridge>
@@ -46,7 +45,7 @@ export default function Dice({ id }) {
           >
             <group position={[0, 0, -10]}>
               <Borders />
-              <DiceBox stateIndex={id} />
+              <DiceBox widgetIndex={id} />
             </group>
           </Physics>
         </RecoilBridge>

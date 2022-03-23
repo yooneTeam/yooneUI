@@ -1,17 +1,15 @@
 import { useBox } from "@react-three/cannon";
 import { useGLTF } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import * as THREE from "three";
 import { useDiceRoll } from "../globalState/states";
 import url from "../model/dice.gltf";
 
-export default function DiceBox({ stateIndex }) {
+export default function DiceBox({ widgetIndex }) {
   // model from https://www.turbosquid.com/3d-models/3d-6-edged-dice-1301812#
   const { nodes } = useGLTF(url);
-  const { viewport } = useThree();
-  const [roll, setRoll] = useRecoilState(useDiceRoll(stateIndex));
+  const [roll, setRoll] = useRecoilState(useDiceRoll(widgetIndex));
 
   const [ref, api] = useBox(() => ({
     mass: 10,
@@ -32,7 +30,7 @@ export default function DiceBox({ stateIndex }) {
       api.position.set(0, 0, 0);
       setRoll(false);
     }
-  }, [roll, setRoll]);
+  }, [api.position, roll, setRoll]);
 
   useEffect(() => {
     mat.current.color = new THREE.Color("white");
