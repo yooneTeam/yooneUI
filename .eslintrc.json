@@ -10,8 +10,8 @@
     "airbnb",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "prettier",
-    "prettier/react"
+    "plugin:react/jsx-runtime",
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
