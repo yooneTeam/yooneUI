@@ -1,15 +1,11 @@
-import useStockInfoState from './useStockInfoState';
-import StockSelector from './StockSelector';
-import StockChart from './StockChart';
+import useStockInfoState from './useStockInfoState'
+import StockSelector from './StockSelector'
+import StockChart from './StockChart'
 
-export default function Stock({ id }) {   //44192
+export default function Stock({ id }) {
+  //44192
 
-    const { stockInfo } = useStockInfoState(id);
+  const { stockInfo } = useStockInfoState(id)
 
-    return (
-        (stockInfo) ?
-            <StockChart stockInfo={stockInfo} />
-            :
-            <StockSelector id={id} />
-    );
+  return stockInfo ? <StockChart stockInfo={stockInfo} /> : <StockSelector id={id} />
 }

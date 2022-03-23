@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 // material
-import { Popover } from '@mui/material';
-import { alpha, styled } from '@mui/material/styles';
+import { Popover } from '@mui/material'
+import { alpha, styled } from '@mui/material/styles'
 
 // ----------------------------------------------------------------------
 
@@ -18,16 +18,16 @@ const ArrowStyle = styled('span')(({ theme }) => ({
     transform: 'rotate(-135deg)',
     background: theme.palette.background.paper,
     borderRight: `solid 1px ${alpha(theme.palette.grey[800], 0.12)}`,
-    borderBottom: `solid 1px ${alpha(theme.palette.grey[800], 0.12)}`
-  }
-}));
+    borderBottom: `solid 1px ${alpha(theme.palette.grey[800], 0.12)}`,
+  },
+}))
 
 // ----------------------------------------------------------------------
 
 MenuPopover.propTypes = {
   children: PropTypes.node.isRequired,
-  sx: PropTypes.object
-};
+  sx: PropTypes.object,
+}
 
 export default function MenuPopover({ children, sx, ...other }) {
   return (
@@ -42,14 +42,14 @@ export default function MenuPopover({ children, sx, ...other }) {
           boxShadow: (theme) => theme.customShadows.z24,
           border: (theme) => `solid 1px ${theme.palette.grey[500_8]}`,
           width: 200,
-          ...sx
-        }
+          ...sx,
+        },
       }}
       {...other}
     >
-      <ArrowStyle className="arrow" />
+      <ArrowStyle className='arrow' />
 
       {children}
     </Popover>
-  );
+  )
 }

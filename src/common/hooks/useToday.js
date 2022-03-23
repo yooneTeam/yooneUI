@@ -1,12 +1,12 @@
-import { atom, useRecoilValue } from 'recoil';
+import { atom, useRecoilValue } from 'recoil'
 
 const todayState = atom({
-    key: "today",
-    default: new Date(),
-});
+  key: 'today',
+  default: new Date(),
+})
 
 const useToday = () => {
-    return useRecoilValue(todayState)
+  return useRecoilValue(todayState)
 }
 
 export default useToday
