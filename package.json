@@ -32,13 +32,8 @@
     "build": "CI='' react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "vercel --token $VERCEL_TOKEN --prod --confirm"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "deploy": "vercel --token $VERCEL_TOKEN --prod --confirm",
+    "lint": "eslint --ext .jsx,.js,.tsx,.ts src/"
   },
   "browserslist": {
     "production": [
@@ -53,6 +48,9 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-react": "^7.29.4",
     "vercel": "^23.1.2"
   }
 }
