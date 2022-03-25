@@ -53,8 +53,8 @@ export default function Home() {
     const { active, over } = event
     if (active.id !== over.id) {
       setItems((items) => {
-        const oldIndex = items.findIndex((item) => active.id == item.id)
-        const newIndex = items.findIndex((item) => over.id == item.id)
+        const oldIndex = items.findIndex((item) => active.id === item.id)
+        const newIndex = items.findIndex((item) => over.id === item.id)
         return arrayMove(items, oldIndex, newIndex)
       })
     }

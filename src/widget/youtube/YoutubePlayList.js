@@ -23,7 +23,7 @@ function YoutubePlayList({ onClickVideoItem, data, titlePlaying }) {
             <ListItem disablePadding>
               <ListItemButton
                 onClick={() => onClickVideoItem({ ...item, index })}
-                sx={{ backgroundColor: item.title == titlePlaying ? 'primary.lighter' : 'default' }}
+                sx={{ backgroundColor: item.title === titlePlaying ? 'primary.lighter' : 'default' }}
               >
                 <ListItemText
                   primary={item.title}
@@ -31,7 +31,7 @@ function YoutubePlayList({ onClickVideoItem, data, titlePlaying }) {
                     noWrap: true,
                     fontSize: 13,
                     lineHeight: '14px',
-                    fontWeight: item.title == titlePlaying ? '700' : '400',
+                    fontWeight: item.title === titlePlaying ? '700' : '400',
                   }}
                 />
               </ListItemButton>

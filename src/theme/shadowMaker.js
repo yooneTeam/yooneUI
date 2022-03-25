@@ -6,9 +6,9 @@ import { alpha } from '@mui/material/styles'
 const SHADOW_BASE = '#2A2235'
 
 export const shadowMaker = (color) => {
-  const transparent1 = alpha(SHADOW_BASE, color == 'light' ? 0.2 : 0)
-  const transparent2 = alpha(SHADOW_BASE, color == 'light' ? 0.14 : 0)
-  const transparent3 = alpha(SHADOW_BASE, color == 'light' ? 0.12 : 0)
+  const transparent1 = alpha(SHADOW_BASE, color === 'light' ? 0.2 : 0)
+  const transparent2 = alpha(SHADOW_BASE, color === 'light' ? 0.14 : 0)
+  const transparent3 = alpha(SHADOW_BASE, color === 'light' ? 0.12 : 0)
   return [
     'none',
     `0px 2px 1px -1px ${transparent1},0px 1px 1px 0px ${transparent2},0px 1px 3px 0px ${transparent3}`,
@@ -39,7 +39,7 @@ export const shadowMaker = (color) => {
 }
 
 export const customShadowMaker = (color) => {
-  const transparent = alpha(SHADOW_BASE, color == 'light' ? 0.18 : 0)
+  const transparent = alpha(SHADOW_BASE, color === 'light' ? 0.18 : 0)
 
   return {
     z1: `0 1px 2px 0 ${transparent}`,

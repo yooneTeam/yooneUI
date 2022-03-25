@@ -2,10 +2,10 @@ import React, { useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Physics } from '@react-three/cannon'
 import { useRecoilBridgeAcrossReactRoots_UNSTABLE, useSetRecoilState } from 'recoil'
+import { Box } from '@mui/material'
 import DiceBox from './components/diceModel'
 import Borders from './components/border'
 import { useDiceRoll } from './globalState/states'
-import { Box } from '@mui/material'
 
 export default function Dice({ id }) {
   const setRoll = useSetRecoilState(useDiceRoll(id))

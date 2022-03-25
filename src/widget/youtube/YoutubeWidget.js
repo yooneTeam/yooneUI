@@ -95,7 +95,7 @@ function YoutubePlayer({ id }) {
     youtubePlayListInfo,
     !youtubePlayListInfo.type
       ? null
-      : youtubePlayListInfo.type == 'channelId'
+      : youtubePlayListInfo.type === 'channelId'
       ? fetcherChannel
       : fetcherPlayList,
   )
@@ -129,7 +129,7 @@ function YoutubePlayer({ id }) {
   }
   const getRandomIndex = () => {
     const randomIndex = Math.floor(Math.random() * data.length) - youtubeVideoInfo.index
-    return randomIndex == 0 ? 1 : randomIndex
+    return randomIndex === 0 ? 1 : randomIndex
   }
   const handleClickNext = () => {
     const diff = isShuffle ? getRandomIndex() : 1
@@ -245,7 +245,7 @@ function YoutubePlayer({ id }) {
                 sx={{
                   my: 0,
                   fontSize: '11px',
-                  opacity: youtubePlayListInfoTmp == youtubePlayListInfo.id ? 1 : 0.6,
+                  opacity: youtubePlayListInfoTmp === youtubePlayListInfo.id ? 1 : 0.6,
                 }}
                 value={youtubePlayListInfoTmp}
                 onChange={handlePlayListURLChange}
