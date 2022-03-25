@@ -38,7 +38,8 @@
         "js": "never",
         "jsx": "never"
       }
-    ]
+    ],
+    "react/prop-types": 0
   },
   "settings": {
     "import/resolver": {
