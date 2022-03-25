@@ -1,27 +1,25 @@
-import React, { useCallback } from "react";
-import { Canvas } from "@react-three/fiber";
-import { Physics } from "@react-three/cannon";
-import {
-  useRecoilBridgeAcrossReactRoots_UNSTABLE,
-  useSetRecoilState,
-} from "recoil";
-import DiceBox from "./components/diceModel";
-import Borders from "./components/border";
-import { useDiceRoll } from "./globalState/states";
-import { Box } from "@mui/material";
+import { useCallback } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { Physics } from '@react-three/cannon'
+// eslint-disable-next-line camelcase
+import { useRecoilBridgeAcrossReactRoots_UNSTABLE, useSetRecoilState } from 'recoil'
+import { Box } from '@mui/material'
+import DiceBox from './components/diceModel'
+import Borders from './components/border'
+import { useDiceRoll } from './globalState/states'
 
 export default function Dice({ id }) {
-  const setRoll = useSetRecoilState(useDiceRoll(id));
+  const setRoll = useSetRecoilState(useDiceRoll(id))
 
   // to use recoil state inside <Canvas>
-  const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
+  const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE()
 
   const onWidgetClick = useCallback(() => {
-    setRoll(true);
-  }, [setRoll]);
+    setRoll(true)
+  }, [setRoll])
 
   return (
-    <Box onClick={onWidgetClick} sx={{ height: "100%" }}>
+    <Box onClick={onWidgetClick} sx={{ height: '100%' }}>
       <Canvas
         shadows
         gl={{ antialias: true }}
@@ -32,10 +30,10 @@ export default function Dice({ id }) {
           near: 1,
           far: 100,
         }}
-        style={{ height: "100%" }}
+        style={{ height: '100%' }}
       >
         <RecoilBridge>
-          <color attach='background' args={["#333333"]} />
+          <color attach='background' args={['#333333']} />
           <ambientLight intensity={2} />
           <directionalLight position={[-10, -10, -5]} intensity={0.5} />
           <Physics
@@ -51,5 +49,5 @@ export default function Dice({ id }) {
         </RecoilBridge>
       </Canvas>
     </Box>
-  );
+  )
 }
