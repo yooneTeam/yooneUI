@@ -23,7 +23,9 @@ function YoutubePlayList({ onClickVideoItem, data, titlePlaying }) {
             <ListItem disablePadding>
               <ListItemButton
                 onClick={() => onClickVideoItem({ ...item, index })}
-                sx={{ backgroundColor: item.title === titlePlaying ? 'primary.lighter' : 'default' }}
+                sx={{
+                  backgroundColor: item.title === titlePlaying ? 'primary.lighter' : 'default',
+                }}
               >
                 <ListItemText
                   primary={item.title}

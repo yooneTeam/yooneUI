@@ -8,20 +8,9 @@ const TinyText = styled(Typography)({
   letterSpacing: 0.2,
 })
 
-export default function YoutubeSeekbar({
-  progeress,
-  valueLabelFormat,
-  duration,
-  handleSeekChange,
-}) {
+export default function YoutubeSeekbar({ progeress, valueLabelFormat, duration, handleSeekChange }) {
   return (
-    <Stack
-      direction='row'
-      justifyContent='center'
-      alignItems='center'
-      spacing={1.8}
-      sx={{ width: '93%', mb: '-2%' }}
-    >
+    <Stack direction='row' justifyContent='center' alignItems='center' spacing={1.8} sx={{ width: '93%', mb: '-1%', mt: '1%' }}>
       <TinyText>{valueLabelFormat(progeress)}</TinyText>
       <Slider
         valueLabelDisplay='auto'

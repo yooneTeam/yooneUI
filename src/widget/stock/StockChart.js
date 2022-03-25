@@ -30,18 +30,11 @@ export default function StockChart({ stockInfo }) {
   const lastDay = parseISO(allDays.slice(-2)[0])
   const beforeLastDay = parseISO(allDays.slice(-3)[0])
 
-  const startLastDayIndex = timeDefinesAll.reduce((preindex, day, index) =>
-    isSameDay(day, lastDay) ? index : preindex,
-  )
-  const startBeforeLastDayIndex = timeDefinesAll.reduce((preindex, day, index) =>
-    isSameDay(day, beforeLastDay) ? index : preindex,
-  )
-  const mediumBeforeLastDayIndex =
-    startBeforeLastDayIndex + (startLastDayIndex - startBeforeLastDayIndex) / 2
+  const startLastDayIndex = timeDefinesAll.reduce((preindex, day, index) => (isSameDay(day, lastDay) ? index : preindex))
+  const startBeforeLastDayIndex = timeDefinesAll.reduce((preindex, day, index) => (isSameDay(day, beforeLastDay) ? index : preindex))
+  const mediumBeforeLastDayIndex = startBeforeLastDayIndex + (startLastDayIndex - startBeforeLastDayIndex) / 2
 
-  const timeDefines = timeDefinesAll
-    .map((time) => format(time, 'M/d HH:mm'))
-    .slice(mediumBeforeLastDayIndex)
+  const timeDefines = timeDefinesAll.map((time) => format(time, 'M/d HH:mm')).slice(mediumBeforeLastDayIndex)
   const closingPrices = closingPricesAll.slice(mediumBeforeLastDayIndex)
 
   const closingPricesStart = closingPricesAll[startLastDayIndex]
@@ -93,16 +86,10 @@ export default function StockChart({ stockInfo }) {
   ]
 
   const [chartName, chartNameSize] =
-    stockInfo.description.length < 8
-      ? [stockInfo.description, 'h6']
-      : [`${stockInfo.description.slice(0, 8)}…`, 'subtitle2']
+    stockInfo.description.length < 8 ? [stockInfo.description, 'h6'] : [`${stockInfo.description.slice(0, 8)}…`, 'subtitle2']
 
   return (
-    <Stack
-      alignItems='center'
-      justifyContent='space-around'
-      sx={{ pt: 0.5, height: '100%', width: '100%' }}
-    >
+    <Stack alignItems='center' justifyContent='space-around' sx={{ pt: 0.5, height: '100%', width: '100%' }}>
       <Typography variant={chartNameSize} fontWeight='700' align='center' noWrap>
         {chartName}
       </Typography>
@@ -112,11 +99,7 @@ export default function StockChart({ stockInfo }) {
       </Typography>
 
       <Stack direction='row' alignItems='flex-end' sx={{ mt: -0.7 }}>
-        {increaseRate < 0 ? (
-          <ArrowDownwardIcon color='error' />
-        ) : (
-          <ArrowUpwardIcon color='success' />
-        )}
+        {increaseRate < 0 ? <ArrowDownwardIcon color='error' /> : <ArrowUpwardIcon color='success' />}
         <Typography variant='h5' fontWeight='400' sx={{ pl: 0.5 }}>
           {((100 * (closingPricesNow - closingPricesStart)) / closingPricesNow).toFixed(1)}
         </Typography>

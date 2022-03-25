@@ -18,9 +18,7 @@ export default function MovableItem({ id, size, children }) {
   const zIndex = attributes['aria-pressed'] ? 1500 : 1
 
   const style = {
-    transform:
-      transform &&
-      `translate3d(${transform.x}px, ${transform.y}px, 0) scaleX(${scale}) scaleY(${scale})`,
+    transform: transform && `translate3d(${transform.x}px, ${transform.y}px, 0) scaleX(${scale}) scaleY(${scale})`,
     transition,
     zIndex,
     touchAction: 'auto',
@@ -28,7 +26,7 @@ export default function MovableItem({ id, size, children }) {
 
   return (
     <Grid item {...size}>
-      <Card sx={{ height: ' clamp(120px, 100% , 320px)' }} ref={setNodeRef} style={style}>
+      <Card sx={{ minHeight: '200px', height: '100%' }} ref={setNodeRef} style={style}>
         {children}
         {isSettingMode && (
           <Stack

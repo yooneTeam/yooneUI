@@ -38,7 +38,7 @@ const widgetItemsState = atom({
     { id: 10, component: Rss, size: medium },
     // { id: 9, component: Memo, size: small },
     { id: 11, component: Twitter, size: medium },
-    { id: 12, component: Dice, size: small },
+    // { id: 12, component: Dice, size: small },
   ],
 })
 

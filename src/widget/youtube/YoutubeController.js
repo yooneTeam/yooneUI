@@ -41,12 +41,7 @@ export default function YoutubeController({
   const id = open ? 'popover' : undefined
 
   return (
-    <Stack
-      direction='row'
-      justifyContent='space-around'
-      alignItems='center'
-      sx={{ width: '100%', my: '1%' }}
-    >
+    <Stack direction='row' justifyContent='space-around' alignItems='center' sx={{ width: '100%', my: '1.5%' }}>
       <Stack direction='row' justifyContent='center'>
         <IconButton sx={{ fontSize: 22 }} onClick={handleClickShuffle} size='small'>
           <ShuffleRoundedIcon fontSize='inherit' color={isShuffle ? 'primary' : 'default'} />
@@ -62,16 +57,8 @@ export default function YoutubeController({
         <IconButton size='small' onClick={handleClickBack}>
           <FastRewindRounded />
         </IconButton>
-        <IconButton
-          sx={{ fontSize: 46, height: 40, width: 40 }}
-          onClick={handleClickPlay}
-          size='small'
-        >
-          {isPlaying ? (
-            <PauseRounded fontSize='inherit' color='primary' />
-          ) : (
-            <PlayArrowRounded fontSize='inherit' color='primary' />
-          )}
+        <IconButton sx={{ fontSize: 46, height: 40, width: 40 }} onClick={handleClickPlay} size='small'>
+          {isPlaying ? <PauseRounded fontSize='inherit' color='primary' /> : <PlayArrowRounded fontSize='inherit' color='primary' />}
         </IconButton>
         <IconButton size='small' onClick={handleClickNext}>
           <FastForwardRounded />
@@ -81,12 +68,7 @@ export default function YoutubeController({
       <Divider orientation='vertical' variant='middle' flexItem />
 
       <Stack direction='row' justifyContent='center'>
-        <IconButton
-          sx={{ fontSize: 22 }}
-          size='small'
-          aria-describedby={id}
-          onClick={handleVolumeOpen}
-        >
+        <IconButton sx={{ fontSize: 22 }} size='small' aria-describedby={id} onClick={handleVolumeOpen}>
           <VolumeUpRoundedIcon fontSize='inherit' color={openVolume ? 'primary' : 'default'} />
         </IconButton>
         <Popover
@@ -103,18 +85,10 @@ export default function YoutubeController({
             horizontal: 'center',
           }}
         >
-          <Slider
-            orientation='vertical'
-            sx={{ height: '65px', my: '20px', mx: '5px' }}
-            value={volume}
-            onChange={handleVolumeChange}
-          />
+          <Slider orientation='vertical' sx={{ height: '65px', my: '20px', mx: '5px' }} value={volume} onChange={handleVolumeChange} />
         </Popover>
         <IconButton sx={{ fontSize: 22 }} size='small' onClick={handleClickPlayList}>
-          <PlaylistPlayRoundedIcon
-            fontSize='inherit'
-            color={openPlayList ? 'primary' : 'default'}
-          />
+          <PlaylistPlayRoundedIcon fontSize='inherit' color={openPlayList ? 'primary' : 'default'} />
         </IconButton>
       </Stack>
     </Stack>

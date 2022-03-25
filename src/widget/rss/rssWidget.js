@@ -31,27 +31,19 @@ export default function RssWidget({ id }) {
     <Stack
       alignItems='center'
       sx={{
-        position: 'relative',
-        maxHeight: '320px',
-        paddingTop: '72%',
+        position: 'absolute',
+        height: '100%',
         width: '100%',
         overflowY: 'scroll',
       }}
     >
-      <List dense sx={{ position: 'absolute', top: '0', left: '0', width: '100%' }}>
+      <List dense>
         <ListItem>
           <Stack direction='row' justifyContent='space-between' sx={{ width: '100%' }}>
             {isSettingRss ? (
-              <Input
-                size='small'
-                value={rssWidgetName}
-                sx={{ my: 0, fontSize: '1rem', mt: '-3px', width: '100%' }}
-                onChange={onChangeName}
-              />
+              <Input size='small' value={rssWidgetName} sx={{ my: 0, fontSize: '1rem', mt: '-3px', width: '100%' }} onChange={onChangeName} />
             ) : (
-              <Typography sx={{ fontSize: '1.1rem', fontWeight: 700, my: '-2px' }}>
-                {rssWidgetName}
-              </Typography>
+              <Typography sx={{ fontSize: '1.1rem', fontWeight: 700, my: '-2px' }}>{rssWidgetName}</Typography>
             )}
             <IconButton size='small' sx={{ mt: '-4px' }} onClick={onClickSetting}>
               {isSettingRss ? <CheckIcon fontSize='small' /> : <SettingsIcon fontSize='small' />}
@@ -62,11 +54,7 @@ export default function RssWidget({ id }) {
         {rssUrlList.map((rss) => (
           <RssFetcher key={rss.url} id={id} rssURL={rss.url} />
         ))}
-        {isSettingRss ? (
-          <RssSetting id={id} />
-        ) : (
-          <RssViewer rssItemListSorted={rssItemListSorted} />
-        )}
+        {isSettingRss ? <RssSetting id={id} /> : <RssViewer rssItemListSorted={rssItemListSorted} />}
       </List>
     </Stack>
   )
