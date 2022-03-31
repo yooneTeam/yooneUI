@@ -135,7 +135,7 @@ export default function TwitterViewer({ userid }) {
         </Typography>
       </AppBar>
       <Avatar
-        src={userInfo?.profile_image_url}
+        src={userInfo?.profile_image_url?.replace('normal', '200x200')}
         sx={{
           position: 'absolute',
           top: '74%',

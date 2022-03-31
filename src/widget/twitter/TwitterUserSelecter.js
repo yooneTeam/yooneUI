@@ -42,7 +42,7 @@ export default function TwitterUserSelecter({ id }) {
       <Typography fontWeight='500' variant='h4'>
         {userInfo.name}
       </Typography>
-      <Stack direction='row' my='5%'>
+      <Stack direction='row' my='5%' sx={{ width: '80%' }} justifyContent='center'>
         <Input onChange={onChange} />
         <Button onClick={onClickDecision} variant='contained' disabled={Boolean(!userInfo?.id)}>
           決定
