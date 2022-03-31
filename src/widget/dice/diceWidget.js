@@ -36,11 +36,7 @@ export default function Dice({ id }) {
           <color attach='background' args={['#333333']} />
           <ambientLight intensity={2} />
           <directionalLight position={[-10, -10, -5]} intensity={0.5} />
-          <Physics
-            gravity={[0, -50, 0]}
-            defaultContactMaterial={{ restitution: 0.5, friction: 0.05 }}
-            size={8}
-          >
+          <Physics gravity={[0, -50, 0]} defaultContactMaterial={{ restitution: 0.5, friction: 0.05 }} size={8}>
             <group position={[0, 0, -10]}>
               <Borders />
               <DiceBox widgetIndex={id} />
