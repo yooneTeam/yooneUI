@@ -53,11 +53,11 @@ export default function YoutubeController({
 
       <Divider orientation='vertical' variant='middle' flexItem />
 
-      <Stack direction='row' justifyContent='center' spacing={-0.5}>
+      <Stack direction='row' justifyContent='center'>
         <IconButton size='small' onClick={handleClickBack}>
           <FastRewindRounded />
         </IconButton>
-        <IconButton sx={{ fontSize: 46, height: 40, width: 40 }} onClick={handleClickPlay} size='small'>
+        <IconButton sx={{ fontSize: 55, height: 40, width: 40 }} onClick={handleClickPlay} size='small'>
           {isPlaying ? <PauseRounded fontSize='inherit' color='primary' /> : <PlayArrowRounded fontSize='inherit' color='primary' />}
         </IconButton>
         <IconButton size='small' onClick={handleClickNext}>

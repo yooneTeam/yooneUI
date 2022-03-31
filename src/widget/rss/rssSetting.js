@@ -1,15 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
-import {
-  Stack,
-  Divider,
-  ListItem,
-  ListItemText,
-  IconButton,
-  Button,
-  Typography,
-  Input,
-} from '@mui/material'
+import { Stack, Divider, ListItem, ListItemText, IconButton, Button, Typography, Input } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useRssUrlState, useItemListState, useRemoveRss } from './rssStates'
 
@@ -27,8 +18,8 @@ export default function RssSetting({ id }) {
     url.match(/https?:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+/g) &&
     axios
       .get(urlAPI, { params: { url } })
-      .then((res) => {
-        setRssData(res.data)
+      .then(({ data }) => {
+        setRssData(data)
       })
       .catch((err) => {
         setInfoText('無効なURLです')
@@ -88,25 +79,13 @@ export default function RssSetting({ id }) {
         </Typography>
       </ListItem>
       <ListItem>
-        <Stack
-          direction='row'
-          alignItems='center'
-          justifyContent='space-between'
-          sx={{ width: '100%', mt: '-8px' }}
-        >
-          <Input
-            onChange={onChange}
-            size='small'
-            placeholder='https://www.hogehoge.rss'
-            sx={{ my: 0, fontSize: '11px', width: '100%' }}
-          />
+        <Stack direction='row' alignItems='center' justifyContent='space-between' sx={{ width: '100%', mt: '-8px' }}>
+          <Input onChange={onChange} size='small' placeholder='https://www.hogehoge.rss' sx={{ my: 0, fontSize: '11px', width: '100%' }} />
           <Button
             onClick={onClickAdd}
             variant='contained'
             size='small'
-            disabled={Boolean(
-              !rssData[0] || rssUrlList.map((rss) => rss.url).includes(rssData[0].rssURL),
-            )}
+            disabled={Boolean(!rssData[0] || rssUrlList.map((rss) => rss.url).includes(rssData[0].rssURL))}
             sx={{ ml: '12px' }}
           >
             追加
