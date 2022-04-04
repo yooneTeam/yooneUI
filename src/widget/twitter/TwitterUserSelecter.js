@@ -1,11 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
-import useSWR from 'swr'
-import reactStringReplace from 'react-string-replace'
-import { styled } from '@mui/material/styles'
-import { Stack, Input, Typography, Avatar, Button } from '@mui/material'
+import { Stack, TextField, Typography, Avatar, Button, InputAdornment } from '@mui/material'
 import { useUserIdState } from './TwitterStates'
-import { height } from '@mui/system'
 
 const urlGetUser = 'https://asia-northeast1-yooneapi.cloudfunctions.net/twitterGetUserInfo'
 
@@ -43,7 +39,14 @@ export default function TwitterUserSelecter({ id }) {
         {userInfo.name}
       </Typography>
       <Stack direction='row' my='5%' sx={{ width: '80%' }} justifyContent='center'>
-        <Input onChange={onChange} />
+        <TextField
+          onChange={onChange}
+          size='small'
+          label='ユーザー名'
+          InputProps={{
+            startAdornment: <InputAdornment position='start'>@</InputAdornment>,
+          }}
+        />
         <Button onClick={onClickDecision} variant='contained' disabled={Boolean(!userInfo?.id)}>
           決定
         </Button>

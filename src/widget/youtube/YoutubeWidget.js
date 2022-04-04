@@ -37,9 +37,7 @@ const youtubePlayListInfoState = atomFamily({
 function YoutubePlayer({ id }) {
   const playerRef = useRef(null)
 
-  const [youtubePlayListInfo, setYoutubePlayListURLInfo] = useRecoilState(
-    youtubePlayListInfoState(id),
-  )
+  const [youtubePlayListInfo, setYoutubePlayListURLInfo] = useRecoilState(youtubePlayListInfoState(id))
   const [youtubeVideoInfo, setYoutubeInfo] = useRecoilState(youtubeVideoInfoState(id))
   const [youtubePlayListInfoTmp, setYoutubePlayListInfoTmp] = useState(youtubePlayListInfo.id)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -93,11 +91,7 @@ function YoutubePlayer({ id }) {
 
   const { data, error } = useSWR(
     youtubePlayListInfo,
-    !youtubePlayListInfo.type
-      ? null
-      : youtubePlayListInfo.type === 'channelId'
-      ? fetcherChannel
-      : fetcherPlayList,
+    !youtubePlayListInfo.type ? null : youtubePlayListInfo.type === 'channelId' ? fetcherChannel : fetcherPlayList,
   )
 
   const onPlay = () => {
@@ -212,7 +206,7 @@ function YoutubePlayer({ id }) {
               position: 'absolute',
               top: '0',
               left: '0',
-              backgroundColor: isPlaying ? 'rgba(100,100,100,0)' : '#222',
+              backgroundColor: isPlaying ? 'rgba(100,100,100,0)' : '#333',
             }}
           />
 
@@ -230,12 +224,7 @@ function YoutubePlayer({ id }) {
               <Typography noWrap variant='h6' fontWeight='500'>
                 {youtubeVideoInfo.title}
               </Typography>
-              <Typography
-                noWrap
-                variant='caption'
-                fontWeight='700'
-                sx={{ opacity: 0.7, mt: -0.8, pl: 0.2 }}
-              >
+              <Typography noWrap variant='caption' fontWeight='700' sx={{ opacity: 0.7, mt: -0.8, pl: 0.2 }}>
                 {youtubeVideoInfo.channelTitle}
               </Typography>
               <Divider />
@@ -254,20 +243,9 @@ function YoutubePlayer({ id }) {
           )}
         </div>
       </Stack>
-      {openPlayList && (
-        <YoutubePlayList
-          onClickVideoItem={onClickVideoItem}
-          data={data}
-          titlePlaying={youtubeVideoInfo.title}
-        />
-      )}
+      {openPlayList && <YoutubePlayList onClickVideoItem={onClickVideoItem} data={data} titlePlaying={youtubeVideoInfo.title} />}
 
-      <YoutubeSeekbar
-        progeress={progeress}
-        valueLabelFormat={valueLabelFormat}
-        duration={duration}
-        handleSeekChange={handleSeekChange}
-      />
+      <YoutubeSeekbar progeress={progeress} valueLabelFormat={valueLabelFormat} duration={duration} handleSeekChange={handleSeekChange} />
       <YoutubeController
         handleClickShuffle={handleClickShuffle}
         isShuffle={isShuffle}
