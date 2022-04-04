@@ -20,6 +20,7 @@ import Memo from '../../../widget/memo/memoWidget'
 import Rss from '../../../widget/rss/rssWidget'
 import Twitter from '../../../widget/twitter/TwitterWidget'
 import Dice from '../../../widget/dice/diceWidget'
+import Spotify from '../../../widget/spotify/SpotifyWidget'
 
 const small = { xs: 4, md: 3, lg: 2 }
 const medium = { xs: 12, md: 6, lg: 4 }
@@ -38,7 +39,8 @@ const widgetItemsState = atom({
     { id: 10, component: Rss, size: medium },
     { id: 11, component: Twitter, size: medium },
     { id: 9, component: Memo, size: small },
-    { id: 12, component: Dice, size: small },
+    // { id: 12, component: Dice, size: small },
+    { id: 13, component: Spotify, size: medium },
   ],
 })
 

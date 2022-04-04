@@ -2,7 +2,7 @@ import { useRecoilState, atomFamily } from 'recoil'
 
 const twitterUserIdState = atomFamily({
   key: 'twitterUserId',
-  default: '', //959072014899097601
+  default: '959072014899097601', //959072014899097601
 })
 
 export function useUserIdState(id) {
