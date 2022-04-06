@@ -1,7 +1,6 @@
 import axios from 'axios'
 import useSWR from 'swr'
 import ReactPlayer from 'react-player/lazy'
-import { useRecoilState, atomFamily } from 'recoil'
 import { useState, useRef, useEffect, memo } from 'react'
 import { Stack, Typography, Divider, Input } from '@mui/material'
 import { addSeconds, format, startOfDay } from 'date-fns'
@@ -9,37 +8,18 @@ import { addSeconds, format, startOfDay } from 'date-fns'
 import YoutubeController from './YoutubeController'
 import YoutubeSeekbar from './YoutubeSeekbar'
 import YoutubePlayList from './YoutubePlayList'
+import { usePlayListInfoState, useVideoInfoState } from './YoutubeStates'
 
 const youtubeVideoURLBase = 'https://www.youtube.com/watch?v='
 const youtubeDataAPIURLBaseChannel = 'https://www.googleapis.com/youtube/v3/search'
 const youtubeDataAPIURLBasePlayList = 'https://www.googleapis.com/youtube/v3/playlistItems'
 
-const youtubeVideoInfoState = atomFamily({
-  key: 'youtubeVideoInfo',
-  default: {
-    title: 'URLを入力',
-    channelTitle: ' チャンネル or プレイリスト',
-    videoId: '',
-    index: -1,
-  },
-})
-
-const youtubePlayListInfoState = atomFamily({
-  key: 'youtubePlayListInfo',
-  default: {
-    // type: false,
-    // id: '',
-    type: 'channelId',
-    id: 'UC1EB8moGYdkoZQfWHjh7Ivw',
-  },
-})
-
 function YoutubePlayer({ id }) {
   const playerRef = useRef(null)
 
-  const [youtubePlayListInfo, setYoutubePlayListURLInfo] = useRecoilState(youtubePlayListInfoState(id))
-  const [youtubeVideoInfo, setYoutubeInfo] = useRecoilState(youtubeVideoInfoState(id))
-  const [youtubePlayListInfoTmp, setYoutubePlayListInfoTmp] = useState(youtubePlayListInfo.id)
+  const { playListInfo, setPlayListInfo } = usePlayListInfoState(id)
+  const { videoInfo, setVideoInfo } = useVideoInfoState(id)
+  const [playListInfoTmp, setPlayListInfoTmp] = useState(playListInfo.id)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isShuffle, setIsShuffle] = useState(false)
   const [isLoop, setIsLoop] = useState(false)
@@ -89,10 +69,7 @@ function YoutubePlayer({ id }) {
         })),
       )
 
-  const { data, error } = useSWR(
-    youtubePlayListInfo,
-    !youtubePlayListInfo.type ? null : youtubePlayListInfo.type === 'channelId' ? fetcherChannel : fetcherPlayList,
-  )
+  const { data, error } = useSWR(playListInfo, !playListInfo.type ? null : playListInfo.type === 'channelId' ? fetcherChannel : fetcherPlayList)
 
   const onPlay = () => {
     setIsPlaying(true)
@@ -117,12 +94,12 @@ function YoutubePlayer({ id }) {
     setIsPlaying(!isPlaying)
   }
   const changeIndex = (diff) => {
-    const index = youtubeVideoInfo.index + diff
+    const index = videoInfo.index + diff
     const indexChecked = index + 1 > data.length || index < 0 ? 0 : index
     onClickVideoItem({ ...data[indexChecked], index: indexChecked })
   }
   const getRandomIndex = () => {
-    const randomIndex = Math.floor(Math.random() * data.length) - youtubeVideoInfo.index
+    const randomIndex = Math.floor(Math.random() * data.length) - videoInfo.index
     return randomIndex === 0 ? 1 : randomIndex
   }
   const handleClickNext = () => {
@@ -145,7 +122,7 @@ function YoutubePlayer({ id }) {
     setOpenPlayList(!openPlayList)
   }
   const onClickVideoItem = ({ title, channelTitle, videoId, index }) => {
-    channelTitle && setYoutubeInfo({ title, channelTitle, videoId, index })
+    channelTitle && setVideoInfo({ title, channelTitle, videoId, index })
   }
   const handleVolumeChange = (_, newValue) => {
     setVolume(newValue)
@@ -155,24 +132,24 @@ function YoutubePlayer({ id }) {
   }
   const handlePlayListURLChange = (newValue) => {
     const url = newValue.target.value
-    setYoutubePlayListInfoTmp(url)
+    setPlayListInfoTmp(url)
 
     const idPlayList = url.match(/PL[\w-]{32}/)
     const idChannel = url.match(/UC[\w-]{22}/)
 
     if (idChannel) {
-      setYoutubePlayListURLInfo({
+      setPlayListInfo({
         type: 'channelId',
         id: idChannel[0],
       })
-      setYoutubePlayListInfoTmp(idChannel[0])
+      setPlayListInfoTmp(idChannel[0])
     }
     if (idPlayList) {
-      setYoutubePlayListURLInfo({
+      setPlayListInfo({
         type: 'playlistId',
         id: idPlayList[0],
       })
-      setYoutubePlayListInfoTmp(idPlayList[0])
+      setPlayListInfoTmp(idPlayList[0])
     }
   }
 
@@ -190,7 +167,7 @@ function YoutubePlayer({ id }) {
       <Stack sx={{ width: '100%', height: openPlayList ? '32%' : '100%', maxWidth: '420px' }}>
         <div style={{ position: 'relative', paddingTop: '56.25%' }}>
           <ReactPlayer
-            url={youtubeVideoURLBase + youtubeVideoInfo.videoId}
+            url={youtubeVideoURLBase + videoInfo.videoId}
             ref={playerRef}
             width={openPlayList ? '40%' : '100%'}
             height={openPlayList ? '40%' : '100%'}
@@ -222,10 +199,10 @@ function YoutubePlayer({ id }) {
               }}
             >
               <Typography noWrap variant='h6' fontWeight='500'>
-                {youtubeVideoInfo.title}
+                {videoInfo.title}
               </Typography>
               <Typography noWrap variant='caption' fontWeight='700' sx={{ opacity: 0.7, mt: -0.8, pl: 0.2 }}>
-                {youtubeVideoInfo.channelTitle}
+                {videoInfo.channelTitle}
               </Typography>
               <Divider />
               <Input
@@ -234,16 +211,16 @@ function YoutubePlayer({ id }) {
                 sx={{
                   my: 0,
                   fontSize: '11px',
-                  opacity: youtubePlayListInfoTmp === youtubePlayListInfo.id ? 1 : 0.6,
+                  opacity: playListInfoTmp === playListInfo.id ? 1 : 0.6,
                 }}
-                value={youtubePlayListInfoTmp}
+                value={playListInfoTmp}
                 onChange={handlePlayListURLChange}
               />
             </Stack>
           )}
         </div>
       </Stack>
-      {openPlayList && <YoutubePlayList onClickVideoItem={onClickVideoItem} data={data} titlePlaying={youtubeVideoInfo.title} />}
+      {openPlayList && <YoutubePlayList onClickVideoItem={onClickVideoItem} data={data} titlePlaying={videoInfo.title} />}
 
       <YoutubeSeekbar progeress={progeress} valueLabelFormat={valueLabelFormat} duration={duration} handleSeekChange={handleSeekChange} />
       <YoutubeController

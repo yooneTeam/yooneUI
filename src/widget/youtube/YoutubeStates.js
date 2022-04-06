@@ -1,10 +1,11 @@
 import { useRecoilState, atomFamily } from 'recoil'
+import { localForageEffect } from '../../common/effects/localForageEffect'
 
 const youtubeVideoInfoState = atomFamily({
   key: 'youtubeVideoInfo',
   default: {
-    title: 'URLを入力',
-    channelTitle: ' チャンネル or プレイリスト',
+    title: 'プレイリストURLを入力',
+    channelTitle: '',
     videoId: '',
     index: -1,
   },
@@ -13,9 +14,18 @@ const youtubeVideoInfoState = atomFamily({
 const youtubePlayListInfoState = atomFamily({
   key: 'youtubePlayListInfo',
   default: {
-    // type: false,
-    // id: '',
-    type: 'channelId',
-    id: 'UC1EB8moGYdkoZQfWHjh7Ivw',
+    type: '',
+    id: '', //UC1EB8moGYdkoZQfWHjh7Ivw
   },
+  effects: [localForageEffect()],
 })
+
+export function usePlayListInfoState(id) {
+  const [playListInfo, setPlayListInfo] = useRecoilState(youtubePlayListInfoState(id))
+  return { playListInfo, setPlayListInfo }
+}
+
+export function useVideoInfoState(id) {
+  const [videoInfo, setVideoInfo] = useRecoilState(youtubeVideoInfoState(id))
+  return { videoInfo, setVideoInfo }
+}
