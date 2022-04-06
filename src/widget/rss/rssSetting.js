@@ -15,15 +15,16 @@ export default function RssSetting({ id }) {
   const removeRss = useRemoveRss(id)
 
   const fetcher = (url) =>
-    url.match(/https?:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+/g) &&
-    axios
-      .get(urlAPI, { params: { url } })
-      .then(({ data }) => {
-        setRssData(data)
-      })
-      .catch((err) => {
-        setInfoText('無効なURLです')
-      })
+    url.match(/https?:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+/g)
+      ? axios
+          .get(urlAPI, { params: { url } })
+          .then(({ data }) => {
+            setRssData(data)
+          })
+          .catch((err) => {
+            setInfoText('無効なURLです')
+          })
+      : setInfoText('RSSフィードのURLを入力')
 
   const onChange = (e) => {
     const url = e.target.value

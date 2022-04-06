@@ -1,12 +1,14 @@
 import { useRecoilState, atomFamily, useRecoilValue, selectorFamily } from 'recoil'
+import { localForageEffect } from '../../common/effects/localForageEffect'
 
 const rssUrlListState = atomFamily({
   key: 'rssUrlList',
   default: [
-    { name: 'はてな IT', url: 'https://b.hatena.ne.jp/hotentry/it.rss' },
-    { name: 'ギズモード', url: 'https://www.gizmodo.jp/index.xml' },
-    { name: '暇人速報', url: 'http://himasoku.com/index.rdf' },
+    // { name: 'はてな IT', url: 'https://b.hatena.ne.jp/hotentry/it.rss' },
+    // { name: 'ギズモード', url: 'https://www.gizmodo.jp/index.xml' },
+    // { name: '暇人速報', url: 'http://himasoku.com/index.rdf' },
   ],
+  effects: [localForageEffect()],
 })
 
 const rssItemListState = atomFamily({

@@ -1,10 +1,12 @@
 import { Stack, IconButton, Typography, Box } from '@mui/material'
 import { Add, Remove } from '@mui/icons-material'
 import { useRecoilState, atomFamily } from 'recoil'
+import { localForageEffect } from '../../common/effects/localForageEffect'
 
 const counterState = atomFamily({
   key: 'counterState',
   default: 0,
+  effects: [localForageEffect()],
 })
 
 export default function Counter({ id }) {
