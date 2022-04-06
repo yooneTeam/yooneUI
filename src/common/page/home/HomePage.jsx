@@ -5,6 +5,9 @@ import { arrayMove, SortableContext } from '@dnd-kit/sortable'
 
 import { Grid, Container, IconButton } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
+
+import { localForageEffect } from '../../../common/effects/localForageEffect'
+
 import { useIsSettingMode } from '../../hooks/useIsSetting'
 import { useHasTouchScreen } from '../../hooks/useHasTouchScreen'
 import MovableItem from './MovableItem'
@@ -25,27 +28,42 @@ import Spotify from '../../../widget/spotify/SpotifyWidget'
 const small = { xs: 4, md: 3, lg: 2 }
 const medium = { xs: 12, md: 6, lg: 4 }
 
-const widgetItemsState = atom({
-  key: 'widgetItems',
+const widgetItems = {
+  Clock,
+  WeatherToday,
+  WeatherTommorow,
+  Stock,
+  Youtube,
+  Memo,
+  Rss,
+  Twitter,
+  Spotify,
+  Counter,
+}
+
+const widgetListsState = atom({
+  key: 'widgetLists',
   default: [
-    { id: 1, component: Clock, size: small },
-    { id: 2, component: WeatherToday, size: small },
-    { id: 3, component: WeatherTommorow, size: small },
-    { id: 4, component: Stock, size: small },
-    { id: 5, component: Stock, size: small },
-    { id: 6, component: Stock, size: small },
+    { id: 1, component: 'Clock', size: small },
+    { id: 2, component: 'WeatherToday', size: small },
+    { id: 3, component: 'WeatherTommorow', size: small },
+    { id: 4, component: 'Stock', size: small },
+    { id: 5, component: 'Stock', size: small },
+    { id: 6, component: 'Stock', size: small },
     // { id: 7, component: Neko, size: medium },
-    { id: 8, component: Youtube, size: medium },
-    { id: 10, component: Rss, size: medium },
-    { id: 11, component: Twitter, size: medium },
-    { id: 9, component: Memo, size: small },
+    { id: 8, component: 'Youtube', size: medium },
+    { id: 10, component: 'Rss', size: medium },
+    { id: 11, component: 'Twitter', size: medium },
+    // { id: 9, component: Memo, size: small },
+    { id: 12, component: 'Counter', size: medium },
     // { id: 12, component: Dice, size: small },
-    { id: 13, component: Spotify, size: medium },
+    { id: 13, component: 'Spotify', size: medium },
   ],
+  effects: [localForageEffect()],
 })
 
 export default function Home() {
-  const [items, setItems] = useRecoilState(widgetItemsState)
+  const [items, setItems] = useRecoilState(widgetListsState)
   const { hasTouchScreen } = useHasTouchScreen()
   const { isSettingMode } = useIsSettingMode()
 
@@ -69,13 +87,13 @@ export default function Home() {
           <Grid container spacing={1} alignItems='stretch'>
             {items.map(({ size, component, id }, index) => (
               <MovableItem key={id} id={id} size={size}>
-                {createElement(component, { id, index })}
+                {createElement(widgetItems[component], { id, index })}
               </MovableItem>
             ))}
             {isSettingMode && (
-              <Grid item {...small} sx={{ position: 'relative', height: 'auto' }}>
-                <IconButton sx={{ position: 'absolute', top: '50%', left: '50%' }} size='100px'>
-                  <AddCircleIcon fontSize='100px' />
+              <Grid item {...medium} sx={{ height: 'auto', display: 'grid', placeItems: 'center' }}>
+                <IconButton>
+                  <AddCircleIcon sx={{ width: '60px', height: '60px', color: 'primary.dark' }} />
                 </IconButton>
               </Grid>
             )}
