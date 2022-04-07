@@ -1,51 +1,37 @@
-import React, { createElement } from 'react'
-import { atom, useRecoilState } from 'recoil'
+import React, { createElement, Suspense, lazy } from 'react'
+import { atom, useRecoilState, selector, useRecoilValue } from 'recoil'
 import { DndContext, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { arrayMove, SortableContext } from '@dnd-kit/sortable'
-
 import { Grid, Container, IconButton } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
-
 import { localForageEffect } from '../../../common/effects/localForageEffect'
-
 import { useIsSettingMode } from '../../hooks/useIsSetting'
 import { useHasTouchScreen } from '../../hooks/useHasTouchScreen'
 import MovableItem from './MovableItem'
 
-import Counter from '../../../widget/counter/CounteWidget'
-import Neko from '../../../widget/neko/Neko'
-import Clock from '../../../widget/clock/ClockWidget'
-import WeatherToday from '../../../widget/weather/WeatherTodayWiget'
-import WeatherTommorow from '../../../widget/weather/WeatherTommorowWiget'
-import Stock from '../../../widget/stock/StockWidget'
-import Youtube from '../../../widget/youtube/YoutubeWidget'
-import Memo from '../../../widget/memo/memoWidget'
-import Rss from '../../../widget/rss/rssWidget'
-import Twitter from '../../../widget/twitter/TwitterWidget'
-import Dice from '../../../widget/dice/diceWidget'
-import Spotify from '../../../widget/spotify/SpotifyWidget'
+const widgetPass = {
+  Counter: '/counter/CounteWidget',
+  Neko: '/neko/Neko',
+  Clock: '/clock/ClockWidget',
+  WeatherToday: '/weather/WeatherTodayWiget',
+  WeatherTommorow: '/weather/WeatherTommorowWiget',
+  Stock: '/stock/StockWidget',
+  Youtube: '/youtube/YoutubeWidget',
+  Memo: '/memo/memoWidget',
+  Rss: '/rss/RssWidget',
+  Twitter: '/twitter/TwitterWidget',
+  Dice: '/dice/diceWidget',
+  Spotify: '/spotify/SpotifyWidget',
+}
 
 const small = { xs: 4, md: 3, lg: 2 }
 const medium = { xs: 12, md: 6, lg: 4 }
-
-const widgetItems = {
-  Clock,
-  WeatherToday,
-  WeatherTommorow,
-  Stock,
-  Youtube,
-  Memo,
-  Rss,
-  Twitter,
-  Spotify,
-  Counter,
-}
 
 const widgetListsState = atom({
   key: 'widgetLists',
   default: [
     { id: 1, component: 'Clock', size: small },
-    { id: 2, component: 'WeatherToday', size: small },
+    // { id: 2, component: 'WeatherToday', size: small },
     { id: 3, component: 'WeatherTommorow', size: small },
     { id: 4, component: 'Stock', size: small },
     { id: 5, component: 'Stock', size: small },
@@ -62,11 +48,22 @@ const widgetListsState = atom({
   effects: [localForageEffect()],
 })
 
+const widgetComponentState = selector({
+  key: 'widgetComponentState',
+  get: ({ get }) => {
+    return get(widgetListsState)?.reduce((sum, { component }) => {
+      sum[component] = lazy(() => import('../../../widget' + widgetPass[component]))
+      return sum
+    }, {})
+  },
+})
+
 export default function Home() {
   const [items, setItems] = useRecoilState(widgetListsState)
+  const widgetComponent = useRecoilValue(widgetComponentState)
+
   const { hasTouchScreen } = useHasTouchScreen()
   const { isSettingMode } = useIsSettingMode()
-
   const sensors = useSensors(useSensor(hasTouchScreen ? TouchSensor : MouseSensor))
 
   function handleDragEnd(event) {
@@ -87,11 +84,11 @@ export default function Home() {
           <Grid container spacing={1} alignItems='stretch'>
             {items.map(({ size, component, id }, index) => (
               <MovableItem key={id} id={id} size={size}>
-                {createElement(widgetItems[component], { id, index })}
+                <Suspense fallback={<div></div>}>{createElement(widgetComponent[component], { id, index })}</Suspense>
               </MovableItem>
             ))}
             {isSettingMode && (
-              <Grid item {...medium} sx={{ height: 'auto', display: 'grid', placeItems: 'center' }}>
+              <Grid item {...medium} sx={{ height: 'auto', minHeight: '200px', display: 'grid', placeItems: 'center' }}>
                 <IconButton>
                   <AddCircleIcon sx={{ width: '60px', height: '60px', color: 'primary.dark' }} />
                 </IconButton>

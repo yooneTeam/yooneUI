@@ -4,8 +4,8 @@ import { localForageEffect } from '../../common/effects/localForageEffect'
 const youtubeVideoInfoState = atomFamily({
   key: 'youtubeVideoInfo',
   default: {
-    title: 'プレイリストURLを入力',
-    channelTitle: '',
+    title: 'URLを入力',
+    channelTitle: 'チャンネルURL or プレイリストURL',
     videoId: '',
     index: -1,
   },
