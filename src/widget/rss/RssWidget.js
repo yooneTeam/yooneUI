@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { Stack, Divider, List, ListItem, Typography, IconButton, Input } from '@mui/material'
 import SettingsIcon from '@mui/icons-material/Settings'
 import CheckIcon from '@mui/icons-material/Check'
-import { useRssUrlState, useItemListState, useRssWidgetNameState } from './rssStates'
+import { useRssUrlState, useItemListState, useRssWidgetNameState } from './RssStates'
 import useToday from '../../common/hooks/useToday'
-import RssFetcher from './rssFetcher'
-import RssViewer from './rssViewer'
-import RssSetting from './rssSetting'
+import RssFetcher from './RssFetcher'
+import RssViewer from './RssViewer'
+import RssSetting from './RssSetting'
 
 export default function RssWidget({ id }) {
   const { rssUrlList } = useRssUrlState(id)

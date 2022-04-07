@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import axios from 'axios'
 import useSWR from 'swr'
-import { useItemListState } from './rssStates'
+import { useItemListState } from './RssStates'
 
 const urlAPI = 'https://asia-northeast1-yooneapi.cloudfunctions.net/rssProxy'
 const fetcher = (url) =>

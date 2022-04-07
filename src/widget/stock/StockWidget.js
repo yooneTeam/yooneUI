@@ -1,4 +1,4 @@
-import useStockInfoState from './useStockInfoState'
+import useStockInfoState from './StockState'
 import StockSelector from './StockSelector'
 import StockChart from './StockChart'
 

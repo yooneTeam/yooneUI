@@ -2,7 +2,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { Stack, Divider, ListItem, ListItemText, IconButton, Button, Typography, Input } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { useRssUrlState, useItemListState, useRemoveRss } from './rssStates'
+import { useRssUrlState, useItemListState, useRemoveRss } from './RssStates'
 
 const urlAPI = 'https://asia-northeast1-yooneapi.cloudfunctions.net/rssProxy'
 

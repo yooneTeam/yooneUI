@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { Stack, TextField, Divider, List, ListItem, ListItemText, ListItemButton } from '@mui/material'
-import useStockInfoState from './useStockInfoState'
+import useStockInfoState from './StockState'
 
 export default function StockSelector({ id }) {
   // 44192
