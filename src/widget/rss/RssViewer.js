@@ -1,12 +1,4 @@
-import {
-  Stack,
-  Divider,
-  ListItem,
-  ListItemText,
-  ListItemButton,
-  CardMedia,
-  Typography,
-} from '@mui/material'
+import { Stack, Divider, ListItem, ListItemText, ListItemButton, CardMedia, Typography } from '@mui/material'
 import { format, parseISO, isToday } from 'date-fns'
 
 export default function RssViewer({ rssItemListSorted }) {
@@ -16,14 +8,14 @@ export default function RssViewer({ rssItemListSorted }) {
   }
 
   return rssItemListSorted.map((item) => (
-    <div key={item.title}>
+    <div key={item.title + item.sourceName}>
       <ListItem disablePadding>
         <ListItemButton onClick={() => onClick(item.link)}>
           <Stack direction='row' sx={{ width: '100%' }}>
             <CardMedia
               component='img'
               image={item.img || ''}
-              sx={{ width: '40%', height: '80px', objectFit: 'cover', borderRadius: '8%' }}
+              sx={{ width: '40%', height: '80px', objectFit: 'cover', borderRadius: '8%', loading: 'lazy' }}
             />
             <Stack sx={{ width: '60%', height: '80px' }}>
               <ListItemText
@@ -46,11 +38,7 @@ export default function RssViewer({ rssItemListSorted }) {
                   WebkitLineClamp: '3',
                 }}
               />
-              <Stack
-                direction='row'
-                justifyContent='space-between'
-                sx={{ width: '100%', height: '16px', ml: '4%' }}
-              >
+              <Stack direction='row' justifyContent='space-between' sx={{ width: '100%', height: '16px', ml: '4%' }}>
                 <Typography
                   color='main'
                   sx={{

@@ -243,9 +243,7 @@ function YoutubePlayer({ id }) {
   )
 }
 
-function Youtube({ id, index }) {
+export default function Youtube({ id, index }) {
   // 移動時再レンダリング用
-  return <YoutubePlayer id={id} key={`youtubeKey${index}`} />
+  return <YoutubePlayer id={id} key={id} />
 }
-
-export default memo(Youtube)
