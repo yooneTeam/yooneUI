@@ -1,4 +1,4 @@
-import React, { createElement, Suspense, lazy } from 'react'
+import React, { createElement, Suspense, lazy, memo } from 'react'
 import { atom, useRecoilState, selector, useRecoilValue } from 'recoil'
 import { DndContext, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { arrayMove, SortableContext } from '@dnd-kit/sortable'
@@ -52,7 +52,7 @@ const widgetComponentState = selector({
   key: 'widgetComponentState',
   get: ({ get }) => {
     return get(widgetListsState)?.reduce((sum, { component }) => {
-      sum[component] = lazy(() => import('../../../widget' + widgetPass[component]))
+      sum[component] = memo(lazy(() => import('../../../widget' + widgetPass[component])))
       return sum
     }, {})
   },
