@@ -23,10 +23,12 @@ const importComponentEffect =
       console.log('initializeAtom')
       console.log(trigger, node)
       const name = node.key.replace('importedComponent__', '').replace(/"/g, '')
-      setSelf({
-        name,
-        component: memo(lazy(() => import('../../../widget' + widgetPass[name]))),
-      })
+      if (name) {
+        setSelf({
+          name,
+          component: memo(lazy(() => import('../../../widget' + widgetPass[name]))),
+        })
+      }
     }
     if (trigger === 'get') importCoponent()
   }
@@ -40,6 +42,7 @@ const importedComponentState = atomFamily({
 const dummy = () => <div></div>
 
 export default memo(function ComponentImporter({ name, id, index }) {
+  console.log(name)
   const item = useRecoilValue(importedComponentState(name))
   console.log(item)
 
