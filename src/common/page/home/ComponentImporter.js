@@ -28,13 +28,7 @@ const importComponentEffect =
         component: memo(lazy(() => import('../../../widget' + widgetPass[name]))),
       })
     }
-
     if (trigger === 'get') importCoponent()
-
-    onSet((newValue, oldValue, isReset) => {
-      console.log('onset')
-      console.log(newValue, oldValue, isReset)
-    })
   }
 
 const importedComponentState = atomFamily({
@@ -49,5 +43,5 @@ export default memo(function ComponentImporter({ name, id, index }) {
   const item = useRecoilValue(importedComponentState(name))
   console.log(item)
 
-  return <Suspense fallback={<div></div>}>{createElement(item.component || dummy, { id, index })}</Suspense>
+  return <Suspense fallback={dummy}>{createElement(item.component || dummy, { id, index })}</Suspense>
 })
