@@ -88,7 +88,7 @@ export default function TwitterViewer({ userid }) {
                     <CardMedia
                       component='img'
                       image={tweet.image?.[0] || tweet.referencedImage?.[0] || ''}
-                      sx={{ objectFit: 'cover', borderRadius: '6%', width: '92%', ml: '4%', mb: '4%' }}
+                      sx={{ objectFit: 'cover', borderRadius: '6%', width: '92%', ml: '4%', mb: '4%', loading: 'lazy' }}
                     />
                   )}
                   {tweet.referenced_tweets?.type === 'quoted' && (

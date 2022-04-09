@@ -1,5 +1,4 @@
-import React, { createElement, Suspense, lazy, memo } from 'react'
-import { atom, useRecoilState, selector, useRecoilValue } from 'recoil'
+import { atom, useRecoilState } from 'recoil'
 import { DndContext, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { arrayMove, SortableContext } from '@dnd-kit/sortable'
 import { Grid, Container, IconButton } from '@mui/material'
@@ -8,21 +7,7 @@ import { localForageEffect } from '../../../common/effects/localForageEffect'
 import { useIsSettingMode } from '../../hooks/useIsSetting'
 import { useHasTouchScreen } from '../../hooks/useHasTouchScreen'
 import MovableItem from './MovableItem'
-
-const widgetPass = {
-  Counter: '/counter/CounteWidget',
-  Neko: '/neko/Neko',
-  Clock: '/clock/ClockWidget',
-  WeatherToday: '/weather/WeatherTodayWiget',
-  WeatherTommorow: '/weather/WeatherTommorowWiget',
-  Stock: '/stock/StockWidget',
-  Youtube: '/youtube/YoutubeWidget',
-  Memo: '/memo/memoWidget',
-  Rss: '/rss/RssWidget',
-  Twitter: '/twitter/TwitterWidget',
-  Dice: '/dice/diceWidget',
-  Spotify: '/spotify/SpotifyWidget',
-}
+import ComponentImporter from './ComponentImporter'
 
 const small = { xs: 4, md: 3, lg: 2 }
 const medium = { xs: 12, md: 6, lg: 4 }
@@ -30,37 +15,52 @@ const medium = { xs: 12, md: 6, lg: 4 }
 const widgetListsState = atom({
   key: 'widgetLists',
   default: [
-    // { id: 1, component: 'Clock', size: small },
-    // // { id: 2, component: 'WeatherToday', size: small },
-    // { id: 3, component: 'WeatherTommorow', size: small },
-    // { id: 4, component: 'Stock', size: small },
-    // { id: 5, component: 'Stock', size: small },
-    // { id: 6, component: 'Stock', size: small },
-    // // { id: 7, component: Neko, size: medium },
-    // { id: 8, component: 'Youtube', size: medium },
-    // { id: 10, component: 'Rss', size: medium },
-    // { id: 11, component: 'Twitter', size: medium },
-    // // { id: 9, component: Memo, size: small },
-    // { id: 12, component: 'Counter', size: medium },
-    // // { id: 12, component: Dice, size: small },
-    // { id: 13, component: 'Spotify', size: medium },
+    // { id: 1, name: 'Clock', size: small },
+    // { id: 2, name: 'WeatherToday', size: small },
+    // { id: 3, name: 'WeatherTommorow', size: small },
+    // { id: 4, name: 'Stock', size: small },
+    // { id: 5, name: 'Stock', size: small },
+    // { id: 6, name: 'Stock', size: small },
+    // // { id: 7, name: Neko, size: medium },
+    // { id: 8, name: 'Youtube', size: medium },
+    // { id: 10, name: 'Rss', size: medium },
+    // { id: 11, name: 'Twitter', size: medium },
+    // // { id: 9, name: Memo, size: small },
+    // { id: 12, name: 'Counter', size: medium },
+    // // { id: 12, name: Dice, size: small },
+    // { id: 13, name: 'Spotify', size: medium },
   ],
   effects: [localForageEffect()],
 })
 
-const widgetComponentState = selector({
-  key: 'widgetComponentState',
-  get: ({ get }) => {
-    return get(widgetListsState)?.reduce((sum, { component }) => {
-      sum[component] = memo(lazy(() => import('../../../widget' + widgetPass[component])))
-      return sum
-    }, {})
-  },
-})
+// const localForageEffect =
+//   () =>
+//   ({ setSelf, onSet, trigger, node }) => {
+//     const loadPersisted = async () => {
+//       const savedValue = await localforage.getItem(node.key)
+//       if (savedValue != null) setSelf(JSON.parse(savedValue))
+//     }
+
+//     if (trigger === 'get') loadPersisted()
+
+//     onSet((newValue, _, isReset) => {
+//       isReset ? localforage.removeItem(node.key) : localforage.setItem(node.key, JSON.stringify(newValue))
+//     })
+//   }
+
+// const widgetComponentState = selector({
+//   key: 'widgetComponentState',
+//   get: ({ get }) => {
+//     console.log(get(widgetListsState))
+//     return get(widgetListsState)?.reduce((sum, { name }) => {
+//       sum[name] = memo(lazy(() => import('../../../widget' + widgetPass[name])))
+//       return sum
+//     }, {})
+//   },
+// })
 
 export default function Home() {
   const [items, setItems] = useRecoilState(widgetListsState)
-  const widgetComponent = useRecoilValue(widgetComponentState)
 
   const { hasTouchScreen } = useHasTouchScreen()
   const { isSettingMode } = useIsSettingMode()
@@ -82,9 +82,9 @@ export default function Home() {
       <SortableContext items={items}>
         <Container>
           <Grid container spacing={1} alignItems='stretch'>
-            {items.map(({ size, component, id }, index) => (
+            {items.map(({ size, name, id }, index) => (
               <MovableItem key={id} id={id} size={size}>
-                <Suspense fallback={<div></div>}>{createElement(widgetComponent[component], { id, index })}</Suspense>
+                <ComponentImporter name={name} id={id} index={index} />
               </MovableItem>
             ))}
             {isSettingMode && (
