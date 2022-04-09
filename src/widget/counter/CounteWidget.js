@@ -9,8 +9,10 @@ const counterState = atomFamily({
   effects: [localForageEffect()],
 })
 
-export default function Counter({ id }) {
+export default function Counter({ id, index }) {
   const [count, setCount] = useRecoilState(counterState(id))
+
+  console.log(id, index)
 
   return (
     <Box sx={{ py: 4 }}>

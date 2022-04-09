@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { Typography, Slider, Stack } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
@@ -8,7 +9,7 @@ const TinyText = styled(Typography)({
   letterSpacing: 0.2,
 })
 
-export default function YoutubeSeekbar({ progeress, valueLabelFormat, duration, handleSeekChange }) {
+export default memo(function YoutubeSeekbar({ progeress, valueLabelFormat, duration, handleSeekChange }) {
   return (
     <Stack direction='row' justifyContent='center' alignItems='center' spacing={1.8} sx={{ width: '93%', mb: '-1%', mt: '1%' }}>
       <TinyText>{valueLabelFormat(progeress)}</TinyText>
@@ -23,4 +24,4 @@ export default function YoutubeSeekbar({ progeress, valueLabelFormat, duration, 
       <TinyText>{valueLabelFormat(duration)}</TinyText>
     </Stack>
   )
-}
+})

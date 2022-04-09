@@ -26,7 +26,7 @@ export default function MovableItem({ id, size, children }) {
 
   return (
     <Grid item {...size}>
-      <Card sx={{ minHeight: '200px', height: '100%' }} ref={setNodeRef} style={style}>
+      <Card sx={{ minHeight: '250px', height: '100%' }} ref={setNodeRef} style={style}>
         {children}
         {isSettingMode && (
           <Stack
@@ -42,7 +42,7 @@ export default function MovableItem({ id, size, children }) {
               direction: 'row',
             }}
           >
-            <Avatar sx={{ bgcolor: 'back.main' }} {...attributes} {...listeners}>
+            <Avatar sx={{ bgcolor: 'back.main', cursor: 'move' }} {...attributes} {...listeners}>
               <OpenWithIcon />
             </Avatar>
             <Avatar sx={{ bgcolor: 'error.main' }} onClick={onClickClose}>
