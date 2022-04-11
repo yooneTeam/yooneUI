@@ -26,7 +26,7 @@ export default function MovableItem({ id, size, children }) {
 
   return (
     <Grid item {...size}>
-      <Card sx={{ minHeight: '250px', height: '100%' }} ref={setNodeRef} style={style}>
+      <Card sx={{ minHeight: '200px', height: '100%' }} ref={setNodeRef} style={style}>
         {children}
         {isSettingMode && (
           <Stack

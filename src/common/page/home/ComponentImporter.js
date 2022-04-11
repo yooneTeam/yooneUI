@@ -1,20 +1,6 @@
-import React, { createElement, Suspense, lazy, memo } from 'react'
+import { createElement, Suspense, lazy, memo } from 'react'
 import { atomFamily, useRecoilValue } from 'recoil'
-
-const widgetPass = {
-  Counter: '/counter/CounteWidget',
-  Neko: '/neko/Neko',
-  Clock: '/clock/ClockWidget',
-  WeatherToday: '/weather/WeatherTodayWiget',
-  WeatherTommorow: '/weather/WeatherTommorowWiget',
-  Stock: '/stock/StockWidget',
-  Youtube: '/youtube/YoutubeWidget',
-  Memo: '/memo/memoWidget',
-  Rss: '/rss/RssWidget',
-  Twitter: '/twitter/TwitterWidget',
-  Dice: '/dice/diceWidget',
-  Spotify: '/spotify/SpotifyWidget',
-}
+import { widgetInfos } from './widgetInfos'
 
 const importComponentEffect =
   () =>
@@ -26,7 +12,7 @@ const importComponentEffect =
       if (name) {
         setSelf({
           name,
-          component: memo(lazy(() => import('../../../widget' + widgetPass[name]))),
+          component: memo(lazy(() => import('../../../widget' + widgetInfos[name].location))),
         })
       }
     }
@@ -39,12 +25,12 @@ const importedComponentState = atomFamily({
   effects: [importComponentEffect()],
 })
 
-const dummy = () => <div></div>
+const Dummy = () => <div></div>
 
 export default memo(function ComponentImporter({ name, id, index }) {
   console.log(name)
   const item = useRecoilValue(importedComponentState(name))
   console.log(item)
 
-  return <Suspense fallback={dummy}>{createElement(item.component || dummy, { id, index })}</Suspense>
+  return item.component && <Suspense fallback={Dummy}>{createElement(item.component || Dummy, { id, index })}</Suspense>
 })

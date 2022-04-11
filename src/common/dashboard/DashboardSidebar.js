@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
 // material
 import { styled } from '@mui/material/styles'
-import { Box, Drawer } from '@mui/material'
+import { Box, SwipeableDrawer } from '@mui/material'
 // components
 import Logo from './Logo'
 import NavSection from './NavSection'
@@ -53,7 +53,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   return (
     <RootStyle>
       <MHidden width='lgUp'>
-        <Drawer
+        <SwipeableDrawer
           open={isOpenSidebar}
           onClose={onCloseSidebar}
           PaperProps={{
@@ -61,11 +61,11 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
           }}
         >
           {renderContent}
-        </Drawer>
+        </SwipeableDrawer>
       </MHidden>
 
       <MHidden width='lgDown'>
-        <Drawer
+        <SwipeableDrawer
           open
           variant='persistent'
           PaperProps={{
@@ -76,7 +76,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
           }}
         >
           {renderContent}
-        </Drawer>
+        </SwipeableDrawer>
       </MHidden>
     </RootStyle>
   )
