@@ -1,17 +1,17 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { Grid, Card, Stack, Avatar } from '@mui/material'
-
 import CloseIcon from '@mui/icons-material/Close'
 import OpenWithIcon from '@mui/icons-material/OpenWith'
 import { useIsSettingMode } from '../../hooks/useIsSetting'
+import { useComponentList } from './ComponentListState'
 
 export default function MovableItem({ id, size, children }) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id })
-
   const { isSettingMode } = useIsSettingMode()
+  const { componentList, setComponentList } = useComponentList()
 
-  const onClickClose = () => {
-    console.log('close')
+  const removeComponent = (id) => {
+    setComponentList(componentList.filter((item) => item.id !== id))
   }
 
   const scale = attributes['aria-pressed'] ? 1.08 : 1
@@ -45,7 +45,7 @@ export default function MovableItem({ id, size, children }) {
             <Avatar sx={{ bgcolor: 'back.main', cursor: 'move' }} {...attributes} {...listeners}>
               <OpenWithIcon />
             </Avatar>
-            <Avatar sx={{ bgcolor: 'error.main' }} onClick={onClickClose}>
+            <Avatar sx={{ bgcolor: 'error.main' }} onClick={() => removeComponent(id)}>
               <CloseIcon />
             </Avatar>
           </Stack>

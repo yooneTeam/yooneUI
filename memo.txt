@@ -12,3 +12,7 @@
     // { id: 12, component: 'Counter', size: medium },
     // // { id: 12, component: Dice, size: small },
     // { id: 13, component: 'Spotify', size: medium },
+
+http://himasoku.com/index.rdf
+https://www.gizmodo.jp/index.xml
+https://b.hatena.ne.jp/hotentry/it.rss

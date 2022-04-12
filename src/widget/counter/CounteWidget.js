@@ -17,7 +17,7 @@ export default function Counter({ id, index }) {
   return (
     <Box sx={{ py: 4 }}>
       <Typography variant='h5' align='center'>
-        Counter{id}
+        Counter
       </Typography>
 
       <Stack direction='row' justifyContent='center' alignItems='center' sx={{ pt: 2 }}>
