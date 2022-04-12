@@ -19,6 +19,7 @@ const rssItemListState = atomFamily({
 const rssWidgetNameState = atomFamily({
   key: 'rssWidgetName',
   default: 'RSS',
+  effects: [localForageEffect()],
 })
 
 export function useRssUrlState(id) {
