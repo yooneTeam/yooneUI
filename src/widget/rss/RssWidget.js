@@ -28,7 +28,7 @@ export default function RssWidget({ id }) {
     : [{ title: 'No feed', date: toDay.toISOString() }]
 
   return (
-    <div style={{ minHeight: '260px' }}>
+    <div style={{ minHeight: '280px' }}>
       <Stack
         alignItems='center'
         sx={{
