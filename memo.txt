@@ -16,3 +16,17 @@
 http://himasoku.com/index.rdf
 https://www.gizmodo.jp/index.xml
 https://b.hatena.ne.jp/hotentry/it.rss
+
+"[{\"id\":1,\"name\":\"Clock\",\"size\":{\"xs\":4,\"md\":3,\"lg\":2}},
+{\"id\":3,\"name\":\"WeatherTommorow\",\"size\":{\"xs\":4,\"md\":3,\"lg\":2}},
+{\"id\":4,\"name\":\"Stock\",\"size\":{\"xs\":4,\"md\":3,\"lg\":2}},
+{\"id\":5,\"name\":\"Stock\",\"size\":{\"xs\":4,\"md\":3,\"lg\":2}},
+{\"id\":6,\"name\":\"Stock\",\"size\":{\"xs\":4,\"md\":3,\"lg\":2}},
+{\"id\":8,\"name\":\"Youtube\",\"size\":{\"xs\":12,\"md\":6,\"lg\":4}},
+{\"id\":9,\"name\":\"Rss\",\"size\":{\"xs\":12,\"md\":6,\"lg\":4}},
+{\"id\":11,\"name\":\"Twitter\",\"size\":{\"xs\":12,\"md\":6,\"lg\":4}},
+{\"id\":12,\"name\":\"Counter\",\"size\":{\"xs\":12,\"md\":6,\"lg\":4}},
+{\"id\":13,\"name\":\"Spotify\",\"size\":{\"xs\":12,\"md\":6,\"lg\":4}},
+{\"id\":\"01G0F2KZZPRGR6VBVN1QHWGAQV\",\"name\":\"Memo\",\"sise\":{\"xs\":12,\"md\":6,\"lg\":4}}
+,{\"id\":\"01G0F2MF8H228ZDXP2FRK9PHWA\",\"name\":\"Clock\",\"sise\":{\"xs\":12,\"md\":6,\"lg\":4}}
+,{\"id\":\"01G0F2MHQ1FZ5D78YNYFWMC7F7\",\"name\":\"WeatherTommorow\",\"sise\":{\"xs\":12,\"md\":6,\"lg\":4}},{\"id\":\"01G0F2MMVDBE1TQXASNMT5945B\",\"name\":\"Youtube\",\"sise\":{\"xs\":12,\"md\":6,\"lg\":4}},{\"id\":\"01G0F2MQSD0YGR11KWRWVEF977\",\"name\":\"Clock\",\"sise\":{\"xs\":12,\"md\":6,\"lg\":4}},{\"id\":\"01G0F2MSV9SN0R438CW6M46F0M\",\"name\":\"Clock\",\"sise\":{\"xs\":12,\"md\":6,\"lg\":4}},{\"id\":\"01G0F2MXF59JQCTC4W53V94324\",\"name\":\"Neko\",\"sise\":{\"xs\":12,\"md\":6,\"lg\":4}},{\"id\":\"01G0F2N1SQMH753XAZ9DN68PXS\",\"name\":\"Rss\",\"sise\":{\"xs\":12,\"md\":6,\"lg\":4}},{\"id\":\"01G0F2N5FXZJHWG7T8EET5ZYVW\",\"name\":\"Counter\",\"sise\":{\"xs\":12,\"md\":6,\"lg\":4}},{\"id\":\"01G0F2N9DY4Z2ZRV32KRNDD4KQ\",\"name\":\"Counter\",\"sise\":{\"xs\":12,\"md\":6,\"lg\":4}},{\"id\":\"01G0F2NC1N9AQXC2ETP97FCEZX\",\"name\":\"Counter\",\"sise\":{\"xs\":12,\"md\":6,\"lg\":4}}]"
