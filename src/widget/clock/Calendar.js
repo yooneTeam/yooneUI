@@ -41,7 +41,7 @@ export default function Calendar() {
   }
 
   return (
-    <Box sx={{ height: '100%', width: '80%', display: 'flex', flexWrap: 'wrap', py: 1.2 }}>
+    <Box sx={{ height: '100%', width: '100%', display: 'flex', flexWrap: 'wrap', py: 1.2, px: '15px' }}>
       {days.map((day) => (
         <Typography sx={{ width: '14.28%', fontSize: '0.72rem', fontWeight: '700', mb: '2px' }} key={day} align='center'>
           {day}

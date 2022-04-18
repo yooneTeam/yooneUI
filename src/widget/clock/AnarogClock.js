@@ -14,7 +14,7 @@ function AnarogClock({ time }) {
   const body = css({
     // backgroundColor: '#777',
 
-    height: '80%',
+    height: '75%',
     aspectRatio: '1 / 1',
     display: 'grid',
     placeItems: 'center',
