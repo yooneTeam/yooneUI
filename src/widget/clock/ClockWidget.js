@@ -1,43 +1,49 @@
-import { useState } from 'react'
+import { useState, memo, useMemo } from 'react'
 import { Stack, Typography, Divider, Tabs, Tab } from '@mui/material'
 import { useTheme } from '@emotion/react'
-import { format, getSeconds } from 'date-fns'
-import useNow from '../../common/hooks/useNow'
 import AnarogClock from './AnarogClock'
+import DigitalClock from './DigitalClock'
 import Calendar from './Calendar'
+import StopWatch from './StopWatch'
 import { DateRange, HourglassTop, Timer } from '@mui/icons-material'
 
-export default function Clock() {
-  const time = useNow()
-  const theme = useTheme()
+export default function Clock({ id }) {
   const [value, setValue] = useState(0)
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
 
+  const TabPanel = function TabPanel(props) {
+    const { children, value, index } = props
+    return (
+      <div hidden={value !== index} style={{ height: '100%', width: '100%' }}>
+        {children}
+      </div>
+    )
+  }
+
   return (
     <Stack alignItems='center' sx={{ height: '100%', minHeight: '280px', width: '100%' }} divider={<Divider flexItem />}>
       <Stack direction='row' justifyContent='center' alignItems='center' sx={{ height: '100%', width: '100%', my: -2 }} spacing={3}>
-        <AnarogClock time={time} />
-        <Stack alignItems='center'>
-          <Typography fontSize='4.5em' fontWeight='300' sx={{ my: -2 }}>
-            {format(time, 'HH')}
-            <span style={{ color: getSeconds(time) % 2 === 0 && theme.palette.primary.light }}>:</span>
-            {format(time, 'mm')}
-          </Typography>
-          <Typography fontSize='1.3rem' fontWeight='400'>
-            {format(time, 'yyyy/M/d')}
-          </Typography>
-        </Stack>
+        <AnarogClock />
+        <DigitalClock />
       </Stack>
-      <Stack direction='row' justifyContent='space-between' alignItems='center' sx={{ height: '100%', width: '100%' }}>
-        <Tabs value={value} onChange={handleChange} orientation='vertical' sx={{ borderRight: 1, borderColor: 'divider', width: '100px' }}>
-          <Tab icon={<DateRange />} style={{ minWidth: '80px', minHeight: '20px' }} />
-          <Tab icon={<HourglassTop />} style={{ minWidth: '80px', minHeight: '20px' }} />
-          <Tab icon={<Timer />} style={{ minWidth: '80px', minHeight: '20px' }} />
+      <Stack direction='row' alignItems='center' sx={{ height: '100%', width: '100%' }}>
+        <Tabs value={value} onChange={handleChange} orientation='vertical' sx={{ borderRight: 1, borderColor: 'divider', width: '80px' }}>
+          <Tab icon={<DateRange />} style={{ minWidth: '25px', minHeight: '20px' }} />
+          <Tab icon={<HourglassTop />} style={{ minWidth: '25px', minHeight: '20px' }} />
+          <Tab icon={<Timer />} style={{ minWidth: '25px', minHeight: '20px' }} />
         </Tabs>
-        <Calendar />
+        <TabPanel value={value} index={0}>
+          <Calendar />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <Calendar />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <StopWatch id={id} />
+        </TabPanel>
       </Stack>
     </Stack>
   )

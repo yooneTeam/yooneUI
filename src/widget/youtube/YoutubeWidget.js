@@ -3,7 +3,6 @@ import useSWR from 'swr'
 import ReactPlayer from 'react-player/lazy'
 import { useState, useRef, useEffect, memo } from 'react'
 import { Stack, Typography, Divider, Input } from '@mui/material'
-import { addSeconds, format, startOfDay } from 'date-fns'
 
 import YoutubeController from './YoutubeController'
 import YoutubeSeekbar from './YoutubeSeekbar'
@@ -153,11 +152,6 @@ function YoutubePlayer({ id }) {
     }
   }
 
-  const valueLabelFormat = (seconds) => {
-    const helperDate = addSeconds(startOfDay(new Date(0)), Number(seconds))
-    return seconds > 3600 ? format(helperDate, 'H:mm:ss') : format(helperDate, 'm:ss')
-  }
-
   useEffect(() => {
     data || setOpenPlayList(true)
   }, [data])
@@ -222,7 +216,7 @@ function YoutubePlayer({ id }) {
       </Stack>
       {openPlayList && <YoutubePlayList onClickVideoItem={onClickVideoItem} data={data} titlePlaying={videoInfo.title} />}
 
-      <YoutubeSeekbar progeress={progeress} valueLabelFormat={valueLabelFormat} duration={duration} handleSeekChange={handleSeekChange} />
+      <YoutubeSeekbar progeress={progeress} duration={duration} handleSeekChange={handleSeekChange} />
       <YoutubeController
         handleClickShuffle={handleClickShuffle}
         isShuffle={isShuffle}
