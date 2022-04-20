@@ -1,8 +1,12 @@
 /** @jsxImportSource @emotion/react */
+import { memo } from 'react'
 import { getHours, getMinutes, getSeconds } from 'date-fns'
 import { css, useTheme } from '@emotion/react'
+import useNow from '../../common/hooks/useNow'
 
-function AnarogClock({ time }) {
+function AnarogClock() {
+  const time = useNow()
+
   const rerative = css({
     display: 'grid',
     placeItems: 'center',
