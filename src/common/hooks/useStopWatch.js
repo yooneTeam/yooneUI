@@ -1,10 +1,12 @@
 import { startOfDay, getTime } from 'date-fns'
 import { atomFamily, useRecoilState } from 'recoil'
 import { useEffect } from 'react'
+import { localForageEffect } from '../effects/localForageEffect'
 
 const StartTimeState = atomFamily({
   key: 'startTime',
   default: 0,
+  effects: [localForageEffect()],
 })
 
 const NowTimeState = atomFamily({
@@ -15,11 +17,13 @@ const NowTimeState = atomFamily({
 const IntegrationTimeState = atomFamily({
   key: 'integrationTime',
   default: 0,
+  effects: [localForageEffect()],
 })
 
 const isWatchingState = atomFamily({
   key: 'isWatching',
   default: false,
+  effects: [localForageEffect()],
 })
 
 const isActiveState = atomFamily({
@@ -32,6 +36,7 @@ const useStopWatch = (id) => {
   const [nowTime, setNowTime] = useRecoilState(NowTimeState(id))
   const [integrationTime, setIntegrationTime] = useRecoilState(IntegrationTimeState(id))
   const [isWatching, setIsWatching] = useRecoilState(isWatchingState(id))
+  const [isActive, setIsActive] = useRecoilState(isActiveState(id))
 
   const clickStart = () => {
     console.log('start')
@@ -58,24 +63,24 @@ const useStopWatch = (id) => {
   }
 
   const switchPassiveMode = () => {
-    setIsWatching(false)
+    setIsActive(false)
   }
 
   const switchActiveMode = () => {
-    setIsWatching(true)
+    setIsActive(true)
   }
 
   useEffect(() => {
-    if (isWatching) {
+    if (isWatching && isActive) {
       const timer = setInterval(() => {
         const nowTime = getTime(new Date())
         setNowTime(nowTime)
-      }, 10)
+      }, 33)
       return () => clearInterval(timer)
     }
-  }, [isWatching])
+  }, [isWatching, isActive])
 
-  return { clickStart, clickStop, clickReset, isWatching, elapsedTime: nowTime - startTime + integrationTime }
+  return { clickStart, clickStop, clickReset, switchPassiveMode, switchActiveMode, isWatching, elapsedTime: nowTime - startTime + integrationTime }
 }
 
 export default useStopWatch

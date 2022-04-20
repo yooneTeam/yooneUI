@@ -14,10 +14,9 @@ export default function Clock({ id }) {
     setValue(newValue)
   }
 
-  const TabPanel = function TabPanel(props) {
-    const { children, value, index } = props
+  const TabPanel = function TabPanel({ children, isHidden }) {
     return (
-      <div hidden={value !== index} style={{ height: '100%', width: '100%' }}>
+      <div hidden={isHidden} style={{ height: '100%', width: '100%' }}>
         {children}
       </div>
     )
@@ -35,14 +34,14 @@ export default function Clock({ id }) {
           <Tab icon={<HourglassTop />} style={{ minWidth: '25px', minHeight: '20px' }} />
           <Tab icon={<Timer />} style={{ minWidth: '25px', minHeight: '20px' }} />
         </Tabs>
-        <TabPanel value={value} index={0}>
+        <TabPanel isHidden={value !== 0}>
           <Calendar />
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        <TabPanel isHidden={value !== 1}>
           <Calendar />
         </TabPanel>
-        <TabPanel value={value} index={2}>
-          <StopWatch id={id} />
+        <TabPanel isHidden={value !== 2}>
+          <StopWatch id={id} isHidden={value !== 2} />
         </TabPanel>
       </Stack>
     </Stack>

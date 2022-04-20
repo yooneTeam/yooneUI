@@ -55,7 +55,7 @@ export default memo(function Calendar() {
   }
 
   return (
-    <Box sx={{ height: '100%', width: '100%', display: 'flex', flexWrap: 'wrap', py: 1.2, px: '12px', ml: '-2px' }}>
+    <Box sx={{ height: '100%', width: '100%', display: 'flex', flexWrap: 'wrap', py: '8px', px: '12px', ml: '-2px' }}>
       {days.map((day, index) => {
         const toDayColor = index === dayOfToday && theme.palette.primary.main
         return (
