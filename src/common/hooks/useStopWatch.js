@@ -26,17 +26,16 @@ const isWatchingState = atomFamily({
   effects: [localForageEffect()],
 })
 
-const isActiveState = atomFamily({
-  key: 'isActive',
-  default: false,
-})
+// const isActiveState = atomFamily({
+//   key: 'isActive',
+//   default: false,
+// })
 
 const useStopWatch = (id) => {
   const [startTime, setStartTime] = useRecoilState(StartTimeState(id))
   const [nowTime, setNowTime] = useRecoilState(NowTimeState(id))
   const [integrationTime, setIntegrationTime] = useRecoilState(IntegrationTimeState(id))
   const [isWatching, setIsWatching] = useRecoilState(isWatchingState(id))
-  const [isActive, setIsActive] = useRecoilState(isActiveState(id))
 
   const clickStart = () => {
     console.log('start')
@@ -62,25 +61,17 @@ const useStopWatch = (id) => {
     console.log('reset')
   }
 
-  const switchPassiveMode = () => {
-    setIsActive(false)
-  }
-
-  const switchActiveMode = () => {
-    setIsActive(true)
-  }
-
   useEffect(() => {
-    if (isWatching && isActive) {
+    if (isWatching) {
       const timer = setInterval(() => {
         const nowTime = getTime(new Date())
         setNowTime(nowTime)
-      }, 33)
+      }, 250)
       return () => clearInterval(timer)
     }
-  }, [isWatching, isActive])
+  }, [isWatching])
 
-  return { clickStart, clickStop, clickReset, switchPassiveMode, switchActiveMode, isWatching, elapsedTime: nowTime - startTime + integrationTime }
+  return { clickStart, clickStop, clickReset, isWatching, elapsedTime: nowTime - startTime + integrationTime }
 }
 
 export default useStopWatch

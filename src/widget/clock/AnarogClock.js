@@ -83,32 +83,32 @@ function AnarogClock() {
 
   return (
     <div css={rerative}>
-      <div css={body}>
-        <div css={edge} style={{ backgroundColor: theme.palette.text.primary }} />
-        <div css={base} style={{ backgroundColor: theme.palette.background.paper }} />
-        <div
+      <span css={body}>
+        <span css={edge} style={{ backgroundColor: theme.palette.text.primary }} />
+        <span css={base} style={{ backgroundColor: theme.palette.background.paper }} />
+        <span
           css={[needle, hour]}
           style={{ transform: `translate(-50%, -100%) rotate(${hourRotate}deg)`, backgroundColor: theme.palette.text.primary }}
         />
-        <div
+        <span
           css={[needle, minute]}
           style={{ transform: `translate(-50%, -100%) rotate(${minuteRotate}deg)`, backgroundColor: theme.palette.text.primary }}
         />
-        <div css={centerPoint} style={{ backgroundColor: theme.palette.text.primary }} />
-        <div
+        <span css={centerPoint} style={{ backgroundColor: theme.palette.text.primary }} />
+        <span
           css={centerPointTop}
           style={{
             backgroundColor: theme.palette.primary.main,
           }}
         />
-        <div
+        <span
           css={[needle, second]}
           style={{
             transform: `translate(-50%, -100%) rotate(${secondsRotate}deg)`,
             backgroundColor: theme.palette.primary.main,
           }}
         />
-      </div>
+      </span>
     </div>
   )
 }

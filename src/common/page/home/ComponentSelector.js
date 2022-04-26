@@ -10,6 +10,7 @@ export default function ComponentSelector({ open, onClose }) {
   const { componentList, setComponentList } = useComponentList()
 
   const addComponent = (name) => {
+    onClose()
     setComponentList([
       ...componentList,
       {
@@ -18,7 +19,6 @@ export default function ComponentSelector({ open, onClose }) {
         size: medium,
       },
     ])
-    onClose()
   }
 
   return (
