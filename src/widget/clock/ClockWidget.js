@@ -1,10 +1,10 @@
 import { useState, memo, useMemo } from 'react'
 import { Stack, Typography, Divider, Tabs, Tab } from '@mui/material'
-import { useTheme } from '@emotion/react'
 import AnarogClock from './AnarogClock'
 import DigitalClock from './DigitalClock'
 import Calendar from './Calendar'
 import StopWatch from './StopWatch'
+import Alarm from './Alarm'
 import { DateRange, HourglassTop, Timer } from '@mui/icons-material'
 
 export default function Clock({ id }) {
@@ -15,11 +15,7 @@ export default function Clock({ id }) {
   }
 
   const TabPanel = function TabPanel({ children, isHidden }) {
-    return (
-      <div hidden={isHidden} style={{ height: '100%', width: '100%' }}>
-        {children}
-      </div>
-    )
+    return isHidden ? null : <div style={{ height: '100%', width: '100%' }}>{children}</div>
   }
 
   return (
@@ -38,7 +34,7 @@ export default function Clock({ id }) {
           <Calendar />
         </TabPanel>
         <TabPanel isHidden={value !== 1}>
-          <Calendar />
+          <Alarm />
         </TabPanel>
         <TabPanel isHidden={value !== 2}>
           <StopWatch id={id} isHidden={value !== 2} />

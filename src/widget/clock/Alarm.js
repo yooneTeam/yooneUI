@@ -5,47 +5,44 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import { format } from 'date-fns'
 import useStopWatch from '../../common/hooks/useStopWatch'
 
-export default function StopWatch({ id }) {
-  const { clickStart, clickStop, clickReset, isWatching, elapsedTime } = useStopWatch(id)
+export default function Alarm({ id }) {
+  // const handlePlay = () => {
+  //   isWatching ? clickStop() : clickStart()
+  // }
 
-  const handlePlay = () => {
-    isWatching ? clickStop() : clickStart()
-  }
+  // const formatMilliseconds = (ms) => {
+  //   const helperDate = new Date(ms + 15 * 60 * 60 * 1000)
+  //   return format(helperDate, 'HH:mm:ss')
+  // }
 
-  const formatMilliseconds = (ms) => {
-    const helperDate = new Date(ms + 15 * 60 * 60 * 1000)
-    return format(helperDate, 'HH:mm:ss')
-  }
-
-  const formatPercentOfMinutes = (ms) => {
-    const helperDate = new Date(ms + 15 * 60 * 60 * 1000)
-    return 100 * (parseFloat(format(helperDate, 's')) / 60)
-  }
-
-  console.log(elapsedTime)
+  // const formatPercentOfMinutes = (ms) => {
+  //   const helperDate = new Date(ms + 15 * 60 * 60 * 1000)
+  //   return 100 * (parseFloat(format(helperDate, 's')) / 60)
+  // }
 
   return (
     <div style={{ height: '100%', width: '100%', display: 'grid', placeItems: 'center' }}>
       <Stack alignItems='center' spacing={1}>
         <Typography fontSize='2.8rem' fontWeight='300' sx={{ m: '-5px' }}>
-          {formatMilliseconds(elapsedTime)}
+          00:00:00
         </Typography>
         <Stack direction='row' spacing={1} alignItems='center'>
           <div style={{ width: '50px' }} />
 
           <div style={{ position: 'relative', display: 'grid', placeItems: 'center' }}>
-            <IconButton onClick={handlePlay} sx={{ fontSize: 70, position: 'rerative' }} size='small'>
-              {isWatching ? <PauseCircleFilledIcon fontSize='inherit' /> : <PlayCircleFilledWhiteIcon fontSize='inherit' color='primary' />}
+            <IconButton sx={{ fontSize: 70, position: 'rerative' }} size='small'>
+              <PlayCircleFilledWhiteIcon fontSize='inherit' color='primary' />
             </IconButton>
             <CircularProgress
               size={80}
               thickness={4}
               variant='determinate'
-              value={formatPercentOfMinutes(elapsedTime)}
+              // value={formatPercentOfMinutes(elapsedTime)}
+              value={80}
               sx={{
                 position: 'absolute',
                 zIndex: -1,
-                color: (theme) => (isWatching ? theme.palette.primary.main : theme.palette.grey[500]),
+                color: (theme) => theme.palette.grey[500],
               }}
             />
             <CircularProgress
@@ -61,13 +58,7 @@ export default function StopWatch({ id }) {
             />
           </div>
 
-          {!isWatching && elapsedTime !== 0 ? (
-            <IconButton onClick={clickReset} sx={{ fontSize: 30, width: '50px', height: '50px' }} size='small'>
-              <HighlightOffIcon fontSize='inherit' />
-            </IconButton>
-          ) : (
-            <div style={{ width: '50px' }} />
-          )}
+          <div style={{ width: '50px' }} />
         </Stack>
       </Stack>
     </div>
