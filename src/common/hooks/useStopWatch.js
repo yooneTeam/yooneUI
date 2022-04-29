@@ -1,4 +1,4 @@
-import { startOfDay, getTime } from 'date-fns'
+import { getTime } from 'date-fns'
 import { atomFamily, useRecoilState } from 'recoil'
 import { useEffect } from 'react'
 import { localForageEffect } from '../effects/localForageEffect'
@@ -25,11 +25,6 @@ const isWatchingState = atomFamily({
   default: false,
   effects: [localForageEffect()],
 })
-
-// const isActiveState = atomFamily({
-//   key: 'isActive',
-//   default: false,
-// })
 
 const useStopWatch = (id) => {
   const [startTime, setStartTime] = useRecoilState(StartTimeState(id))
