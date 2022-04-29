@@ -1,9 +1,20 @@
 import { Stack, Typography, CircularProgress, IconButton } from '@mui/material'
-import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite'
-import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff'
-import { format } from 'date-fns'
+import { PlayCircleFilledWhite, PauseCircleFilled, HighlightOff } from '@mui/icons-material'
 import useStopWatch from '../../common/hooks/useStopWatch'
+
+const zeroPadding = (num) => num.toString().padStart(2, '0')
+
+const formatMilliseconds = (ms = 0) => {
+  const secTmp = Math.trunc(ms / 1000)
+  const hour = zeroPadding(Math.trunc(secTmp / 3600))
+  const min = zeroPadding(Math.trunc((secTmp % 3600) / 60))
+  const sec = zeroPadding(Math.trunc(secTmp % 60))
+  return hour + ':' + min + ':' + sec
+}
+
+const formatPercentOfMinutes = (ms) => {
+  return (Math.trunc(ms / 1000) % 60) * (100 / 60)
+}
 
 export default function StopWatch({ id }) {
   const { clickStart, clickStop, clickReset, isWatching, elapsedTime } = useStopWatch(id)
@@ -11,18 +22,6 @@ export default function StopWatch({ id }) {
   const handlePlay = () => {
     isWatching ? clickStop() : clickStart()
   }
-
-  const formatMilliseconds = (ms) => {
-    const helperDate = new Date(ms + 15 * 60 * 60 * 1000)
-    return format(helperDate, 'HH:mm:ss')
-  }
-
-  const formatPercentOfMinutes = (ms) => {
-    const helperDate = new Date(ms + 15 * 60 * 60 * 1000)
-    return 100 * (parseFloat(format(helperDate, 's')) / 60)
-  }
-
-  console.log(elapsedTime)
 
   return (
     <div style={{ height: '100%', width: '100%', display: 'grid', placeItems: 'center' }}>
@@ -35,7 +34,7 @@ export default function StopWatch({ id }) {
 
           <div style={{ position: 'relative', display: 'grid', placeItems: 'center' }}>
             <IconButton onClick={handlePlay} sx={{ fontSize: 70, position: 'rerative' }} size='small'>
-              {isWatching ? <PauseCircleFilledIcon fontSize='inherit' /> : <PlayCircleFilledWhiteIcon fontSize='inherit' color='primary' />}
+              {isWatching ? <PauseCircleFilled fontSize='inherit' /> : <PlayCircleFilledWhite fontSize='inherit' color='primary' />}
             </IconButton>
             <CircularProgress
               size={80}
@@ -63,7 +62,7 @@ export default function StopWatch({ id }) {
 
           {!isWatching && elapsedTime !== 0 ? (
             <IconButton onClick={clickReset} sx={{ fontSize: 30, width: '50px', height: '50px' }} size='small'>
-              <HighlightOffIcon fontSize='inherit' />
+              <HighlightOff fontSize='inherit' />
             </IconButton>
           ) : (
             <div style={{ width: '50px' }} />

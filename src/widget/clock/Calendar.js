@@ -41,8 +41,8 @@ export default memo(function Calendar() {
   }
 
   const printDate = (day, isThisMonth) => {
-    const bgStyle = day === todayDate && toDayBgStyle
-    const printStyle = day === todayDate ? toDayStyle : isThisMonth ? thisMonthStyle : notThisMonthStyle
+    const bgStyle = day === todayDate && isThisMonth && toDayBgStyle
+    const printStyle = day === todayDate && isThisMonth ? toDayStyle : isThisMonth ? thisMonthStyle : notThisMonthStyle
     return (
       <div style={{ width: '14.28%', px: '2px' }}>
         <div style={{ width: '30px', height: '20px', margin: 'auto', ...bgStyle }}>

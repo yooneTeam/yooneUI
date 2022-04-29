@@ -8,14 +8,18 @@ import Alarm from './Alarm'
 import { DateRange, HourglassTop, Timer } from '@mui/icons-material'
 
 export default function Clock({ id }) {
-  const [value, setValue] = useState(0)
+  const [tabNum, setTabNum] = useState(0)
 
   const handleChange = (event, newValue) => {
-    setValue(newValue)
+    setTabNum(newValue)
   }
 
   const TabPanel = function TabPanel({ children, isHidden }) {
-    return isHidden ? null : <div style={{ height: '100%', width: '100%' }}>{children}</div>
+    return (
+      <div hidden={isHidden} style={{ height: '100%', width: '100%' }}>
+        {children}
+      </div>
+    )
   }
 
   return (
@@ -25,19 +29,19 @@ export default function Clock({ id }) {
         <DigitalClock />
       </Stack>
       <Stack direction='row' alignItems='center' sx={{ height: '100%', width: '100%' }}>
-        <Tabs value={value} onChange={handleChange} orientation='vertical' sx={{ borderRight: 1, borderColor: 'divider', width: '80px' }}>
+        <Tabs value={tabNum} onChange={handleChange} orientation='vertical' sx={{ borderRight: 1, borderColor: 'divider', width: '80px' }}>
           <Tab icon={<DateRange />} style={{ minWidth: '25px', minHeight: '20px' }} />
           <Tab icon={<HourglassTop />} style={{ minWidth: '25px', minHeight: '20px' }} />
           <Tab icon={<Timer />} style={{ minWidth: '25px', minHeight: '20px' }} />
         </Tabs>
-        <TabPanel isHidden={value !== 0}>
+        <TabPanel isHidden={tabNum !== 0}>
           <Calendar />
         </TabPanel>
-        <TabPanel isHidden={value !== 1}>
-          <Alarm />
+        <TabPanel isHidden={tabNum !== 1}>
+          <Alarm id={id} handleChange={handleChange} />
         </TabPanel>
-        <TabPanel isHidden={value !== 2}>
-          <StopWatch id={id} isHidden={value !== 2} />
+        <TabPanel isHidden={tabNum !== 2}>
+          <StopWatch id={id} />
         </TabPanel>
       </Stack>
     </Stack>
